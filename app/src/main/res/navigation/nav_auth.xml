@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_auth"
+    app:startDestination="@id/splashFragment">
+    <fragment
+        android:id="@+id/nav_authorization"
+        android:name="product.promikz.screens.auth.SigInFragment"
+        android:label="fragment_sig_in"
+        tools:layout="@layout/fragment_sig_in">
+        <action
+            android:id="@+id/action_sigInFragment_to_resetFragment"
+            app:destination="@id/resetFragment" />
+        <action
+            android:id="@+id/action_sigInFragment_to_register"
+            app:destination="@id/register" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetFragment"
+        android:name="product.promikz.screens.auth.reset.ResetFragment"
+        android:label="fragment_reset"
+        tools:layout="@layout/fragment_reset">
+        <action
+            android:id="@+id/action_resetFragment_to_checkEmailFragment"
+            app:destination="@id/checkEmailFragment"
+            app:popUpTo="@+id/resetFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="product.promikz.screens.auth.reset.NewPasswordFragment"
+        android:label="fragment_new_password"
+        tools:layout="@layout/fragment_new_password"/>
+    <action
+        android:id="@+id/action_sigInFragment_to_selectWinFragment"
+        app:destination="@id/selectWinFragment" />
+    <fragment
+        android:id="@+id/nav_fast_register"
+        android:name="product.promikz.screens.auth.fastRegister.FastRegisterFragment"
+        android:label="fragment_fast_register"
+        tools:layout="@layout/fragment_fast_register">
+        <action
+            android:id="@+id/action_nav_fast_register_to_fastCheckPhoneCodeFragment"
+            app:destination="@id/fastCheckPhoneCodeFragment"
+            app:popUpTo="@+id/nav_fast_phone"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="product.promikz.screens.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_checkUserFragment"
+            app:destination="@id/nav_fast_phone"
+            app:popUpTo="@+id/splashFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/register"
+        android:name="product.promikz.screens.auth.register.AuthRegisterFragment"
+        android:label="fragment_auth_register"
+        tools:layout="@layout/fragment_auth_register" />
+    <action
+        android:id="@+id/action_fastCheckPhoneCodeFragment_to_selectWinFragment"
+        app:destination="@id/selectWinFragment"
+        app:popUpTo="@+id/fastCheckPhoneCodeFragment"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/checkEmailFragment"
+        android:name="product.promikz.screens.auth.reset.CheckEmailFragment"
+        android:label="fragment_check_email"
+        tools:layout="@layout/fragment_check_email">
+        <action
+            android:id="@+id/action_checkEmailFragment_to_newPasswordFragment"
+            app:destination="@id/newPasswordFragment"
+            app:popUpTo="@+id/checkEmailFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_splashFragment_to_selectWinFragment"
+        app:destination="@id/selectWinFragment"
+        app:enterAnim="@anim/zoom_back"
+        app:exitAnim="@anim/zoom_out"
+        app:popEnterAnim="@anim/zoom_exit"
+        app:popExitAnim="@anim/zoom_enter"
+        app:popUpTo="@+id/splashFragment"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/nav_fast_phone"
+        android:name="product.promikz.screens.auth.checkUser.CheckUserFragment"
+        android:label="fragment_check_user"
+        tools:layout="@layout/fragment_check_user" >
+        <action
+            android:id="@+id/action_checkUserFragment_to_nav_fast_register"
+            app:destination="@id/nav_fast_register" />
+        <action
+            android:id="@+id/action_nav_fast_phone_to_enteredPasswordFragment"
+            app:destination="@id/enteredPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enteredPasswordFragment"
+        android:name="product.promikz.screens.auth.fastPhone.EnteredPasswordFragment"
+        android:label="fragment_entered_password"
+        tools:layout="@layout/fragment_entered_password" >
+        <action
+            android:id="@+id/action_enteredPasswordFragment_to_resetFragment"
+            app:destination="@id/resetFragment" />
+        <action
+            android:id="@+id/action_enteredPasswordFragment_to_nav_fast_phone"
+            app:destination="@id/nav_fast_phone"
+            app:popUpTo="@+id/nav_fast_phone"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/fastCheckPhoneCodeFragment"
+        android:name="product.promikz.screens.auth.fastRegister.FastCheckPhoneCodeFragment"
+        android:label="fragment_fast_check_phone_code"
+        tools:layout="@layout/fragment_fast_check_phone_code" />
+</navigation>
+

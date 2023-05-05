@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/nav_fast_phone"
+        android:title="Быстрый вход"
+        android:icon="@drawable/ic_lightning"/>
+
+
+    <item android:id="@+id/nav_authorization"
+        android:icon="@drawable/ic_authorization"
+        android:title="@string/authorization"/>
+
+</menu>

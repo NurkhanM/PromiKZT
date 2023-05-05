@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Promi KZ</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="txtprofile">Авторизуйтесь и получите \n <font color='#F9A825'> 10% скудку </font> на сервис \n Repair Flat Astana city</string>
+    <string name="register_message_email">Without confirmation of telephone number, you cannot create products</string>
+    <string name="register_message_shopCreate">Now you can sell your products</string>
+    <string name="todo">to-do</string>
+    <string name="token_error">An error has occurred \nUpdate the app!</string>
+    <string name="error_link">Invalid link</string>
+    <string name="server_error">The server is \ncurrently being updated \nPlease wait a moment</string>
+    <string name="not_specialist">You haven\'t created a \nspecialist yet</string>
+    <string name="null_error">You dont have \nsaved listings yet</string>
+    <string name="auth_create">Log in and start creating ads.</string>
+    <string name="gmail_create">Confirm number \nWithout confirmation\nyou can create ads</string>
+    <string name="verify_user">You have been sent a confirmation email</string>
+    <string name="verify_user_phone">Number needs to be confirmed</string>
+    <string name="create_shop_text">Without a store, you can create products!</string>
+    <string name="update_shop_text">You have successfully changed the store</string>
+    <string name="easy_buy">Selling a machine is very easy</string>
+
+    <!-- Home Fragment -->
+    <string name="story_home">Stories</string>
+    <string name="search_home">Search</string>
+    <string name="specialist_stanki_home">Machine tools, specialists, courses</string>
+    <string name="advertising_home">Advertising</string>
+    <string name="category_home">Categories</string>
+    <string name="fast_search">Quick search</string>
+    <string name="all_machines">Machine tools</string>
+    <string name="descrip_test">descrip</string>
+    <string name="all_courses">Courses</string>
+    <string name="all_flea">Flea market</string>
+    <string name="all_specialists">Specialist</string>
+
+    <!-- Page UpdateFragment -->
+    <string name="tenge">\u0020 tenge</string>
+    <string name="test_city"><![CDATA[Russia -> Moscow]]></string>
+    <string name="characteristic">Characteristics:</string>
+    <string name="installment_plan">Installment option:</string>
+    <string name="update_text_description">Description:</string>
+    <string name="v_kredit">from 5 000 tenge/month</string>
+    <string name="v_kredit2">from 25 000 tenge/month</string>
+    <string name="checkout">draw up documents</string>
+    <string name="average_rating">Product rating: </string>
+    <string name="rate">Rate this product</string>
+    <string name="rate_spec">Rate this specialist</string>
+    <string name="rating">Rating: </string>
+    <string name="update_text_top">top</string>
+    <string name="update_text_vip">VIP</string>
+    <string name="update_text_allocations">Allocations</string>
+    <string name="similar_ads">Similar ads</string>
+    <string name="message">Message</string>
+    <string name="call">Call</string>
+
+    <!-- Page Language -->
+    <string name="russia">Русский</string>
+    <string name="english">English</string>
+    <string name="kazakhstan">Қазақ тілі</string>
+    <string name="save">Save</string>
+
+
+    <string-array name="State">
+        <item>Boo</item>
+        <item>New</item>
+    </string-array>
+
+    <string-array name="Departure">
+        <item>Yes, ready to move</item>
+        <item>Not</item>
+    </string-array>
+
+
+    <string-array name="Type">
+        <item>Phys. face</item>
+        <item>Jur. face</item>
+        <item>Uch. plant</item>
+    </string-array>
+
+    <string-array name="AutoMessageArray">
+        <item>Still relevant?</item>
+        <item>I am interested!</item>
+        <item>Interested in an exchange?</item>
+        <item>Price negotiating is possible?</item>
+        <item>Where can we meet?</item>
+        <item>Ready to buy!</item>
+        <item>How much will you pay?</item>
+    </string-array>
+
+    <array name="initial_slider_values">
+        <item>0</item>
+        <item>1000000</item>
+    </array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_connection">No connection</string>
+    <string name="check_connections_internet">Please check your internet connections</string>
+    <string name="need_one_picture">Need at least one picture</string>
+    <string name="upload_pictures">Upload pictures</string>
+    <string name="select_category">Select a category</string>
+    <string name="select_brand">Choose a brand</string>
+    <string name="oops_mistake">Oops mistake</string>
+    <string name="add_all_fields">Fill in all the fields!</string>
+    <string name="enter_installment_amount">Enter the installment amount</string>
+    <string name="maximum_10">Max quantity 10</string>
+    <string name="maximum_4">Max quantity 4</string>
+    <string name="maximum_5">Max quantity 5</string>
+    <string name="change_shops">Edit Store</string>
+    <string name="not_selected_photo">Photo not selected</string>
+    <string name="successfully_change_product">You have successfully modified the product!</string>
+    <string name="yes_verify">Yes, Verify!</string>
+    <string name="confirm_later">Confirm later</string>
+    <string name="editing_ads_title">Editing an ad</string>
+    <string name="name_products">Product names</string>
+    <string name="main_photo">Main photo</string>
+    <string name="additional_photos">additional photos</string>
+    <string name="add_description">Add a description</string>
+    <string name="price">Price</string>
+    <string name="negotiable">Negotiable</string>
+    <string name="state">State</string>
+    <string name="state2">State:</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="country2">Country:</string>
+    <string name="city2">City:</string>
+    <string name="payment_installments">Possibility of payment by installments</string>
+    <string name="сhoose_payment">Choose your down payment</string>
+    <string name="сhoose_monthly_payment">Choose monthly payment</string>
+    <string name="show_calculation">Show calculation</string>
+    <string name="possibility_leave_feedback">Possibility to leave feedback</string>
+    <string name="fields_additional">Additional fields: </string>
+    <string name="null_string">Null</string>
+    <string name="selected_photo">Select photos</string>
+    <string name="successfully">SUCCESSFULLY!</string>
+    <string name="yeah_product">Hooray, you have created a product</string>
+    <string name="yeah_specialist">Hurray you created a specialist</string>
+    <string name="exit">Get out</string>
+    <string name="continue_app">Continue</string>
+    <string name="total">Total</string>
+    <string name="not_banner">There is no link in this banner</string>
+    <string name="enter_email_correctly">Enter your email / phone number correctly</string>
+    <string name="no_select">You didn.t choose</string>
+    <string name="successfully_registered">You have successfully registered!</string>
+    <string name="maximum_13">Enter full number</string>
+    <string name="minimum_8">Minimum Quantity 8</string>
+    <string name="minimum_8_password">Password must be at least 8 characters</string>
+    <string name="error_login_or_password">Login or password is incorrect</string>
+    <string name="null_login_or_password">Login or password is null</string>
+    <string name="enter_postal_address">Enter email / phone number</string>
+    <string name="active">Active</string>
+    <string name="inactive">Inactive</string>
+    <string name="need_sign_up">You need to login!</string>
+    <string name="ready_move">Ready to move</string>
+    <string name="yes">Yes</string>
+    <string name="not">No</string>
+    <string name="not_skills">No skills</string>
+    <string name="not_rating">No rating</string>
+    <string name="reviews">reviews</string>
+    <string name="deleted_youre_products">You have deleted the product</string>
+    <string name="disabled_youre_products">You have deactivated the product</string>
+    <string name="delete_products">Are you sure you want to delete this products?</string>
+    <string name="cleared">Cleared!</string>
+    <string name="server_error_500">Server Error 500</string>
+    <string name="error_problems">Problems</string>
+    <string name="you_added">You added</string>
+    <string name="comparing_to">comparing to</string>
+    <string name="same_category">Products must be in the same category</string>
+    <string name="review_disabled">Review disabled</string>
+    <string name="not_categorized">Uncategorized</string>
+    <string name="new_products">New</string>
+    <string name="boo_products">Boo</string>
+    <string name="month_to">month to</string>
+    <string name="phys_face">Phys. face</string>
+    <string name="jur_face">Jur. face</string>
+    <string name="educatin_institution">Educational. institution</string>
+    <string name="language">Language</string>
+    <string name="check_back_later">Check back later</string>
+    <string name="application_settings">Application settings</string>
+    <string name="theme">Theme</string>
+    <string name="agreements">User agreement</string>
+    <string name="about_application">About the application</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="systemic">Systemic</string>
+    <string name="refresh">Refresh</string>
+    <string name="expect">Expect</string>
+    <string name="moderator_everyone">When the moderator approves your ad, it will become available to everyone</string>
+    <string name="attention">Attention!</string>
+    <string name="delete_account_dialog">Are you sure you want to delete your account. All your data will be lost</string>
+    <string name="delete_shop_dialog">Are you sure you want to delete the store. All your data will be lost</string>
+    <string name="register_string">Register</string>
+    <string name="selec_photo">select photo</string>
+    <string name="name_string">Name</string>
+    <string name="emile">Email</string>
+    <string name="emile2">Email:</string>
+    <string name="enter_your_full_name">Enter your full name</string>
+    <string name="password">Password</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_password_again">Enter your password again</string>
+    <string name="choose_country">Choose a country</string>
+    <string name="account_type">Account type</string>
+    <string name="Select_account_type">Select account type</string>
+    <string name="phone">Phone</string>
+    <string name="brand_catalog">Brand catalog</string>
+    <string name="brands_category_not">There are no Brands in this category!</string>
+    <string name="clear_all">Clear</string>
+    <string name="category_catalog">Category catalog</string>
+    <string name="add_string">Add</string>
+    <string name="create_specialist">Create a Specialist</string>
+    <string name="enter_work_experience">Enter work experience</string>
+    <string name="Enter_completed_works">Enter (number) of completed works</string>
+    <string name="choose_your_skills">Choose your skills</string>
+    <string name="select_skill_category">Select skill category</string>
+    <string name="moving">Moving</string>
+    <string name="change">Change</string>
+    <string name="online_chat">Chats</string>
+    <string name="enter_messages">Enter messages</string>
+    <string name="create_ads">Create ad</string>
+    <string name="create">Create</string>
+    <string name="favorite">Favorites</string>
+    <string name="create_trade_in">Create an ad to share</string>
+    <string name="enter_product_name">Enter product name</string>
+    <string name="price_from">Price from: </string>
+    <string name="before">"before:</string>
+    <string name="from_verified_sellers">From verified sellers</string>
+    <string name="hots">Hot</string>
+    <string name="top">Top</string>
+    <string name="review_with">With reviews</string>
+    <string name="show_string">Show</string>
+    <string name="name_filtering">Name filtering</string>
+    <string name="category">Category</string>
+    <string name="category2">Category:</string>
+    <string name="location">Location</string>
+    <string name="sort_string">Sort</string>
+    <string name="default_string">Default</string>
+    <string name="first_new">First New</string>
+    <string name="cheaper_first">Cheaper first</string>
+    <string name="first_max_price">More expensive first</string>
+    <string name="top_week">Top of the week</string>
+    <string name="rating_specialist">Specialist rating</string>
+    <string name="about_specialist">More about the specialist</string>
+    <string name="experience">An experience:</string>
+    <string name="executed_works">Executed works:</string>
+    <string name="skills">Skills:</string>
+    <string name="departure">Departure:</string>
+    <string name="seller_number">Seller number:</string>
+    <string name="review_string">Reviews:</string>
+    <string name="review">Reviews</string>
+    <string name="installment_price">Price:</string>
+    <string name="an_initial_fee">An initial fee:</string>
+    <string name="payment_every_month">Monthly payment:</string>
+    <string name="send_string">Send</string>
+    <string name="ads_number">ID:</string>
+    <string name="date_create">Date creation:</string>
+    <string name="update_date">Updated:</string>
+    <string name="technical_work_in_progress">Technical work in progress</string>
+    <string name="notifications">Notifications</string>
+    <string name="authorization">Authorization</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="sign_in">Sign in</string>
+    <string name="registration">Registration</string>
+    <string name="create_store">Create Store</string>
+    <string name="account_recovery">Account Recovery</string>
+    <string name="reestablish">Reestablish</string>
+    <string name="amount_comparison">amount of \ncomparison</string>
+    <string name="select_store_photo">Select store photo</string>
+    <string name="name_shop">Name of shop</string>
+    <string name="come_store_name">Come up with a store name</string>
+    <string name="store_description">Store Description</string>
+    <string name="describe_your_store">Describe your store</string>
+    <string name="specialists">Specialists</string>
+    <string name="go_to_website">Go to website</string>
+    <string name="trade_in">Trade in</string>
+    <string name="more_about_product">More about the product</string>
+    <string name="shop">Store:</string>
+    <string name="brand">Brand:</string>
+    <string name="sellern_name">Sellers name:</string>
+    <string name="paid_services">Paid services</string>
+    <string name="urgently">Urgently</string>
+    <string name="profile">Profile</string>
+    <string name="confirm_mail">Confirm mail</string>
+    <string name="confirm_phone">Confirm phone</string>
+    <string name="edit">Edit</string>
+    <string name="status">Status</string>
+    <string name="phone_number">Phone number</string>
+    <string name="delete_shop">Delete shop</string>
+    <string name="delete_account">Delete account</string>
+    <string name="save_and_exit">Save and exit</string>
+    <string name="enter_new_password">Enter a new password</string>
+    <string name="enter_new_password2">Enter the new password again</string>
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="verified">Verified</string>
+    <string name="change_string">Editing</string>
+    <string name="activeted">Activate</string>
+    <string name="home">Home</string>
+    <string name="comparison">Comparison</string>
+    <string name="about">Support</string>
+    <string name="me_profile">My profile</string>
+    <string name="my_store">My shop</string>
+    <string name="sign_out">Sign out</string>
+    <string name="other">Other</string>
+    <string name="settings">Settings</string>
+    <string name="leave_feedback">Leave feedback</string>
+    <string name="access_is_closed">Access closed</string>
+    <string name="сreate_training_courses">Create training courses</string>
+    <string name="fovarite_to">favorite</string>
+    <string name="error_android_version">Your Android version is no longer supported by our requirement inside the Promi.KZ app</string>
+    <string name="promi_tech">Promi tech</string>
+    <string name="pay_story">Stories in apps</string>
+    <string name="pay_banner">Advertising, \nbanner on the site</string>
+    <string name="pay_between">Advertisement among \nadvertisements</string>
+    <string name="improve_product">Improve product</string>
+    <string name="pay_extern">Extend term</string>
+    <string name="pay_purchase">Purchase status verified</string>
+    <string name="cancel">Cancel</string>
+    <string name="buy">Buy</string>
+    <string name="current_password">Current password</string>
+    <string name="enter_old_password">Enter old password</string>
+    <string name="enter_new_password_again">Enter the new password again</string>
+    <string name="change_profile">Edit profile</string>
+    <string name="enter_specialitazion">Choose your specialization</string>
+    <string name="specialization">Specialization</string>
+    <string name="confidentiality">You must agree to the user agreement</string>
+    <string name="privacy">By registering, you accept the </string>
+    <string name="privacy2">User Agreement</string>
+    <string name="privacy3">Privacy Policy and Offer Agreement on PromiKZ</string>
+    <string name="title_activity_flea">FleaActivity</string>
+    <string name="promi_user_privacy">Privacy Policy</string>
+    <string name="complaint_title">Reason for complaint</string>
+    <string name="long_time">Doesn\'t answer for a long time</string>
+    <string name="rud_seller">Rude seller</string>
+    <string name="expensive_price">Too expensive price</string>
+    <string name="describ">Describe the reason\n\n</string>
+    <string name="complaint">Complaint</string>
+    <string name="wait">Wait a bit</string>
+    <string name="change_specialist">Change Specialist</string>
+    <string name="tenge_kz">\u0020Тг</string>
+    <string name="non_message">You don\'t have any new messages yet</string>
+    <string name="fast">Fast</string>
+    <string name="select_country">Select City</string>
+    <string name="copy_link">Copy link</string>
+    <string name="confirm_phone_email">Confirm number and email</string>
+    <string name="email_or_phone">email / phone number</string>
+    <string name="new_text">New</string>
+    <string name="my_promi">My promi</string>
+    <string name="user_privacy_policy">Privacy Policy</string>
+    <string name="create_password">Create a password</string>
+    <string name="full_register">Full registration</string>
+    <string name="title_activity_auth">AuthActivity</string>
+
+    <string name="register_new_number">Register a new number</string>
+    <string name="error">Error</string>
+    <string name="choose_photo_advertising">Choose a photo for advertising</string>
+    <string name="enter_banner_link">Enter banner link</string>
+    <string name="choose_photo_banner">Choose a photo for the banner</string>
+    <string name="select_main_photo">Select main photo</string>
+    <string name="enter_title">Enter the title</string>
+    <string name="enter_short_description">Enter a short description</string>
+    <string name="choose_photo">Choose additional photo</string>
+    <string name="Enter_link_site">Enter a link to the site</string>
+    <string name="compare_empty">Comparisons are empty</string>
+    <string name="close_dialog">Close dialog</string>
+    <string name="select">Select</string>
+    <string name="not_null_product_search">There are no products in this category</string>
+    <string name="promi_gaides">Promi guides</string>
+
+</resources>

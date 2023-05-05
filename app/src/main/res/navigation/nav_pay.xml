@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_pay"
+    app:startDestination="@id/payFragment">
+
+    <fragment
+        android:id="@+id/payFragment"
+        android:name="product.promikz.screens.pay.PayFragment"
+        android:label="fragment_pay"
+        tools:layout="@layout/fragment_pay" >
+        <action
+            android:id="@+id/action_payFragment_to_buyBannerFragment"
+            app:destination="@id/buyBannerFragment" />
+        <action
+            android:id="@+id/action_payFragment_to_buyAdsFragment"
+            app:destination="@id/buyAdsFragment" />
+        <action
+            android:id="@+id/action_payFragment_to_buyStoryFragment"
+            app:destination="@id/buyStoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/buyBannerFragment"
+        android:name="product.promikz.screens.pay.banner.BuyBannerFragment"
+        android:label="fragment_buy_banner"
+        tools:layout="@layout/fragment_buy_banner" >
+        <action
+            android:id="@+id/action_buyBannerFragment_to_payFragment"
+            app:destination="@id/payFragment"
+            app:popUpTo="@+id/payFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/buyAdsFragment"
+        android:name="product.promikz.screens.pay.ads.BuyAdsFragment"
+        android:label="fragment_buy_ads"
+        tools:layout="@layout/fragment_buy_ads" >
+        <action
+            android:id="@+id/action_buyAdsFragment_to_payFragment"
+            app:destination="@id/payFragment"
+            app:popUpTo="@+id/payFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/buyStoryFragment"
+        android:name="product.promikz.screens.pay.storyes.BuyStoryFragment"
+        android:label="fragment_buy_story"
+        tools:layout="@layout/fragment_buy_story" >
+        <action
+            android:id="@+id/action_buyStoryFragment_to_payFragment"
+            app:destination="@id/payFragment"
+            app:popUpTo="@+id/payFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+</navigation>

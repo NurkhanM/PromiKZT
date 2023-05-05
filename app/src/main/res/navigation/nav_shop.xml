@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_shop"
+    app:startDestination="@id/shopsFragment">
+
+    <fragment
+        android:id="@+id/shopsFragment"
+        android:name="product.promikz.screens.shop.ShopsFragment"
+        android:label="fragment_shops"
+        tools:layout="@layout/fragment_shops" >
+        <action
+            android:id="@+id/action_shopsFragment_to_shopChangeFragment"
+            app:destination="@id/shopChangeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shopChangeFragment"
+        android:name="product.promikz.screens.shop.ShopChangeFragment"
+        android:label="fragment_shop_change"
+        tools:layout="@layout/fragment_shop_change" />
+</navigation>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "616044083120",
+    "firebase_url": "https://topshop-dfdeb-default-rtdb.firebaseio.com",
+    "project_id": "topshop-dfdeb",
+    "storage_bucket": "topshop-dfdeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616044083120:android:defa442d273ee9911c8875",
+        "android_client_info": {
+          "package_name": "product.promikz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "616044083120-j5li6cdchoc20hor0e9c0e87j4ike3db.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt3jsEA6Tbw0nlYuhOu43r1WpD2uyiQsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "616044083120-j5li6cdchoc20hor0e9c0e87j4ike3db.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

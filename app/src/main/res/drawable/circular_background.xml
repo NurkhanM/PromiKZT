@@ -1,0 +1,12 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid
+        android:color="?colorPrimaryDark"/>
+
+    <corners
+        android:topRightRadius="@dimen/all_micro_back"
+        android:topLeftRadius="@dimen/all_micro_back"
+        android:bottomRightRadius="@dimen/all_micro_back"
+        android:bottomLeftRadius="@dimen/all_micro_back"/>
+</shape>

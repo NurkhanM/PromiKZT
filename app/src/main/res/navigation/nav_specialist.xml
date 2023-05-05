@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_specialist"
+    app:startDestination="@id/specialistFragment">
+
+    <fragment
+        android:id="@+id/specialistFragment"
+        android:name="product.promikz.screens.specialist.SpecialistFragment"
+        android:label="fragment_specialist"
+        tools:layout="@layout/fragment_specialist" >
+        <action
+            android:id="@+id/action_specialistFragment_to_meSpecialistFragment"
+            app:destination="@id/meSpecialistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/meSpecialistFragment"
+        android:name="product.promikz.screens.specialist.MeSpecialistFragment"
+        android:label="fragment_me_specialist"
+        tools:layout="@layout/fragment_me_specialist" >
+        <action
+            android:id="@+id/action_meSpecialistFragment_to_changeSpecialistFragment"
+            app:destination="@id/changeSpecialistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeSpecialistFragment"
+        android:name="product.promikz.screens.specialist.ChangeSpecialistFragment"
+        android:label="fragment_change_specialist"
+        tools:layout="@layout/fragment_change_specialist" />
+</navigation>

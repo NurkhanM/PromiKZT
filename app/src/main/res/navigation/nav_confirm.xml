@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_confirm"
+    app:startDestination="@id/stateConfirmFragment">
+
+    <fragment
+        android:id="@+id/stateConfirmFragment"
+        android:name="product.promikz.screens.auth.confirm.StateConfirmFragment"
+        android:label="fragment_state_confirm"
+        tools:layout="@layout/fragment_state_confirm" >
+        <action
+            android:id="@+id/action_stateConfirmFragment_to_phoneFragment"
+            app:destination="@id/phoneFragment" />
+        <action
+            android:id="@+id/action_stateConfirmFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/phoneFragment"
+        android:name="product.promikz.screens.auth.confirm.phone.PhoneFragment"
+        android:label="fragment_phone"
+        tools:layout="@layout/fragment_phone" />
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="product.promikz.screens.auth.confirm.email.EmailFragment"
+        android:label="fragment_email"
+        tools:layout="@layout/fragment_email" />
+</navigation>

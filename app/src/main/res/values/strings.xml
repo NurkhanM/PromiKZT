@@ -1,0 +1,386 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Promi KZ</string>
+    <string name="open">Открыт</string>
+    <string name="close">Закрыт</string>
+    <string name="txtprofile">Авторизуйтесь и получите \n <font color='#F9A825'> 10% скудку </font> на сервис \n Repair Flat Astana city</string>
+    <string name="register_message_email">Без подтверждения телефонного номера , Вы не можете создавать продукты</string>
+    <string name="register_message_shopCreate">Теперь вы можете продавать свои товары</string>
+    <string name="todo">что-то</string>
+    <string name="token_error">Произошла ошибка \nОбновить приложение!</string>
+    <string name="error_link">Недействительная ссылка</string>
+    <string name="server_error">На данный момент \n сервер обновляется… \n пожалуйста подождите немного</string>
+    <string name="not_specialist">Вы еще не создали специалиста</string>
+    <string name="null_error">У вас еще нет \nсохраненных объявлений</string>
+    <string name="auth_create">Авторизуйтесь и начните создавать объявления.</string>
+    <string name="gmail_create">Подтвердите номер!\nбез подтверждении\nвы не можете создать объявления</string>
+    <string name="verify_user">Вам было отправлено подтверждения на почту</string>
+    <string name="verify_user_phone">Нужно подтвердить номер</string>
+    <string name="create_shop_text">Без магазина, \nВы не можете создавать товары!</string>
+    <string name="update_shop_text">Вы успешно изменили магазин</string>
+    <string name="easy_buy">Продать станок очень легко</string>
+
+    <!-- Home Fragment -->
+    <string name="story_home">Срочные акции</string>
+    <string name="search_home">Поиск</string>
+    <string name="specialist_stanki_home">Станки, специалисты, курсы</string>
+    <string name="advertising_home">Реклама</string>
+    <string name="category_home">Категории</string>
+    <string name="fast_search">Быстрый поиск</string>
+    <string name="all_machines">Станки</string>
+    <string name="descrip_test">descrip</string>
+    <string name="all_courses">Курсы</string>
+    <string name="all_flea">Барахолка</string>
+    <string name="select_country">Выберите город</string>
+    <string name="all_specialists">Специалисты</string>
+
+    <!-- Page UpdateFragment -->
+    <string name="tenge">\u0020 теңге</string>
+    <string name="test_city"><![CDATA[Россия -> Москва]]></string>
+    <string name="characteristic">Характеристики:</string>
+    <string name="installment_plan">Возможность оформления в рассрочку:</string>
+    <string name="update_text_description">Описание:</string>
+    <string name="v_kredit">от 5 000 тенге/мес.</string>
+    <string name="v_kredit2">от 25 000 тенге/мес.</string>
+    <string name="checkout">Оформить</string>
+    <string name="average_rating">Рейтинг товара: </string>
+    <string name="rate">Поставьте рейтинг к этому продукту</string>
+    <string name="rate_spec">Поставьте рейтинг к этому специалисту</string>
+    <string name="rating">Рейтинг: </string>
+    <string name="update_text_top">в топе</string>
+    <string name="update_text_vip">VIP</string>
+    <string name="update_text_allocations">Выделения</string>
+    <string name="similar_ads">Похожие объявления</string>
+    <string name="message">Написать</string>
+    <string name="call">Позвонить</string>
+
+    <!-- Page Language -->
+    <string name="russia">Русский</string>
+    <string name="english">English</string>
+    <string name="kazakhstan">Қазақ тілі</string>
+    <string name="save">Сохранить</string>
+
+    <string-array name="State">
+        <item>Б/у</item>
+        <item>Новый</item>
+    </string-array>
+
+    <string-array name="Departure">
+        <item>Да, готов к переездам</item>
+        <item>Нет. не готов к переездам</item>
+    </string-array>
+
+    <string-array name="Type">
+        <item>Физ. лицо</item>
+        <item>Юр. лицо</item>
+        <item>Учебное. завед</item>
+    </string-array>
+
+    <array name="initial_slider_values">
+        <item>0</item>
+        <item>1000000</item>
+    </array>
+
+    <string-array name="RasFirst">
+        <item>5%</item>
+        <item>10%</item>
+        <item>15%</item>
+        <item>20%</item>
+        <item>30%</item>
+        <item>40%</item>
+        <item>50%</item>
+    </string-array>
+
+    <string-array name="RasMonth">
+        <item>3 месяц</item>
+        <item>6 месяц</item>
+        <item>12 месяц</item>
+        <item>24 месяц</item>
+        <item>48 месяц</item>
+    </string-array>
+
+    <string-array name="AutoMessageArray">
+        <item>Ещё актуально?</item>
+        <item>Я заинтересован!</item>
+        <item>Обмен интересует?</item>
+        <item>Торг возможен?</item>
+        <item>Где мы можем встретиться?</item>
+        <item>Готов купить!</item>
+        <item>За сколько отдадите?</item>
+    </string-array>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_connection">Нет соединения</string>
+    <string name="check_connections_internet">Пожалуйста проверьте соединения с интернетом</string>
+    <string name="need_one_picture">Нужна хотябы одна картинка</string>
+    <string name="upload_pictures">Загрузите картинки</string>
+    <string name="select_category">Выберите категорию</string>
+    <string name="select_brand">Выберите бренд</string>
+    <string name="oops_mistake">Упс ошибочка</string>
+    <string name="add_all_fields">Заполните все поля!</string>
+    <string name="enter_installment_amount">Введите сумму для рассрочки</string>
+    <string name="maximum_10">Максимальная количество 10</string>
+    <string name="maximum_4">Максимальная количество 4</string>
+    <string name="maximum_5">Максимальная количество 5</string>
+    <string name="not_selected_photo">Фотография не выбрано</string>
+    <string name="successfully_change_product">Вы успешно изминили продукт</string>
+    <string name="yes_verify">Да, Подвердить!</string>
+    <string name="confirm_later">Подвердить пожже</string>
+    <string name="editing_ads_title">Редактирование объявления</string>
+    <string name="name_products">Названия товара</string>
+    <string name="main_photo">Главное фото</string>
+    <string name="additional_photos">дополнительные фотографии</string>
+    <string name="add_description">Добавьте описание</string>
+    <string name="price">Цена</string>
+    <string name="negotiable">Договорная</string>
+    <string name="state">Состояние</string>
+    <string name="state2">Состояние:</string>
+    <string name="country">Страна</string>
+    <string name="city">Город</string>
+    <string name="country2">Страна:</string>
+    <string name="city2">Город:</string>
+    <string name="payment_installments">Возможность оформления \nв рассрочку</string>
+    <string name="сhoose_payment">Выберите первоначальный взнос</string>
+    <string name="сhoose_monthly_payment">Выберите ежемесячной оплаты</string>
+    <string name="show_calculation">Показать рассчет</string>
+    <string name="possibility_leave_feedback">Возможность оставлять отзывы</string>
+    <string name="fields_additional">Дополнительные поля: </string>
+    <string name="null_string">Пусто</string>
+    <string name="selected_photo">Выберите фотографии</string>
+    <string name="successfully">УСПЕШНО!</string>
+    <string name="yeah_product">Вы создали продукт!</string>
+    <string name="yeah_specialist">Вы создали специалиста</string>
+    <string name="exit">Выйти</string>
+    <string name="continue_app">Продолжить</string>
+    <string name="total">Всего</string>
+    <string name="not_banner">В этом баннере нет ссылки</string>
+    <string name="enter_email_correctly">Введите email / номер телефона правильно</string>
+    <string name="no_select">Вы не выбрали</string>
+    <string name="successfully_registered">Вы успешно зарегистрировались!</string>
+    <string name="maximum_13">Введите номер полностью</string>
+    <string name="minimum_8">Минимальная количество 8</string>
+    <string name="minimum_8_password">Пароль должен состоять \nне менее 8 символа</string>
+    <string name="error_login_or_password">Логин или Пароль неверный</string>
+    <string name="null_login_or_password">Логин или Пароль пусто</string>
+    <string name="enter_postal_address">Введите email / номер телефона</string>
+    <string name="active">Активные</string>
+    <string name="inactive">Неактивные</string>
+    <string name="need_sign_up">Вам нужно авторизоваться!</string>
+    <string name="ready_move">Готов к переезду</string>
+    <string name="yes">Да</string>
+    <string name="not">Нет</string>
+    <string name="not_skills">Нет умений</string>
+    <string name="not_rating">Нет рейтинга</string>
+    <string name="reviews">отзывов</string>
+    <string name="deleted_youre_products">Вы удалили товар</string>
+    <string name="disabled_youre_products">Вы деактивировали товар</string>
+    <string name="delete_products">Вы уверены что хотите удалить этот товар</string>
+    <string name="cleared">Очищено!</string>
+    <string name="server_error_500">Ошибка сервера 500</string>
+    <string name="error_problems">Неполадки</string>
+    <string name="you_added">Вы добавили</string>
+    <string name="comparing_to">в сравнение</string>
+    <string name="fovarite_to">в избранные</string>
+    <string name="same_category">Товары должны состоять в одной категории</string>
+    <string name="review_disabled">Отзыв отключен</string>
+    <string name="not_categorized">Без категории</string>
+    <string name="new_products">Новая</string>
+    <string name="boo_products">Б/у</string>
+    <string name="month_to">месяц по</string>
+    <string name="phys_face">Физ. лицо</string>
+    <string name="jur_face">Юр. лицо</string>
+    <string name="educatin_institution">Учебное. заведение</string>
+    <string name="language">Язык</string>
+    <string name="check_back_later">Зайти позже</string>
+    <string name="application_settings">Настройки приложения</string>
+    <string name="theme">Тема</string>
+    <string name="agreements">Пользовательское соглашения</string>
+    <string name="about_application">О приложении</string>
+    <string name="light">Светлая</string>
+    <string name="dark">Тёмная</string>
+    <string name="systemic">Системная</string>
+    <string name="refresh">Обновить</string>
+    <string name="expect">Ожидайте</string>
+    <string name="moderator_everyone">Когда модератор одобрит ваше объявления, она станет доступным всем</string>
+    <string name="attention">Внимание!</string>
+    <string name="delete_account_dialog">Вы уверены что хотите удалить аккаунт. Все ваши данные будут потеряны</string>
+    <string name="delete_shop_dialog">Вы уверены что хотите удалить магазин. Все ваши данные будут потеряны</string>
+    <string name="register_string">Зарегистрироваться</string>
+    <string name="selec_photo">выбрать фото</string>
+    <string name="name_string">Имя</string>
+    <string name="emile">Email</string>
+    <string name="emile2">Email:</string>
+    <string name="enter_your_full_name">Введите Ф.И.О</string>
+    <string name="password">Пароль</string>
+    <string name="enter_password">Введите пароль</string>
+    <string name="enter_password_again">Введите пароль еще раз</string>
+    <string name="choose_country">Выберите страну</string>
+    <string name="account_type">Тип аккаунта</string>
+    <string name="Select_account_type">Выберите тип аккаунта</string>
+    <string name="phone">Телефон</string>
+    <string name="brand_catalog">Каталог брендов</string>
+    <string name="brands_category_not">В этом категории нет Брендов!</string>
+    <string name="clear_all">Очистить</string>
+    <string name="category_catalog">Каталог категории</string>
+    <string name="add_string">Добавить</string>
+    <string name="create_specialist">Создать специалиста</string>
+    <string name="enter_work_experience">Введите опыт работы</string>
+    <string name="Enter_completed_works">Введите (кол-во) выполненных работ</string>
+    <string name="choose_your_skills">Выберите ваши умении</string>
+    <string name="select_skill_category">Выберите категорию умении</string>
+    <string name="moving">Переезд</string>
+    <string name="change">Изменить</string>
+    <string name="online_chat">Чаты</string>
+    <string name="enter_messages">Введите сообщения</string>
+    <string name="create_ads">Создать объявление</string>
+    <string name="create">Создать</string>
+    <string name="favorite">Избранные</string>
+    <string name="create_trade_in">Создать объявление для обмена</string>
+    <string name="enter_product_name">Введите название продукта</string>
+    <string name="price_from">Цена от:</string>
+    <string name="before">до:</string>
+    <string name="from_verified_sellers">От проверенных продавцов</string>
+    <string name="hots">Горячие</string>
+    <string name="top">Топ</string>
+    <string name="review_with">С отзывами</string>
+    <string name="show_string">Показать</string>
+    <string name="name_filtering">Фильтрация по названию</string>
+    <string name="category">Категория</string>
+    <string name="category2">Категория:</string>
+    <string name="location">Местоположения</string>
+    <string name="sort_string">Сортировать</string>
+    <string name="default_string">По умолчанию</string>
+    <string name="first_new">Сначала Новые</string>
+    <string name="cheaper_first">Сначала дешевле</string>
+    <string name="first_max_price">Сначала дороже</string>
+    <string name="top_week">Топ недели</string>
+    <string name="rating_specialist">Рейтинг специалиста</string>
+    <string name="about_specialist">Подробнее о специалисте</string>
+    <string name="experience">Опыт:</string>
+    <string name="executed_works">Выполненных работ:</string>
+    <string name="skills">Умения:</string>
+    <string name="departure">Выезд:</string>
+    <string name="seller_number">Номер продавца:</string>
+    <string name="review_string">Отзывы:</string>
+    <string name="review">Отзывы</string>
+    <string name="installment_price">Стоимость:</string>
+    <string name="an_initial_fee">Первоначальный взнос:</string>
+    <string name="payment_every_month">Ежемесячная оплата:</string>
+    <string name="send_string">Отправить</string>
+    <string name="ads_number">ID:</string>
+    <string name="date_create">Дата создания:</string>
+    <string name="update_date">Обновлено:</string>
+    <string name="technical_work_in_progress">Ведутся технические работы</string>
+    <string name="notifications">Уведомления</string>
+    <string name="authorization">Авторизация</string>
+    <string name="remember_me">Запомнить меня</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="sign_in">Вход</string>
+    <string name="registration">Регистрация</string>
+    <string name="create_store">Создать Магазин</string>
+    <string name="account_recovery">Восстановление аккаунта</string>
+    <string name="reestablish">Восстановить</string>
+    <string name="amount_comparison">количество \nсравнения</string>
+    <string name="select_store_photo">Выбрать фото магазина</string>
+    <string name="name_shop">Название магазина</string>
+    <string name="come_store_name">Придумайте название магазина</string>
+    <string name="store_description">Описание магазина</string>
+    <string name="change_shops">Редактировать магазин</string>
+    <string name="describe_your_store">Опишите Ваш магазин</string>
+    <string name="specialists">Специалисты</string>
+    <string name="go_to_website">Перейти на сайт</string>
+    <string name="trade_in">Обмен</string>
+    <string name="more_about_product">Подробнее о товаре</string>
+    <string name="shop">Магазин:</string>
+    <string name="brand">Бренд:</string>
+    <string name="sellern_name">Имя продавца:</string>
+    <string name="paid_services">Платные услуги</string>
+    <string name="urgently">Срочно</string>
+    <string name="profile">Профиль</string>
+    <string name="confirm_mail">Подтвердить почту</string>
+    <string name="confirm_phone">Подтвердить телефон</string>
+    <string name="edit">Редактировать</string>
+    <string name="status">Статус</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="delete_account">Удалить аккаунт</string>
+    <string name="delete_shop">Удалить Магазин</string>
+    <string name="save_and_exit">Сохранить и выйти</string>
+    <string name="enter_new_password">Введите новый пароль</string>
+    <string name="enter_new_password2">Введите новый пароль еще раз</string>
+    <string name="enter_phone_number">Введите номер телефона</string>
+    <string name="verified">Проверенный</string>
+    <string name="change_string">Редак-ть</string>
+    <string name="activeted">Активировать</string>
+    <string name="home">Главная</string>
+    <string name="comparison">Сравнение</string>
+    <string name="about">Служба поддержки</string>
+    <string name="me_profile">Мой профиль</string>
+    <string name="my_store">Мой магазин</string>
+    <string name="sign_out">Выйти с аккаунта</string>
+    <string name="other">Другое</string>
+    <string name="settings">Настройки</string>
+    <string name="leave_feedback">Оставить отзыв</string>
+    <string name="access_is_closed">Доступ закрыт</string>
+    <string name="сreate_training_courses">Создать учебные курсы</string>
+    <string name="error_android_version">Ваша версия Android больше не поддерживается, нашим требованием внутри приложении Promi.KZ</string>
+    <string name="pay_story">Сторис \nв приложениях</string>
+    <string name="promi_tech">Promi tech</string>
+    <string name="pay_banner">Реклама, \nбаннер на сайте</string>
+    <string name="pay_between">Реклама среди объявлении</string>
+    <string name="improve_product">Улучшить товар</string>
+    <string name="pay_extern">Продлить срок</string>
+    <string name="pay_purchase">Покупка статуса проверенный</string>
+    <string name="cancel">Отмена</string>
+    <string name="buy">Купить</string>
+    <string name="current_password">Текущий пароль</string>
+    <string name="enter_old_password">Введите старый пароль</string>
+    <string name="enter_new_password_again">Введите новый пароль еще раз</string>
+    <string name="change_profile">Редактировать профиль</string>
+    <string name="enter_specialitazion">Выберите вашу специализацию</string>
+    <string name="specialization">Специализация</string>
+    <string name="confidentiality">Нужно согласиться с пользовательским соглашением</string>
+    <string name="privacy">Регистрируясь, вы принимаете </string>
+    <string name="privacy2">Пользовательское соглашение</string>
+    <string name="privacy3">Конфиденциальность и Договор-оферта на PromiKZ</string>
+    <string name="title_activity_flea">FleaActivity</string>
+    <string name="promi_user_privacy">Политика конфиденциальности</string>
+    <string name="complaint_title">Причина жалобы</string>
+    <string name="long_time">Долго не отвечает</string>
+    <string name="rud_seller">Грубый продавец</string>
+    <string name="expensive_price">Слишком дорогая цена</string>
+    <string name="describ">Опишите причину\n\n</string>
+    <string name="complaint">Пожаловаться</string>
+    <string name="wait">Подождите немного </string>
+    <string name="change_specialist">Изменить специалиста</string>
+    <string name="tenge_kz">\u0020Тг</string>
+    <string name="non_message">У вас еще нет новых сообщений</string>
+    <string name="fast">Срочное</string>
+    <string name="copy_link">Скопировать ссылку</string>
+    <string name="confirm_phone_email">Подтвердить номер и email</string>
+    <string name="email_or_phone">email / номер телефона</string>
+    <string name="new_text">Новый</string>
+    <string name="my_promi">My promi</string>
+    <string name="user_privacy_policy">Политика конфиденциальности</string>
+    <string name="title_activity_auth" tools:ignore="MissingTranslation">AuthActivity</string>
+    <string name="create_password">Придумайте пароль</string>
+    <string name="full_register">Полная регистрация</string>
+
+
+    <string name="register_new_number">Зарегистрироваться с новым номером</string>
+    <string name="error">Ошибка</string>
+    <string name="choose_photo_advertising">Выберите фото для рекламы</string>
+    <string name="enter_banner_link">Введите ссылку на баннер</string>
+    <string name="choose_photo_banner">Выберите фото для баннера</string>
+    <string name="select_main_photo">Выберите главное фото</string>
+    <string name="enter_title">Введите название</string>
+    <string name="enter_short_description">Введите краткое описание</string>
+    <string name="choose_photo">Выберите дополнительное фото</string>
+    <string name="Enter_link_site">Введите ссылку на сайт</string>
+    <string name="compare_empty">Сравнения пусто</string>
+    <string name="close_dialog">Закрыть диалог</string>
+    <string name="select">Выбрать</string>
+    <string name="not_null_product_search">В этой категории нет продуктов</string>
+    <string name="promi_gaides">Promi гайды</string>
+
+</resources>

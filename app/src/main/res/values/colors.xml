@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="primary">#1C2E46</color>
+    <color name="purple_500">#3669C9</color>
+    <color name="teal_200">#3669C9</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="black2">#1C1C1E</color>
+    <color name="black3">#B0B0B0</color>
+    <color name="black4">#7E7E7E</color>
+    <color name="blackTransparent">#801C1C1E</color>
+    <color name="input_background">#ECECEC</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white1">#F8F8F8</color>
+    <color name="white2">#E4E4E4</color>
+    <color name="white3">#CACACA</color>
+    <color name="orange">#FF6343</color>
+    <color name="orange2">#C65532</color>
+    <color name="blue">#03A9F4</color>
+    <color name="green">#4cAF50</color>
+    <color name="color">#FF018786</color>
+    <color name="red">#FF0000</color>
+    <color name="red2">#AE454C</color>
+    <color name="yellow">#FFE500</color>
+    <color name="yellow2">#FEC223</color>
+    <color name="item">#c1d5e0</color>
+    <color name="item2">#121212</color>
+    <color name="fon1">#3669C9</color>
+    <color name="fon2">#E6E6E6</color>
+    <color name="fon5">#FAFAFA</color>
+    <color name="fonShadow1">#BE948783</color>
+    <color name="fonShadow2">#68564E</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#3669C9</color>
+
+
+    <!-- Story Display Progress-->
+    <color name="progress_primary">@color/white</color>
+    <color name="progress_secondary">@color/gray_scale</color>
+    <color name="progress_max_active">@color/white</color>
+
+    <color name="gray_scale">#8AFFFFFF</color>
+
+</resources>

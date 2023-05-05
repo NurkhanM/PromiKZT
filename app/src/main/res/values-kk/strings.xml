@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Promi KZ</string>
+    <string name="open">Ашық</string>
+    <string name="close">Жабық</string>
+    <string name="txtprofile">Авторизуйтесь и получите \n <font color='#F9A825'> 10% скудку </font> на сервис \n Repair Flat Astana city</string>
+    <string name="register_message_email">Телефон нөмірі растаусыз өнімдерді жасай алмайсыз</string>
+    <string name="register_message_shopCreate">Енді сіз өз өнімдеріңізді сата аласыз</string>
+    <string name="todo">бірдеңе</string>
+    <string name="token_error">Қате орын алды \nҚолданбаны жаңартыңыз!</string>
+    <string name="error_link">Жарамсыз сілтеме</string>
+    <string name="server_error">Сервер \nқазіргі уақытта  жаңартылуда\n Сәл күтіңіз</string>
+    <string name="not_specialist">Сіз әлі маман құрған жоқсыз</string>
+    <string name="null_error">Сізде әлі \nсақталған тізімдер жоқ</string>
+    <string name="auth_create">Жүйеге кіріп, xабарландыру жасауды бастаңыз.</string>
+    <string name="gmail_create">Нөмірді растаңыз!\nРастаусыз\nжарнамалар жасай алмайсыз</string>
+    <string name="verify_user">Сізге растау электрондық поштасы жіберілді</string>
+    <string name="verify_user_phone">Нөмірді растау қажет</string>
+    <string name="create_shop_text">Дүкенсіз сіз өнімді жасай алмайсыз!</string>
+    <string name="update_shop_text">Сіз дүкенді сәтті өзгерттіңіз</string>
+    <string name="easy_buy">Машинаны сату өте оңай</string>
+
+    <!-- Home Fragment -->
+    <string name="story_home">Жедел акциялар</string>
+    <string name="search_home">Жедел іздеу</string>
+    <string name="specialist_stanki_home">Білдектер, Мамандар, Курстар</string>
+    <string name="advertising_home">Жарнама</string>
+    <string name="category_home">Санаттар</string>
+    <string name="fast_search">Жылдам іздеу</string>
+    <string name="all_machines">Станоктар</string>
+    <string name="descrip_test">мінездемесі</string>
+    <string name="all_courses">Kурстар</string>
+    <string name="all_flea">Бархолка</string>
+    <string name="all_specialists">Mамандар</string>
+    <!-- Page UpdateFragment -->
+    <string name="tenge">\u0020 теңге</string>
+    <string name="test_city"><![CDATA[Россия -> Москва]]></string>
+    <string name="characteristic">Сипаттамалары:</string>
+    <string name="installment_plan">Бөліп төлеу опциясы:</string>
+    <string name="update_text_description">Mінездемесі:</string>
+    <string name="v_kredit">айына 5 000 теңгеден бастап</string>
+    <string name="v_kredit2">айына 25 000 теңгеден бастап</string>
+    <string name="checkout">Эшекейлер</string>
+    <string name="average_rating">Tауар рейтингісі: </string>
+    <string name="rate">Осы өнімді бағалаңыз</string>
+    <string name="rate_spec">Осы маманға баға беріңіз</string>
+    <string name="rating">Рейтинг: </string>
+    <string name="update_text_top">топте</string>
+    <string name="update_text_vip">VIP</string>
+    <string name="update_text_allocations">Бөлулер</string>
+    <string name="similar_ads">Ұқсас жарнамалар</string>
+    <string name="message">Жазып жіберу</string>
+    <string name="call">Коңырау шалу</string>
+
+    <!-- Page Language -->
+    <string name="russia">Русский</string>
+    <string name="english">English</string>
+    <string name="kazakhstan">Қазақ тілі</string>
+    <string name="save">Сақтау</string>
+
+
+    <string-array name="State">
+        <item>Б/қ</item>
+        <item>Жаңа</item>
+    </string-array>
+
+    <string-array name="Departure">
+        <item>Иә, көшуге дайын</item>
+        <item>Жоқ</item>
+    </string-array>
+
+
+    <string-array name="Type">
+        <item>Физ. лицо</item>
+        <item>Юр. лицо</item>
+        <item>Учебное. завед</item>
+    </string-array>
+
+    <string-array name="AutoMessageArray">
+        <item>Әлі де өзекті ме?</item>
+        <item>Мені қызықтырады!</item>
+        <item>Алмасу қызықтырады ма?</item>
+        <item>Баға туралы келіссөздер мүмкін бе?</item>
+        <item>Қай жерде кездесе аламыз?</item>
+        <item>Сатып алуға дайын!</item>
+        <item>Қанша төлейсіз?</item>
+    </string-array>
+
+    <array name="initial_slider_values">
+        <item>0</item>
+        <item>1000000</item>
+    </array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_connection">Байланыс жоқ</string>
+    <string name="check_connections_internet">Интернет қосылымдарыңызды тексеріңіз</string>
+    <string name="need_one_picture">Кем дегенде бір сурет керек</string>
+    <string name="upload_pictures">Суреттерді жүкте керек</string>
+    <string name="select_category">Санатты таңдаңыз</string>
+    <string name="select_brand">Брендті таңдаңыз</string>
+    <string name="oops_mistake">Ой қате</string>
+    <string name="add_all_fields">Барлық өрістерді толтырыңыз!</string>
+    <string name="enter_installment_amount">Бөліп төлеу сомасын енгізіңіз</string>
+    <string name="maximum_10">Максималды саны 10</string>
+    <string name="maximum_4">Максималды саны 4</string>
+    <string name="maximum_5">Максималды саны 5</string>
+    <string name="change_shops">Дүкенді өңдеу</string>
+    <string name="not_selected_photo">Фото таңдалмады</string>
+    <string name="successfully_change_product">Сіз өнімді сәтті өзгерттіңіз!</string>
+    <string name="yes_verify">Иә, Тексерімын!</string>
+    <string name="confirm_later">Кейінірек растаймын</string>
+    <string name="editing_ads_title">Жарнаманы өңдеу</string>
+    <string name="name_products">Өнім атау</string>
+    <string name="main_photo">Негізгі фото</string>
+    <string name="additional_photos">қосымша фотосуреттер</string>
+    <string name="add_description">Mінездеме қосыңыз</string>
+    <string name="price">Бағасы</string>
+    <string name="negotiable">Kелісуге болады</string>
+    <string name="state">Жағдайы</string>
+    <string name="state2">Жағдайы:</string>
+    <string name="country">Ел</string>
+    <string name="city">Kала</string>
+    <string name="country2">Ел:</string>
+    <string name="city2">Kала:</string>
+    <string name="payment_installments">Бөліп төлеу мүмкіндігі</string>
+    <string name="сhoose_payment">Алғашқы жарнаңызды таңдаңыз</string>
+    <string name="сhoose_monthly_payment">Ай сайынғы төлемді таңдаңыз</string>
+    <string name="show_calculation">Есептеуді көрсету</string>
+    <string name="possibility_leave_feedback">Пікір қалдыру мүмкіндігі</string>
+    <string name="fields_additional">Қосымша өрістер: </string>
+    <string name="null_string">Бос</string>
+    <string name="selected_photo">Фотосуреттерді таңдаңыз</string>
+    <string name="successfully">СӘТТІ!</string>
+    <string name="yeah_product">Ура, сіз өнімді жасадыңыз</string>
+    <string name="yeah_specialist">Жарайсың маман құрдың</string>
+    <string name="exit">Шығу</string>
+    <string name="continue_app">Жалғастыру</string>
+    <string name="total">Барлығы</string>
+    <string name="not_banner">Бұл баннерде сілтеме жоқ</string>
+    <string name="enter_email_correctly">Электрондық пошта / телефон нөмірі дұрыс енгізіңіз</string>
+    <string name="no_select">Сіз таңдаған жоқсыз</string>
+    <string name="successfully_registered">Сіз сәтті тіркелдіңіз!</string>
+    <string name="maximum_13">Толық нөмірді енгізіңіз</string>
+    <string name="minimum_8">Ең аз саны 8</string>
+    <string name="minimum_8_password">Құпия сөз кемінде 8 таңбадан тұруы керек</string>
+    <string name="error_login_or_password">Логин немесе құпия сөз дұрыс емес</string>
+    <string name="null_login_or_password">Логин немесе құпия сөз бос</string>
+    <string name="enter_postal_address">электрондық пошта / телефон нөмірі енгізіңіз</string>
+    <string name="active">Белсенді</string>
+    <string name="inactive">Белсенді емес</string>
+    <string name="need_sign_up">Сізге кіру керек!</string>
+    <string name="ready_move">Қозғауға дайын</string>
+    <string name="yes">Иә</string>
+    <string name="not">Жоқ</string>
+    <string name="not_skills">Дағдылар жоқ</string>
+    <string name="not_rating">Рейтинг жоқ</string>
+    <string name="reviews">пікірлер</string>
+    <string name="deleted_youre_products">Сіз өнімді өшірдіңіз</string>
+    <string name="disabled_youre_products">Сіз өнімді жойдыңыз</string>
+    <string name="delete_products">Бұл элементті шынымен жойғыңыз келе ме?</string>
+    <string name="cleared">Тазаланды!</string>
+    <string name="server_error_500">Сервер қатесі 500</string>
+    <string name="error_problems">Problems</string>
+    <string name="you_added">Kостың</string>
+    <string name="comparing_to">-мен салыстыру</string>
+    <string name="same_category">Өнімдер бір санатта болуы керек</string>
+    <string name="review_disabled">Қарау өшірілді</string>
+    <string name="not_categorized">Санатсыз</string>
+    <string name="new_products">Жаңа</string>
+    <string name="boo_products">Б/қ</string>
+    <string name="month_to">айға дейін</string>
+    <string name="phys_face">Жеке</string>
+    <string name="jur_face">Заңды тұлға</string>
+    <string name="educatin_institution">Учебное. завед</string>
+    <string name="language">Тіл</string>
+    <string name="check_back_later">Кейінірек қайта тексеріңіз</string>
+    <string name="application_settings">Қолданба параметрлері</string>
+    <string name="theme">Tақырып</string>
+    <string name="agreements">Пайдаланушы келісімі</string>
+    <string name="about_application">Қолданба туралы</string>
+    <string name="light">Жарық</string>
+    <string name="dark">Қараңғы</string>
+    <string name="systemic">Жүйелік</string>
+    <string name="refresh">Жаңарту</string>
+    <string name="expect">Күту</string>
+    <string name="moderator_everyone">Модератор сіздің жарнамаңызды мақұлдаған кезде, ол барлығына қолжетімді болады</string>
+    <string name="attention">Назар аударыңыз!</string>
+    <string name="delete_account_dialog">Есептік жазбаңызды жойғыңыз келетініне сенімдісіз бе. Барлық деректеріңіз жоғалады</string>
+    <string name="delete_shop_dialog">Дүкенді жойғыңыз келетініне сенімдісіз бе. Барлық деректеріңіз жоғалады</string>
+    <string name="register_string">Тіркелу</string>
+    <string name="selec_photo">фотосуретті таңдаңыз</string>
+    <string name="name_string">Аты</string>
+    <string name="emile">Электрондық пошта</string>
+    <string name="emile2">Электрондық пошта:</string>
+    <string name="enter_your_full_name">Толық аты-жөніңізді енгізіңіз</string>
+    <string name="password">Құпия сөз</string>
+    <string name="enter_password">Kұпия сөзді еңгізіңіз</string>
+    <string name="enter_password_again">Құпия сөзіңізді қайта енгізіңіз</string>
+    <string name="choose_country">Eлді таңдаңыз</string>
+    <string name="account_type">Есептік жазба түрі</string>
+    <string name="Select_account_type">Есептік жазба түрін таңдаңыз</string>
+    <string name="phone">Телефон</string>
+    <string name="brand_catalog">Бренд каталогы</string>
+    <string name="brands_category_not">Бұл санатта брендтер жоқ!</string>
+    <string name="clear_all">Tазалаy</string>
+    <string name="category_catalog">Категориялар каталогы</string>
+    <string name="add_string">Kосу</string>
+    <string name="create_specialist">Маман құру</string>
+    <string name="enter_work_experience">Жұмыс тәжірибесін енгізіңіз</string>
+    <string name="Enter_completed_works">Аяқталған жұмыстарды (санын) енгізіңіз</string>
+    <string name="choose_your_skills">Өз дағдыларыңызды таңдаңыз</string>
+    <string name="select_skill_category">Біліктілік санатын таңдаңыз</string>
+    <string name="moving">Kозғалады</string>
+    <string name="change">Өзгерту</string>
+    <string name="online_chat">Чаты</string>
+    <string name="enter_messages">Хабарларды енгізіңіз</string>
+    <string name="create_ads">Xабарландыру беру</string>
+    <string name="create">Жасау</string>
+    <string name="favorite">Таңдаулылар</string>
+    <string name="create_trade_in">Айырбастау үшін жарнама жасаңыз</string>
+    <string name="enter_product_name">Өнім атауын енгізіңіз</string>
+    <string name="price_from">Бағасы: </string>
+    <string name="before">бұрын:</string>
+    <string name="from_verified_sellers">Тексерілген сатушылардан</string>
+    <string name="hots">Ыстық</string>
+    <string name="top">Жоғарғы</string>
+    <string name="review_with">Пікірлермен</string>
+    <string name="show_string">Көрсету</string>
+    <string name="name_filtering">Атауларды сүзу</string>
+    <string name="category">Санат</string>
+    <string name="category2">Санат:</string>
+    <string name="location">Орналасқан жері</string>
+    <string name="sort_string">Сұрыптау</string>
+    <string name="default_string">Әдепкі</string>
+    <string name="first_new">Бірінші Жаңа</string>
+    <string name="cheaper_first">Алдымен арзанырақ</string>
+    <string name="first_max_price">Алдымен қымбатырақ</string>
+    <string name="top_week">Aпта үздіктері</string>
+    <string name="rating_specialist">Мамандық бағалау</string>
+    <string name="about_specialist">Маман туралы толығырақ</string>
+    <string name="experience">Тәжірибе:</string>
+    <string name="executed_works">Орындалған жұмыстар:</string>
+    <string name="skills">Дағдылар:</string>
+    <string name="departure">Шығу:</string>
+    <string name="seller_number">Сатушы нөмірі:</string>
+    <string name="review_string">Пікірлер:</string>
+    <string name="review">Пікірлер</string>
+    <string name="installment_price">Бағасы:</string>
+    <string name="an_initial_fee">Бастапқы төлем:</string>
+    <string name="payment_every_month">Төлем ай сайын:</string>
+    <string name="send_string">Жіберу</string>
+    <string name="ads_number">ID: </string>
+    <string name="date_create">Kұрылған күні: </string>
+    <string name="update_date">Жаңартылған: </string>
+    <string name="technical_work_in_progress">Техникалық жұмыстар атқарылуда</string>
+    <string name="notifications">Xабарлама</string>
+    <string name="authorization">Авторизация</string>
+    <string name="remember_me">мені есте сақтау</string>
+    <string name="forgot_password">Құпия сөзіңізді ұмыттыңыз ба?</string>
+    <string name="sign_in">Кіру</string>
+    <string name="registration">Тіркеу</string>
+    <string name="create_store">Дүкен жасау</string>
+    <string name="account_recovery">Есептік жазбаны қалпына келтіру</string>
+    <string name="reestablish">Kайта орнату</string>
+    <string name="amount_comparison">салыстыру \nмөлшері</string>
+    <string name="select_store_photo">Дүкен фотосуретін таңдаңыз</string>
+    <string name="name_shop">Дүкен атауы</string>
+    <string name="come_store_name">Дүкен атауын ойлап табыңыз</string>
+    <string name="store_description">Дүкен мінездемесі</string>
+    <string name="describe_your_store">Дүкеніңізді мінездемесі</string>
+    <string name="specialists">Мамандар</string>
+    <string name="go_to_website">Веб-сайтқа өтіңіз</string>
+    <string name="trade_in">Айырбастау</string>
+    <string name="more_about_product">Өнім туралы толығырақ</string>
+    <string name="shop">Дүкен:</string>
+    <string name="brand">Бренд:</string>
+    <string name="sellern_name">Сатушының аты:</string>
+    <string name="paid_services">Ақылы қызметтер</string>
+    <string name="urgently">Жедел түрде</string>
+    <string name="profile">Профиль</string>
+    <string name="confirm_mail">Поштаны растау</string>
+    <string name="confirm_phone">Телефон нөмірі растау</string>
+    <string name="edit">Өңдеу</string>
+    <string name="status">Күй</string>
+    <string name="phone_number">Телефон нөмірі</string>
+    <string name="delete_account">Есептік жазбаны жою</string>
+    <string name="delete_shop">Дүкенді жою</string>
+    <string name="save_and_exit">Сақтау және шығу</string>
+    <string name="enter_new_password">Жаңа құпия сөзді енгізіңіз</string>
+    <string name="enter_new_password2">Жаңа құпия сөзді қайта енгізіңіз</string>
+    <string name="enter_phone_number">Телефон нөмірін енгізіңіз</string>
+    <string name="verified">Тексерілді</string>
+    <string name="change_string">Өңдеу</string>
+    <string name="activeted">Іске қосу</string>
+    <string name="home">Негізгі</string>
+    <string name="comparison">Салыстыру</string>
+    <string name="about">Қолдау қызметі</string>
+    <string name="me_profile">Менің профилім</string>
+    <string name="my_store">Менің дүкенім</string>
+    <string name="sign_out">Аккаунтан Шығу</string>
+    <string name="other">Басқа</string>
+    <string name="settings">Баптаулар</string>
+    <string name="leave_feedback">Пікір қалдыру</string>
+    <string name="access_is_closed">Кіру жабық</string>
+    <string name="сreate_training_courses">Оқу курстарын құру</string>
+    <string name="fovarite_to">сүйікті</string>
+    <string name="error_android_version">Your Android version is no longer supported by our requirement inside the Promi.KZ app</string>
+    <string name="pay_story">Қолданбалардағы \nәңгімелер</string>
+    <string name="promi_tech">Promi tech</string>
+    <string name="pay_banner">Сайттағы жарнама, \nбаннер</string>
+    <string name="pay_between">Жарнамалар арасындағы \nжарнама</string>
+    <string name="improve_product">Өнімді жақсарту</string>
+    <string name="pay_extern">Мерзімд ұзарту</string>
+    <string name="pay_purchase">Сатып алу күйі расталды</string>
+    <string name="cancel">Болдырмау</string>
+    <string name="buy">Сатып алу</string>
+    <string name="current_password">Ағымдағы Құпия Сөз</string>
+    <string name="enter_old_password">Ескі құпия сөзді енгізіңіз</string>
+    <string name="enter_new_password_again">Жаңа құпия сөзді қайта енгізіңіз</string>
+    <string name="change_profile">Профильді өңдеу</string>
+    <string name="enter_specialitazion">Мамандығыңызды таңдаңыз</string>
+    <string name="specialization">Специализация</string>
+    <string name="confidentiality">Пайдаланушы келісімімен келісуіңіз керек</string>
+    <string name="privacy">Тіркелу арқылы сіз PromiKZ сайтындағы </string>
+    <string name="privacy2">Пайдаланушы келісімін</string>
+    <string name="privacy3">Құпиялылық саясатын және Ұсыныс келісімін қабылдайсыз</string>
+    <string name="title_activity_flea">FleaActivity</string>
+    <string name="promi_user_privacy">Құпиялылық саясаты</string>
+    <string name="complaint_title">Шағымның себебі</string>
+    <string name="long_time">Ұзақ уақыт жауап бермейді</string>
+    <string name="rud_seller">Дөрекі сатушы</string>
+    <string name="expensive_price">Тым қымбат баға</string>
+    <string name="describ">Себебін сипаттаңыз\n\n</string>
+    <string name="complaint">Шағымдану</string>
+    <string name="wait">Кішкене күте тұрыңыз</string>
+    <string name="change_specialist">Маман құру</string>
+    <string name="tenge_kz">\u0020Тг</string>
+    <string name="non_message">Сізде әлі жаңа хабарлар жоқ</string>
+    <string name="fast">Срочное</string>
+    <string name="select_country">Выберите город</string>
+    <string name="copy_link">Сілтемені көшіру</string>
+    <string name="confirm_phone_email">Нөмір мен электрондық поштаны растаңыз</string>
+    <string name="email_or_phone">электрондық пошта / телефон нөмірі</string>
+    <string name="new_text">Жаны</string>
+    <string name="my_promi">My promi</string>
+    <string name="user_privacy_policy">Политика конфиденциальности</string>
+    <string name="create_password">Құпиясөзді құру</string>
+    <string name="full_register">Толық тіркеу</string>
+    <string name="title_activity_auth">AuthActivity</string>
+
+    <string name="register_new_number">Жаңа нөмірді тіркеңіз</string>
+    <string name="error">Қате</string>
+    <string name="choose_photo_advertising">Жарнама үшін фотосуретті таңдаңыз</string>
+    <string name="enter_banner_link">Баннер сілтемесін енгізіңіз</string>
+    <string name="choose_photo_banner">Баннер үшін фотосуретті таңдаңыз</string>
+    <string name="select_main_photo">Негізгі фотосуретті таңдаңыз</string>
+    <string name="enter_title">Тақырыпты енгізіңіз</string>
+    <string name="enter_short_description">Қысқаша сипаттаманы енгізіңіз</string>
+    <string name="choose_photo">Қосымша фотосуретті таңдаңыз</string>
+    <string name="Enter_link_site">Сайтқа сілтеме енгізіңіз</string>
+    <string name="compare_empty">Салыстырулар бос</string>
+    <string name="close_dialog">Закрыть диалог</string>
+    <string name="select">Таңдау</string>
+    <string name="not_null_product_search">Бұл санатта өнім жоқ</string>
+    <string name="promi_gaides">Promi гайды</string>
+
+
+</resources>

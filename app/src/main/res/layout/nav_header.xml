@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
+
+    <LinearLayout
+        android:id="@+id/avatarLinear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:visibility="gone">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_circule_nav"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:paddingTop="5dp"
+                android:text="@string/name_string"
+                android:textColor="@color/fon1"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/image_circule_nav"
+                app:layout_constraintTop_toBottomOf="@+id/image_circule_nav"
+                tools:layout_editor_absoluteX="10dp" />
+            <TextView
+                android:id="@+id/user_emile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/emile"
+                android:textColor="@color/fon1"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="@+id/image_circule_nav"
+                app:layout_constraintTop_toBottomOf="@+id/user_name" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/avatarProgress"
+        android:indeterminateTint="@color/fon1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

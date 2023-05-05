@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_sheet_handle_width">30dp</dimen>
+    <dimen name="bottom_sheet_handle_height">5dp</dimen>
+    <dimen name="bottom_sheet_handle_top_margin">8dp</dimen>
+    <dimen name="all_radius_12dp">12dp</dimen>
+    <dimen name="all_micro_back">5dp</dimen>
+    <dimen name="item_micro_rectangle">28dp</dimen>
+    <dimen name="_8sdp">8dp</dimen>
+    <dimen name="_4sdp">4dp</dimen>
+    <dimen name="_25sdp">25dp</dimen>
+    <dimen name="_24sdp">24dp</dimen>
+    <dimen name="_12sdp">12dp</dimen>
+    <dimen name="_13ssp">13sp</dimen>
+    <dimen name="_8ssp">8sp</dimen>
+    <dimen name="_10ssp">10sp</dimen>
+    <dimen name="corner_radius">18dp</dimen>
+</resources>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/selectWinFragment">
+
+    <fragment
+        android:id="@+id/nav_view_menu_home"
+        android:name="product.promikz.screens.root.RootFragment"
+        android:label="fragment_root"
+        tools:layout="@layout/fragment_root" >
+        <action
+            android:id="@+id/action_nav_view_menu_home_to_googleTaskExampleDialog"
+            app:destination="@id/googleTaskExampleDialog"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_view_menu_home_to_twoAdvertFragment"
+            app:destination="@id/homeTwoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="product.promikz.screens.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/favorit"
+        android:name="product.promikz.screens.create.newProduct.ProducCreateFragment"
+        android:label="fragment_two"
+        tools:layout="@layout/fragment_create_product" />
+    <fragment
+        android:id="@+id/fragment_vxod"
+        android:name="product.promikz.screens.profile.ProfileFragment"
+        android:label="fragment_one_advert"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="product.promikz.screens.update.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" >
+
+     </fragment>
+    <dialog
+        android:id="@+id/googleTaskExampleDialog"
+        android:name="product.promikz.screens.shop.ReviewAllFragment"
+        android:label="GoogleTaskExampleDialog" >
+        <action
+            android:id="@+id/action_googleTaskExampleDialog_to_nav_view_menu_home"
+            app:destination="@id/nav_view_menu_home"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </dialog>
+    <fragment
+        android:id="@+id/homeTwoFragment"
+        android:name="product.promikz.screens.home.TwoAdvertFragment"
+        android:label="fragment_two_advert"
+        tools:layout="@layout/fragment_two_advert" >
+        <action
+            android:id="@+id/action_homeTwoFragment_to_nav_view_menu_home"
+            app:destination="@id/nav_view_menu_home"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_homeTwoFragment_to_homeFragmentPlus"
+            app:destination="@id/homeFragmentPlus" />
+        <action
+            android:id="@+id/action_homeTwoFragment_to_homeFragmentPlusTradeIn"
+            app:destination="@id/homeFragmentPlusTradeIn" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragmentPlus"
+        android:name="product.promikz.screens.home.categoryfilter.HomeFragmentPlus"
+        android:label="fragment_home_plus"
+        tools:layout="@layout/fragment_home_plus" >
+        <action
+            android:id="@+id/action_homeFragmentPlus_self"
+            app:destination="@id/homeFragmentPlus" />
+        <action
+            android:id="@+id/action_homeFragmentPlus_to_homeFragmentPlusBrand"
+            app:destination="@id/homeFragmentPlusBrand" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragmentPlusBrand"
+        android:name="product.promikz.screens.home.categoryfilter.HomeFragmentPlusBrand"
+        android:label="fragment_home_plus_brand"
+        tools:layout="@layout/fragment_home_plus_brand" >
+        <action
+            android:id="@+id/action_homeFragmentPlusBrand_self"
+            app:destination="@id/homeFragmentPlusBrand" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectWinFragment"
+        android:name="product.promikz.screens.selectWin.SelectWinFragment"
+        android:label="fragment_select_win"
+        tools:layout="@layout/fragment_select_win" >
+        <action
+            android:id="@+id/action_selectWinFragment_to_nav_view_menu_home"
+            app:destination="@id/nav_view_menu_home"
+            app:enterAnim="@anim/zoom_enter"
+            app:exitAnim="@anim/zoom_exit"
+            app:popEnterAnim="@anim/zoom_back"
+            app:popExitAnim="@anim/zoom_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragmentPlusTradeIn"
+        android:name="product.promikz.screens.tradeIn.HomeFragmentPlusTradeIn"
+        android:label="HomeFragmentPlusTradeIn"
+        tools:layout="@layout/fragment_home_plus">
+        <action
+            android:id="@+id/action_homeFragmentPlusTradeIn_self"
+            app:destination="@id/homeFragmentPlusTradeIn" />
+    </fragment>
+
+</navigation>

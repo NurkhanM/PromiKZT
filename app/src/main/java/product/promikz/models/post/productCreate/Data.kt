@@ -1,0 +1,31 @@
+package product.promikz.models.post.productCreate
+
+data class Data(
+    val brand: Brand,
+    val categories: List<Category>,
+    val city: City,
+    val created_at: String,
+    val description: String,
+    val fields: List<Field>,
+    val hot: Int,
+    val id: Int,
+    val images: List<Any>,
+    val img: String,
+    val isLike: Boolean,
+    val isRating: Float?,
+    val isReport: Int?,
+    val likeCount: Any,
+    val name: String,
+    val price: String,
+    val ratingsAvg: Float?,
+    val review: Int,
+    val shop: Shop,
+    val state: String,
+    val status: Any,
+    val top: Any,
+    val trade_in: Any,
+    val user: User,
+    val verified: Int,
+    val views: Int,
+    val vip_status: String?
+)
