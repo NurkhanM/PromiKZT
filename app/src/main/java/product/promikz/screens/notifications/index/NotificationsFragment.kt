@@ -2,26 +2,26 @@ package product.promikz.screens.notifications.index
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import product.promikz.R
-import product.promikz.viewModels.HomeViewModel
 import product.promikz.AppConstants.TOKEN_USER
+import product.promikz.R
 import product.promikz.databinding.FragmentNotificationsBinding
 import product.promikz.inteface.IClickListnearNotification
+import product.promikz.screens.notifications.index.NotificationAdapter.Companion.VIEW_TYPE_PROMI
+import product.promikz.screens.notifications.index.NotificationAdapter.Companion.VIEW_TYPE_UNREADED
+import product.promikz.screens.notifications.show.NotificationShowActivity
+import product.promikz.viewModels.HomeViewModel
 
 
 class NotificationsFragment : Fragment() {
-
     private var _binding: FragmentNotificationsBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var mNotification: HomeViewModel
-
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: NotificationAdapter
 
@@ -30,36 +30,55 @@ class NotificationsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment
-        mNotification = ViewModelProvider(this)[HomeViewModel::class.java]
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-        val view = binding
+        mNotification = ViewModelProvider(this)[HomeViewModel::class.java]
         adapter = NotificationAdapter(object : IClickListnearNotification {
+            override fun clickListener(
+                baseID: String,
+                position: Int,
+                holder: RecyclerView.ViewHolder
+            ) {
+                var notifType = VIEW_TYPE_PROMI
+                when (holder) {
+                    is NotificationAdapter.MyViewHolderReaded -> {
+                        notifType = holder.notifType
 
-            override fun clickListener(baseID: String, position: Int) {
-//                val intent = Intent(requireActivity(), NotificationShowActivity::class.java)
-//                intent.putExtra("idNotif", baseID)
-//                startActivity(intent)
+                    }
+                    is NotificationAdapter.MyViewHolderUnreaded -> {
+                        notifType = holder.notifType
+                        if (holder.readType == VIEW_TYPE_UNREADED)
+                            holder.binding.ivUnreaded.visibility = View.GONE
+                    }
+                }
+                val intent = if (notifType == VIEW_TYPE_PROMI)
+                    NotificationShowActivity.newIntentPromiNotification(
+                        requireContext(),
+                        baseID
+                    )
+                else
+                    NotificationShowActivity.newIntentReportNotification(
+                        requireContext(),
+                        baseID
+                    )
+                startActivity(intent)
+
+
             }
         })
+        with(binding) {
+            recyclerView = rvFavoritesActivity
+            recyclerView.adapter = adapter
+            nBackCard.setOnClickListener {
+                activity?.onBackPressed()
+                activity?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+            }
 
-        recyclerView = view.rvFavoritesActivity
-        recyclerView.adapter = adapter
-
+            swipeRefreshLayoutFavorites.setOnRefreshListener {
+                ref()
+            }
+        }
         ref()
-
-
-        view.nBackCard.setOnClickListener {
-            activity?.onBackPressed()
-            activity?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right )
-        }
-
-        view.swipeRefreshLayoutFavorites.setOnRefreshListener {
-            ref()
-
-        }
-
-        return view.root
+        return binding.root
     }
 
 
@@ -67,21 +86,17 @@ class NotificationsFragment : Fragment() {
     fun ref() {
         mNotification.getNotification("Bearer $TOKEN_USER")
         mNotification.myNotificationList.observe(viewLifecycleOwner) { list ->
-
-            if (list.isSuccessful) {
-                list.body()?.data?.let { adapter.setData(it) }
-                binding.swipeRefreshLayoutFavorites.isRefreshing = false
-            } else {
-                binding.swipeRefreshLayoutFavorites.visibility = View.GONE
-                binding.FavoritesWorkError.visibility = View.VISIBLE
+            with(binding) {
+                if (list.isSuccessful) {
+                    list.body()?.data?.let { adapter.setData(it) }
+                    swipeRefreshLayoutFavorites.isRefreshing = false
+                } else {
+                    swipeRefreshLayoutFavorites.visibility = View.GONE
+                    FavoritesWorkError.visibility = View.VISIBLE
+                }
             }
             adapter.notifyDataSetChanged()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }

@@ -11,11 +11,26 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialiconsoutlined/help_outline/outline_help_outline_24.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_gaid_pay" />
-                            <entry key="sourceFile" value="$USER_HOME$/Desktop/ic_gaid_pay.svg" />
+                            <entry key="outputName" value="ic_help" />
+                            <entry key="sourceFile" value="$USER_HOME$/Desktop/ic_help.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -52,6 +52,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import product.promikz.AppConstants.COUNTRY_ID
 import product.promikz.MyUtils.uLogD
+import product.promikz.MyUtils.uToast
 import product.promikz.screens.create.newProduct.country.CounterSelectFragment
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -242,6 +243,7 @@ class ProducCreateFragment : Fragment() {
 
                             for (i in 0 until sizeRequired.size) {
                                 fields["fields[${sizeRequired[i]}]"] = rb(rbView(ed[i]))
+                                uLogD("TEST ->rbView(ed[i] == ${rbView(ed[i])}")
                             }
 
 //                        }

@@ -15,7 +15,6 @@ import android.view.*
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -34,7 +33,6 @@ import product.promikz.*
 import product.promikz.AppConstants.APP_PREFERENCES
 import product.promikz.AppConstants.FILTERS_TYPE
 import product.promikz.AppConstants.ID_SHOP_MY
-import product.promikz.AppConstants.KEY_THEME
 import product.promikz.AppConstants.PROGRESS_COUNT
 import product.promikz.AppConstants.TOKEN_USER
 import product.promikz.AppConstants.followBannerString
@@ -57,7 +55,6 @@ import product.promikz.inteface.IClickListnearHomeStory
 import product.promikz.models.test.storeGaid.GaidModels
 import product.promikz.screens.hometwo.adapters.GaidAdapter
 import product.promikz.screens.hometwo.adapters.ViewsRatingAdapter
-import product.promikz.screens.hometwo.gaid.GaidActivity
 import product.promikz.screens.hometwo.story.HomeTwoAdapter
 import product.promikz.screens.hometwo.story.StoryActivity
 import product.promikz.screens.kursy.KursyActivity
@@ -105,6 +102,7 @@ class HomeTwoFragment : Fragment() {
         super.onStart()
         mHomeViewModel.getStory()
     }
+
     @Suppress("DEPRECATION")
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     override fun onCreateView(
@@ -123,7 +121,8 @@ class HomeTwoFragment : Fragment() {
         }
 
         view.btnHomeAllStanki.setOnClickListener {
-            Navigation.findNavController(view.root).navigate(R.id.action_nav_view_menu_home_to_twoAdvertFragment)
+            Navigation.findNavController(view.root)
+                .navigate(R.id.action_nav_view_menu_home_to_twoAdvertFragment)
         }
 
         view.btnHomeAllSpecialist.setOnClickListener {
@@ -193,7 +192,12 @@ class HomeTwoFragment : Fragment() {
         adapterViews = ViewsRatingAdapter(
             object : IClickListnearHomeRating {
 
-                override fun clickListener(baseID: Int, viewAdapter: ItemHomeViewRatingBinding, isLike: Boolean, position: Int) {
+                override fun clickListener(
+                    baseID: Int,
+                    viewAdapter: ItemHomeViewRatingBinding,
+                    isLike: Boolean,
+                    position: Int
+                ) {
                     if (!isLike) {
                         viewAdapter.imgFavorite.setImageResource(R.drawable.ic_favorite2)
                     } else {
@@ -218,7 +222,7 @@ class HomeTwoFragment : Fragment() {
                         try {
                             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(favorite))
                             startActivity(browserIntent)
-                        }catch (e: ActivityNotFoundException){
+                        } catch (e: ActivityNotFoundException) {
                             uToast(requireContext(), resources.getString(R.string.error_link))
                         }
                     }
@@ -235,7 +239,12 @@ class HomeTwoFragment : Fragment() {
         adapterRatingAvg = ViewsRatingAdapter(
             object : IClickListnearHomeRating {
 
-                override fun clickListener(baseID: Int, viewAdapter: ItemHomeViewRatingBinding, isLike: Boolean, position: Int) {
+                override fun clickListener(
+                    baseID: Int,
+                    viewAdapter: ItemHomeViewRatingBinding,
+                    isLike: Boolean,
+                    position: Int
+                ) {
                     if (!isLike) {
                         viewAdapter.imgFavorite.setImageResource(R.drawable.ic_favorite2)
                     } else {
@@ -259,7 +268,7 @@ class HomeTwoFragment : Fragment() {
                         try {
                             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(favorite))
                             startActivity(browserIntent)
-                        }catch (e: ActivityNotFoundException){
+                        } catch (e: ActivityNotFoundException) {
                             uToast(requireContext(), resources.getString(R.string.error_link))
                         }
                     }
@@ -276,18 +285,46 @@ class HomeTwoFragment : Fragment() {
         adapterGaid = GaidAdapter(
             object : IClickListnearHomeFavorite {
 
-                override fun clickListener(baseID: Int, viewAdapter: ItemMakeupModelsBinding, isLike: Boolean, position: Int) {
-                   //todo
+                override fun clickListener(
+                    baseID: Int,
+                    viewAdapter: ItemMakeupModelsBinding,
+                    isLike: Boolean,
+                    position: Int
+                ) {
+                    //todo
                 }
 
                 override fun clickListener2(baseID: Int, adver: Int, favorite: String) {
 
-                        val intent = Intent(requireActivity(), GaidActivity::class.java)
-                        intent.putExtra("gaid", baseID)
-                        startActivity(intent)
-                        (activity as AppCompatActivity).overridePendingTransition(
-                            R.anim.zoom_enter,
-                            R.anim.zoom_exit)
+//                        val intent = Intent(requireActivity(), GaidActivity::class.java)
+//                        intent.putExtra("gaid", baseID)
+//                        startActivity(intent)
+//                        (activity as AppCompatActivity).overridePendingTransition(
+//                            R.anim.zoom_enter,
+//                            R.anim.zoom_exit)
+
+                    when (baseID) {
+                        0 -> {
+                            Navigation.findNavController(view.root)
+                                .navigate(R.id.action_nav_view_menu_home_to_createShopGaidFragment)
+                        }
+
+                        1 -> {
+                            Navigation.findNavController(view.root)
+                                .navigate(R.id.action_nav_view_menu_home_to_gaidPayFragment)
+                        }
+
+                        2 -> {
+                            Navigation.findNavController(view.root)
+                                .navigate(R.id.action_nav_view_menu_home_to_gaidAdsFragment)
+                        }
+
+                        else -> {
+                            Navigation.findNavController(view.root)
+                                .navigate(R.id.action_nav_view_menu_home_to_gaidAuthFragment)
+                        }
+                    }
+
 
                 }
 
@@ -297,10 +334,10 @@ class HomeTwoFragment : Fragment() {
         recyclerGaid.setHasFixedSize(true)
 
         val arGaid = arrayListOf(
-            GaidModels(R.drawable.ic_gaid_store,"Создание\nмагазина"),
-            GaidModels(R.drawable.ic_gaid_pay,"Платные\nуслуги"),
-            GaidModels(R.drawable.ic_gaid_ads,"Объявления"),
-            GaidModels(R.drawable.ic_gaid_auth,"Авторизация")
+            GaidModels(R.drawable.ic_gaid_store, "Создание\nмагазина"),
+            GaidModels(R.drawable.ic_gaid_pay, "Платные\nуслуги"),
+            GaidModels(R.drawable.ic_gaid_ads, "Объявления"),
+            GaidModels(R.drawable.ic_gaid_auth, "Авторизация")
         )
 
         adapterGaid.setList(arGaid)
@@ -319,9 +356,9 @@ class HomeTwoFragment : Fragment() {
         mHomeViewModel.myStory.observe(viewLifecycleOwner)
         { response ->
 
-            if (response.body()?.data?.isNotEmpty() == true){
+            if (response.body()?.data?.isNotEmpty() == true) {
                 response.body()?.data?.let { adapterStory.setList(it) }
-            }else{
+            } else {
                 view.homeTxtStory.visibility = View.GONE
             }
 
@@ -336,14 +373,11 @@ class HomeTwoFragment : Fragment() {
         )
 
 
-
 //        if (preferencesTheme.getString(KEY_THEME, "error_theme").toString() == "white") {
 //            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 //        } else if (preferencesTheme.getString(KEY_THEME, "error_theme").toString() == "black") {
 //            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 //        }
-
-
 
 
         view.txtAllStanok.text = "${resources.getText(R.string.total)} $totalCountProduct"
@@ -370,7 +404,7 @@ class HomeTwoFragment : Fragment() {
 
     private fun viewsGetRequest() {
 
-        mHomeViewModel.getSortView("Bearer $TOKEN_USER","views;desc")
+        mHomeViewModel.getSortView("Bearer $TOKEN_USER", "views;desc")
         mHomeViewModel.mySortView.observe(viewLifecycleOwner) { list ->
             if (list.isSuccessful) {
                 list.body()?.data?.let { adapterViews.setList(it) }
@@ -380,7 +414,7 @@ class HomeTwoFragment : Fragment() {
 
     private fun ratingAvgGetRequest() {
 
-        mHomeViewModel.getSortRating("Bearer $TOKEN_USER","ratingsAvg;desc")
+        mHomeViewModel.getSortRating("Bearer $TOKEN_USER", "ratingsAvg;desc")
         mHomeViewModel.mySortRating.observe(viewLifecycleOwner) { list ->
             if (list.isSuccessful) {
                 list.body()?.data?.let { adapterRatingAvg.setList(it) }
@@ -461,28 +495,28 @@ class HomeTwoFragment : Fragment() {
         slideHandler.postDelayed(slideRunnable, 5000)
         userUpdate()
         viewsGetRequest()
-        if (totalNotification == 0){
+        if (totalNotification == 0) {
             binding.boardSize.visibility = View.GONE
-        } else{
+        } else {
             binding.boardSize.text = totalNotification.toString()
         }
 
     }
 
 
-    private fun userUpdate(){
+    private fun userUpdate() {
         mHomeViewModel.getUser("Bearer $TOKEN_USER")
         mHomeViewModel.myUser.observe(viewLifecycleOwner) { response ->
             if (response.isSuccessful) {
                 userIDChat = response.body()?.data?.id
-                ID_SHOP_MY = if (response.body()?.data?.shop == null){
+                ID_SHOP_MY = if (response.body()?.data?.shop == null) {
                     -1
                 } else {
                     response.body()?.data?.shop?.id!!
                 }
 
-                FirebaseMessaging.getInstance().token.addOnCompleteListener {  task ->
-                    if (!task.isSuccessful){
+                FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                    if (!task.isSuccessful) {
                         return@addOnCompleteListener
                     }
 
@@ -493,7 +527,6 @@ class HomeTwoFragment : Fragment() {
                 if (response.body()?.data?.specialist != null) {
                     getSpecialistIDSTATE = true
                 }
-
 
 
                 val navView = activityBinding?.navView
@@ -541,7 +574,7 @@ class HomeTwoFragment : Fragment() {
     }
 
 
-    private fun nextNotificationState(){
+    private fun nextNotificationState() {
         val intent = Intent(requireActivity(), NotificationsActivity::class.java)
         startActivity(intent)
         (activity as AppCompatActivity).overridePendingTransition(
@@ -566,7 +599,10 @@ class HomeTwoFragment : Fragment() {
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) ==
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) ==
                 PackageManager.PERMISSION_GRANTED
             ) {
                 nextNotificationState()

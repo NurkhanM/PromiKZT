@@ -24,6 +24,18 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_view_menu_home_to_gaidAuthFragment"
+            app:destination="@id/gaidAuthFragment" />
+        <action
+            android:id="@+id/action_nav_view_menu_home_to_createShopGaidFragment"
+            app:destination="@id/createShopGaidFragment" />
+        <action
+            android:id="@+id/action_nav_view_menu_home_to_gaidAdsFragment"
+            app:destination="@id/gaidAdsFragment" />
+        <action
+            android:id="@+id/action_nav_view_menu_home_to_gaidPayFragment"
+            app:destination="@id/gaidPayFragment" />
     </fragment>
 
     <fragment
@@ -122,5 +134,23 @@
             android:id="@+id/action_homeFragmentPlusTradeIn_self"
             app:destination="@id/homeFragmentPlusTradeIn" />
     </fragment>
+    <fragment
+        android:id="@+id/gaidAuthFragment"
+        android:name="product.promikz.screens.hometwo.gaid.GaidAuthFragment"
+        android:label="fragment_gaid_auth"
+        tools:layout="@layout/fragment_gaid_auth" />
+    <fragment
+        android:id="@+id/createShopGaidFragment"
+        android:name="product.promikz.screens.hometwo.gaid.GaidShopFragment"
+        android:label="fragment_gaid_create_shop"
+        tools:layout="@layout/fragment_gaid_shop" />
+    <fragment
+        android:id="@+id/gaidAdsFragment"
+        android:name="product.promikz.screens.hometwo.gaid.GaidAdsFragment"
+        android:label="GaidAdsFragment" />
+    <fragment
+        android:id="@+id/gaidPayFragment"
+        android:name="product.promikz.screens.hometwo.gaid.GaidPayFragment"
+        android:label="GaidPayFragment" />
 
 </navigation>

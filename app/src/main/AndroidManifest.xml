@@ -52,10 +52,6 @@
             </intent-filter>
         </activity>
 
-
-        <activity
-            android:name=".screens.hometwo.gaid.GaidActivity"
-            android:exported="false" />
         <activity
             android:name=".screens.specialist.filter.FilterSpecialistActivity"
             android:exported="false" />

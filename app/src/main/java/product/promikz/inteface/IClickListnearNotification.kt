@@ -1,5 +1,8 @@
 package product.promikz.inteface
 
+import androidx.recyclerview.widget.RecyclerView
+
 interface IClickListnearNotification {
-    fun clickListener(baseID: String, position: Int )
+    //todo для чего Position
+    fun clickListener(baseID: String, position: Int, holder: RecyclerView.ViewHolder)
 }

@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.TranslateAnimation
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
@@ -33,7 +36,7 @@ class CheckUserFragment : Fragment() {
     private var activityBinding: ActivityAuthBinding? = null
 
 
-
+    private lateinit var animation: Animation
 
 
 
@@ -51,6 +54,23 @@ class CheckUserFragment : Fragment() {
         _binding = FragmentCheckUserBinding.inflate(inflater, container, false)
 
         dialog = Dialog(requireContext())
+
+        animation = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_in_right_auth)
+        animation.fillAfter = true
+        animation.duration = 500
+
+
+        binding.floatingActionButton.setOnClickListener {
+            if (binding.textview.visibility == View.GONE) {
+                binding.textview.visibility = View.VISIBLE
+                binding.textview.startAnimation(animation)
+            } else {
+                binding.textview.visibility = View.GONE
+                binding.textview.clearAnimation()
+            }
+        }
+
+
 
 
 

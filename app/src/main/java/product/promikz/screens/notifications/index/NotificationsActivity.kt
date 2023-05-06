@@ -10,12 +10,8 @@ import product.promikz.R
 import product.promikz.databinding.ActivityNotificationsBinding
 
 class NotificationsActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityNotificationsBinding
-
     private lateinit var mNotificationsFragment: NotificationsFragment
-
-
     @SuppressLint("CommitTransaction")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +24,9 @@ class NotificationsActivity : AppCompatActivity() {
                 binding.notificationsConnect.visibility = View.VISIBLE
             } else {
                 binding.disconnect.root.visibility = View.VISIBLE
-                binding.notificationsConnect.visibility = View.GONE
+                binding. notificationsConnect.visibility = View.GONE
             }
         }
-
         mNotificationsFragment = NotificationsFragment()
         supportFragmentManager
             .beginTransaction()
