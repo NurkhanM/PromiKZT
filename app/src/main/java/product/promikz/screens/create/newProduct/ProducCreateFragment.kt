@@ -73,18 +73,20 @@ class ProducCreateFragment : Fragment() {
     private var stateSelectImageFirst = false
     private var stateSelectImageMulti = false
     private var isHarakter: Boolean = true
+
     private lateinit var filePart2: List<MultipartBody.Part>
 
     private lateinit var productModel: CreateViewModel
 
-
     private val params = HashMap<String, RequestBody>()
+
     private val fields = HashMap<String, RequestBody>()
 
     private lateinit var viewModel: HomeViewModel
 
     private val ed = ArrayList<View>()
-
+    private val ed2 = ArrayList<View>()
+    private val edPivotID = ArrayList<Int>()
 
     @Suppress("DEPRECATION")
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n", "SuspiciousIndentation")
@@ -226,14 +228,27 @@ class ProducCreateFragment : Fragment() {
                 binding.textNewProductCategory.length() != 0 && COUNTRY_ID != 0
             ) {
                 if (stateSelectImageFirst && stateSelectImageMulti) {
+
+
+                    ed2.forEachIndexed { index, view ->
+
+                        when (view){
+                            is EditText -> {
+                                if (view.text.isNotEmpty()){
+                                    fields["fields[${edPivotID[index]}]"] = rb(rbView(ed2[index]))
+                                }
+                            }
+
+                            else -> {
+                                    fields["fields[${edPivotID[index]}]"] = rb(rbView(ed2[index]))
+                            }
+                        }
+
+                    }
+
+
                     viewModel.myGetCategoryID.observe(viewLifecycleOwner) { li ->
 
-
-
-                        uLogD("TEST ->ed == $ed")
-
-
-//                        if (fieldsStatus(ed)){
                             val sizeRequired = ArrayList<Int>()
                             li.body()?.data?.fields?.forEach { countR ->
                                 if (countR.required == 1){
@@ -243,10 +258,7 @@ class ProducCreateFragment : Fragment() {
 
                             for (i in 0 until sizeRequired.size) {
                                 fields["fields[${sizeRequired[i]}]"] = rb(rbView(ed[i]))
-                                uLogD("TEST ->rbView(ed[i] == ${rbView(ed[i])}")
                             }
-
-//                        }
 
 
                     }
@@ -358,7 +370,22 @@ class ProducCreateFragment : Fragment() {
 
         }
 
-        binding.txtDop.setOnClickListener {
+
+//        binding.swichFields.setOnCheckedChangeListener { _, isChecked ->
+//            // Обработка события нажатия на переключатель
+//            if (isChecked){
+//                binding.inElectron.visibility = View.VISIBLE
+//                binding.showFiedls.visibility = View.VISIBLE
+//                isFieldsState()
+//            }else{
+//                binding.inElectron.visibility = View.GONE
+//                binding.showFiedls.visibility = View.GONE
+//            }
+//
+//        }
+
+
+        binding.showFiedls.setOnClickListener {
             if (isHarakter) {
                 isHarakter = false
                 binding.imgHarakter.setImageResource(R.drawable.bottom_right)
@@ -368,12 +395,19 @@ class ProducCreateFragment : Fragment() {
                 binding.imgHarakter.setImageResource(R.drawable.bottom)
                 binding.inElectron.visibility = View.VISIBLE
             }
-
         }
 
         return binding.root
     }
 
+
+    private fun isFieldsState(){
+        if (!isHarakter) {
+            isHarakter = true
+            binding.imgHarakter.setImageResource(R.drawable.bottom)
+            binding.inElectron.visibility = View.VISIBLE
+        }
+    }
 
     private fun fieldsStatus(arr: ArrayList<View>): Boolean {
         val massiv = ArrayList<Boolean>()
@@ -450,7 +484,15 @@ class ProducCreateFragment : Fragment() {
             params["review"] = rb("0")
         }
 
+//        if (fieldsStatus(ed)){
+//
+//    }
 
+        if (binding.swichFields.isChecked) {
+            params["show_fields"] = rb("1")
+        } else {
+            params["show_fields"] = rb("0")
+        }
         productModel.pushProductCreate(
             "Bearer $TOKEN_USER",
             params,
@@ -511,6 +553,8 @@ class ProducCreateFragment : Fragment() {
 
             binding.inElectron.removeAllViews()
             ed.clear()
+            ed2.clear()
+            edPivotID.clear()
 
             try {
 
@@ -578,6 +622,9 @@ class ProducCreateFragment : Fragment() {
 
                             textView.text = spannableString
                             ed.add(editText)
+                        }else{
+                            ed2.add(editText)
+                            edPivotID.add(list.body()?.data?.fields?.get(i)?.pivot_id!!)
                         }
 
 
@@ -640,7 +687,11 @@ class ProducCreateFragment : Fragment() {
 
                             textView.text = spannableString
                             ed.add(editText)
+                        }else{
+                            ed2.add(editText)
+                            edPivotID.add(list.body()?.data?.fields?.get(i)?.pivot_id!!)
                         }
+
                     }
 
                     if (list.body()?.data?.fields?.get(i)?.type == "rate") {
@@ -757,6 +808,10 @@ class ProducCreateFragment : Fragment() {
                             textView.text = spannableString
                             ed.add(slider)
                         }
+                        else{
+                            ed2.add(slider)
+                            edPivotID.add(list.body()?.data?.fields?.get(i)?.pivot_id!!)
+                        }
 
 
                     }
@@ -794,9 +849,11 @@ class ProducCreateFragment : Fragment() {
                             spannableString.setSpan(colorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
                             textView.text = spannableString
-                            uLogD("TEST -> $spinner")
-                            uLogD("TEST -> ${spinner.prompt}")
                             ed.add(spinner)
+                        }
+                        else{
+                            ed2.add(spinner)
+                            edPivotID.add(list.body()?.data?.fields?.get(i)?.pivot_id!!)
                         }
 
 
@@ -920,6 +977,9 @@ class ProducCreateFragment : Fragment() {
             if (result != null) {
                 binding.textNewProductCategory.setText(result)
                 uploadProductElectronic(getCategoryID)
+                binding.fieldsTextNull.visibility = View.GONE
+                binding.txtDop.visibility = View.VISIBLE
+                binding.swichFields.isChecked = true
             }
         } else if (requestCode == 63 && resultCode == Activity.RESULT_OK) {
             val result = data?.getStringExtra("textBrand2")

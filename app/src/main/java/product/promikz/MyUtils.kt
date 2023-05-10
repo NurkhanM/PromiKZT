@@ -13,7 +13,7 @@ object MyUtils {
     }
 
     fun uLogD (message: String?){
-        Log.d("test", "-> = $message")
+        Log.d("TEST ", "-> = $message")
     }
 
     fun uGlide(context: Context, view: ImageView, url: Any?){

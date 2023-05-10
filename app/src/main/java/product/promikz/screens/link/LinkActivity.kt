@@ -50,7 +50,6 @@ class LinkActivity : AppCompatActivity() {
         // Получить данные из URL-адреса
         val data: Uri? = intent?.data
 
-        uLogD("TEST -> data1 == $data")
 
         preferencesTOKEN = getSharedPreferences(
             AppConstants.APP_PREFERENCES,

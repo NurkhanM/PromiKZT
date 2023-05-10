@@ -305,7 +305,6 @@
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="match_parent"
                             android:layout_height="120dp"
-                            android:background="?colorPrimaryDark"
                             android:contentDescription="@string/todo"
                             android:padding="10dp"
                             android:scaleType="centerCrop"

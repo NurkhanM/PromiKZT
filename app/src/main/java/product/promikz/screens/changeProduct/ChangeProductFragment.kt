@@ -54,7 +54,6 @@ import product.promikz.AppConstants.COUNTRY_ID
 import product.promikz.AppConstants.getBrandID
 import product.promikz.AppConstants.getCategoryID
 import product.promikz.MyUtils
-import product.promikz.MyUtils.uLogD
 import product.promikz.MyUtils.uToast
 import product.promikz.screens.create.newProduct.brand.BrandProductChangeFragment
 import product.promikz.screens.create.newProduct.category.CategoryChangeFragment
@@ -85,11 +84,14 @@ class ChangeProductFragment : Fragment() {
     private val map = HashMap<String, RequestBody>()
 
     private val ed = ArrayList<View>()
-    private val pivotID = ArrayList<Int>()
+    private val ed2 = ArrayList<View>()
     private val uploadED = ArrayList<View>()
+    private val uploadED2 = ArrayList<View>()
+    private val edPivotID = ArrayList<Int>()
 
 
     private var start = false
+    private var isHarakter: Boolean = true
     private var nameSave: String? = null
     private var priceSave: Int? = -1
     private var descriptionSave: String? = null
@@ -278,6 +280,10 @@ class ChangeProductFragment : Fragment() {
 
             binding.changeProSpinnerState.setSelection(list.body()!!.data.state)
 
+            if (list.body()?.data?.show_fields == true){
+                binding.swichFields.isChecked = true
+            }
+
 
 //            mChangeProUpdate.getCategoryID(
 //                "Bearer $TOKEN_USER",
@@ -311,19 +317,21 @@ class ChangeProductFragment : Fragment() {
 
                     val jsonObj = JSONObject(list.errorBody()!!.charStream().readText())
                     val jsonObjError = JSONObject(jsonObj.getString("errors"))
-                    var message = ""
+                    val messageArray = ArrayList<String>()
 
-                    for (name in jsonObjError.keys()) {
+                    for (name in jsonObjError.keys()){
 
                         val nameArray = jsonObjError.getJSONArray(name)
 
-                        for (i in 0 until nameArray.length()) {
-                            message = nameArray.getString(i)
+                        for (i in 0 until nameArray.length()){
+                            messageArray.add(nameArray.getString(i))
+                            messageArray.add("\n\n")
+
                         }
 
                     }
 
-                    alertDialogCancel(message)
+                    alertDialogCancel(messageArray.joinToString().replace(",", ""))
 
                 } catch (e: JSONException) {
                     Toast.makeText(requireContext(), "Error Server", Toast.LENGTH_SHORT).show()
@@ -343,15 +351,24 @@ class ChangeProductFragment : Fragment() {
                 if (binding.textNewChangeProName.length() != 0 && binding.textNewChangeProDescription.length() != 0 &&
                     binding.changeProSpinnerState.selectedItem != null
                 ) {
+
+
+                    ed2.forEachIndexed { index, view ->
+                        when (view){
+                            is EditText -> {
+                                if (view.text.isNotEmpty()){
+                                    map["fields[${edPivotID[index]}]"] = rb(rbView(ed2[index]))
+                                }
+                            }
+
+                            else -> {
+                                map["fields[${edPivotID[index]}]"] = rb(rbView(ed2[index]))
+                            }
+                        }
+
+                    }
+
                     mChangeProUpdate.myGetCategoryEnd.observe(viewLifecycleOwner) { li ->
-//                        for (i in 0 until li.body()?.data?.fields?.size!!.toInt()) {
-//
-//                            map["fields[${li.body()?.data?.fields?.get(i)?.pivot_id.toString()}]"] =
-//                                rb(rbView(ed[i]))
-//
-//
-//                        }
-//                    }
 
                         val sizeRequired = ArrayList<Int>()
                         li.body()?.data?.fields?.forEach { countR ->
@@ -363,6 +380,8 @@ class ChangeProductFragment : Fragment() {
                         for (i in 0 until sizeRequired.size) {
                             map["fields[${sizeRequired[i]}]"] = rb(rbView(ed[i]))
                         }
+
+
 
                         uploadProduct()
 
@@ -382,12 +401,24 @@ class ChangeProductFragment : Fragment() {
                 }
             } else {
 
+                uploadED2.forEachIndexed { index, view ->
+
+                    when (view){
+                        is EditText -> {
+                            if (view.text.isNotEmpty()){
+                                map["fields[${edPivotID[index]}]"] = rb(rbView(uploadED2[index]))
+                            }
+                        }
+
+                        else -> {
+                            map["fields[${edPivotID[index]}]"] = rb(rbView(uploadED2[index]))
+                        }
+                    }
+
+                }
+
+
                 mChangeProUpdate.myShowProducts.observe(viewLifecycleOwner) { li ->
-//                    for (i in 0 until li.body()?.data?.fields?.size!!.toInt()) {
-//
-//                        map["fields[${li.body()?.data?.fields?.get(i)?.pivot_id.toString()}]"] =
-//                            rb(rbView(uploadED[i]))
-//                    }
 
                     val sizeRequired = ArrayList<Int>()
                     li.body()?.data?.fields?.forEach { countR ->
@@ -482,6 +513,21 @@ class ChangeProductFragment : Fragment() {
         }
 
 
+        binding.showFiedls.setOnClickListener {
+            if (isHarakter) {
+                isHarakter = false
+                binding.imgHarakter.setImageResource(R.drawable.bottom_right)
+                binding.inChangeProElectron.visibility = View.GONE
+                binding.fieldsUpload.visibility = View.GONE
+            } else {
+                isHarakter = true
+                binding.imgHarakter.setImageResource(R.drawable.bottom)
+                binding.inChangeProElectron.visibility = View.VISIBLE
+                binding.fieldsUpload.visibility = View.VISIBLE
+            }
+        }
+
+
         return binding.root
 
 
@@ -541,6 +587,12 @@ class ChangeProductFragment : Fragment() {
 
         if (binding.swichReview.isChecked) {
             installment["review"] = rb("1")
+        }
+
+        if (binding.swichFields.isChecked) {
+            installment["show_fields"] = rb("1")
+        } else {
+            installment["show_fields"] = rb("0")
         }
 
 
@@ -624,6 +676,8 @@ class ChangeProductFragment : Fragment() {
                 binding.newProgress.visibility = View.GONE
                 binding.inChangeProElectron.removeAllViews()
                 ed.clear()
+                ed2.clear()
+                edPivotID.clear()
 
                 for (i in 0 until list.body()?.data?.fields?.size!!.toInt()) {
 
@@ -689,6 +743,9 @@ class ChangeProductFragment : Fragment() {
 
                             textView.text = spannableString
                             ed.add(editText)
+                        }else{
+                            ed.add(editText)
+                            edPivotID.add(list.body()?.data?.fields?.get(i)?.pivot_id!!)
                         }
 
                     }
@@ -753,6 +810,9 @@ class ChangeProductFragment : Fragment() {
 
                             textView.text = spannableString
                             ed.add(editText)
+                        }else{
+                            ed.add(editText)
+                            edPivotID.add(list.body()?.data?.fields?.get(i)?.pivot_id!!)
                         }
                     }
 
@@ -866,6 +926,9 @@ class ChangeProductFragment : Fragment() {
 
                             textView.text = spannableString
                             ed.add(slider)
+                        }else{
+                            ed.add(slider)
+                            edPivotID.add(list.body()?.data?.fields?.get(i)?.pivot_id!!)
                         }
                     }
 
@@ -902,6 +965,9 @@ class ChangeProductFragment : Fragment() {
 
                             textView.text = spannableString
                             ed.add(spinner)
+                        }else{
+                            ed.add(spinner)
+                            edPivotID.add(list.body()?.data?.fields?.get(i)?.pivot_id!!)
                         }
 
                     }
@@ -1045,6 +1111,8 @@ class ChangeProductFragment : Fragment() {
 
             binding.fieldsUpload.removeAllViews()
             uploadED.clear()
+            uploadED2.clear()
+            edPivotID.clear()
 
             for (i in 0 until res.body()?.data?.fields?.size!!.toInt()) {
 
@@ -1100,7 +1168,6 @@ class ChangeProductFragment : Fragment() {
                     linearLayout2.addView(editText)
                     linearLayout2.addView(text)
                     binding.fieldsUpload.addView(linearLayout2)
-                    pivotID.add(res.body()?.data?.fields?.get(i)?.pivot_id!!)
                     if (res.body()?.data?.fields?.get(i)?.required == 1){
                         val textSpan = res.body()?.data?.fields?.get(i)?.name + " *"
                         val spannableString = SpannableString(textSpan)
@@ -1113,6 +1180,9 @@ class ChangeProductFragment : Fragment() {
 
                         textView.text = spannableString
                         uploadED.add(editText)
+                    }else{
+                        uploadED2.add(editText)
+                        edPivotID.add(res.body()?.data?.fields?.get(i)?.pivot_id!!)
                     }
 
 
@@ -1173,7 +1243,6 @@ class ChangeProductFragment : Fragment() {
                     linearLayout2.addView(editText)
                     linearLayout2.addView(text)
                     binding.fieldsUpload.addView(linearLayout2)
-                    pivotID.add(res.body()?.data?.fields?.get(i)?.pivot_id!!)
                     if (res.body()?.data?.fields?.get(i)?.required == 1){
                         val textSpan = res.body()?.data?.fields?.get(i)?.name + " *"
                         val spannableString = SpannableString(textSpan)
@@ -1186,6 +1255,9 @@ class ChangeProductFragment : Fragment() {
 
                         textView.text = spannableString
                         uploadED.add(editText)
+                    }else{
+                        uploadED2.add(editText)
+                        edPivotID.add(res.body()?.data?.fields?.get(i)?.pivot_id!!)
                     }
 
                 }
@@ -1297,7 +1369,6 @@ class ChangeProductFragment : Fragment() {
                     linearLayout2.addView(slider)
 
                     binding.fieldsUpload.addView(linearLayout2)
-                    pivotID.add(res.body()?.data?.fields?.get(i)?.pivot_id!!)
 
                     if (res.body()?.data?.fields?.get(i)?.required == 1){
                         val textSpan = res.body()?.data?.fields?.get(i)?.name + " *"
@@ -1311,6 +1382,10 @@ class ChangeProductFragment : Fragment() {
 
                         textView.text = spannableString
                         uploadED.add(slider)
+                    }
+                    else{
+                        uploadED2.add(slider)
+                        edPivotID.add(res.body()?.data?.fields?.get(i)?.pivot_id!!)
                     }
 
                 }
@@ -1351,7 +1426,6 @@ class ChangeProductFragment : Fragment() {
                     linearLayout2.addView(spinner)
 
                     binding.fieldsUpload.addView(linearLayout2)
-                    pivotID.add(res.body()?.data?.fields?.get(i)?.pivot_id!!)
 
                     if (res.body()?.data?.fields?.get(i)?.required == 1){
                         val textSpan = res.body()?.data?.fields?.get(i)?.name + " *"
@@ -1364,9 +1438,11 @@ class ChangeProductFragment : Fragment() {
                         spannableString.setSpan(colorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
                         textView.text = spannableString
-                        uLogD("TEST -> $spinner")
-                        uLogD("TEST -> ${spinner.prompt}")
                         uploadED.add(spinner)
+                    }
+                    else{
+                        uploadED2.add(spinner)
+                        edPivotID.add(res.body()?.data?.fields?.get(i)?.pivot_id!!)
                     }
                 }
             }
@@ -1430,6 +1506,7 @@ class ChangeProductFragment : Fragment() {
                 mChangeProUpdate.getCategoryIDEnd("Bearer $TOKEN_USER", getCategoryID)
                 binding.textNewChangeProCategory.setText(resultCategory)
                 uploadProductElectronic()
+                ed.clear()
                 start = true
             }
         } else if (requestCode == 60 && resultCode == Activity.RESULT_OK) {

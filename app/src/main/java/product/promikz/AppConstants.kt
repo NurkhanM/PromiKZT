@@ -6,8 +6,7 @@ import okhttp3.RequestBody
 
 object AppConstants {
 
-    const val VERSION_APK = "0.0.6"
-
+    const val VERSION_APK = "0.50"
 
     const val APP_PREFERENCES = "APP_PREFERENCES"
     const val KEY_INFO = "KEY_INFO"

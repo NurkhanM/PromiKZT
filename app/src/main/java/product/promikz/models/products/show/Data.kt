@@ -15,6 +15,7 @@ data class Data(
     val imagesCount: Int,
     val img: String?,
     val installment: Installment?,
+    val show_fields: Boolean,
     val isLike: Boolean,
     val isRating: Float?,
     val isReport: Int?,

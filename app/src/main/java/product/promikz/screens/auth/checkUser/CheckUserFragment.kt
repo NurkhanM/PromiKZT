@@ -71,7 +71,10 @@ class CheckUserFragment : Fragment() {
         }
 
 
-
+        binding.textview.setOnClickListener {
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_nav_fast_phone_to_gaidAuthFragment2)
+        }
 
 
 

@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_sigInFragment_to_register"
             app:destination="@id/register" />
+        <action
+            android:id="@+id/action_nav_authorization_to_gaidAuthFragment2"
+            app:destination="@id/gaidAuthFragment2" />
     </fragment>
     <fragment
         android:id="@+id/resetFragment"
@@ -99,6 +102,9 @@
         <action
             android:id="@+id/action_nav_fast_phone_to_enteredPasswordFragment"
             app:destination="@id/enteredPasswordFragment" />
+        <action
+            android:id="@+id/action_nav_fast_phone_to_gaidAuthFragment2"
+            app:destination="@id/gaidAuthFragment2" />
     </fragment>
     <fragment
         android:id="@+id/enteredPasswordFragment"
@@ -120,5 +126,10 @@
         android:name="product.promikz.screens.auth.fastRegister.FastCheckPhoneCodeFragment"
         android:label="fragment_fast_check_phone_code"
         tools:layout="@layout/fragment_fast_check_phone_code" />
+    <fragment
+        android:id="@+id/gaidAuthFragment2"
+        android:name="product.promikz.screens.hometwo.gaid.GaidAuthFragment"
+        android:label="fragment_gaid_auth"
+        tools:layout="@layout/fragment_gaid_auth" />
 </navigation>
 

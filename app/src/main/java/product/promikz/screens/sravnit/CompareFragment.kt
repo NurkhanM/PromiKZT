@@ -54,7 +54,6 @@ class CompareFragment : Fragment() {
         val view = binding
 
 
-        uLogD("TEST -> list == ${getCategoryCompareID} ${compareAll.joinToString()}")
         if (compareAll.isNotEmpty()) {
             ref()
         }
@@ -158,7 +157,6 @@ class CompareFragment : Fragment() {
                     for (i in 0 until list.body()?.data!![c].fields.size) {
                         val params = ArrayList<String>()
                         params.add(list.body()?.data!![c].fields[i].name)
-                        uLogD("TEST -> ref == ${list.body()?.data!![c].fields[i]}")
                         params.add(list.body()?.data!![c].fields[i].valueUser)
                         allParams.add(params)
                     }

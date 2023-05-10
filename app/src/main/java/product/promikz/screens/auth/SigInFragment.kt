@@ -91,6 +91,11 @@ class SigInFragment : Fragment() {
             }
         }
 
+        binding.textview.setOnClickListener {
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_nav_authorization_to_gaidAuthFragment2)
+        }
+
 
         view.button2.setOnClickListener {
 

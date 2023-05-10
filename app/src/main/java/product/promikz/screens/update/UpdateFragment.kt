@@ -740,7 +740,7 @@ class UpdateFragment : Fragment() {
         viewModels.getUpdateDataArrayUpdate("Bearer $TOKEN_USER", idProducts)
 
         try {
-            fieldsUpload()
+
             isStateSizeShow()
             viewModels.myShowProducts.observe(viewLifecycleOwner) { list ->
 
@@ -750,6 +750,14 @@ class UpdateFragment : Fragment() {
                     test.add(Image(0, "null", list.body()?.data?.img.toString(), "null"))
                     list.body()?.data?.images?.let { test.addAll(it) }
                     adapter.setListImage(test)
+
+
+                    if (list?.body()?.data?.show_fields == true){
+                        fieldsUpload()
+                    }else{
+                        binding.textHarakteristic.text = "Нет информации о характеристиках."
+                    }
+
 
                     if (list.body()?.data?.myProduct == 1) {
                         binding.statePay.visibility = View.VISIBLE

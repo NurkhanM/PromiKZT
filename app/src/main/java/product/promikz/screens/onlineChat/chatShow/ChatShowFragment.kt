@@ -83,7 +83,6 @@ class ChatShowFragment : Fragment() {
 //                uLogD("TEST -> document id == $docId ")
                 value?.documents?.forEach { doc ->
                     val docId = doc.id // получение идентификатора документа Firestore
-                    uLogD("TEST -> document id == $docId, chat_uuid == ${doc.get("chat_uuid")}, user_2_uuid == ${doc.get("user_2_uuid")}, user_2_isView == ${doc.get("user_2_isView")}")
                     db.collection("chat").document(docId).update(
                         mapOf(
                             "user_2_isView" to 1

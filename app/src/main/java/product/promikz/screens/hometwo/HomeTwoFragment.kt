@@ -577,7 +577,7 @@ class HomeTwoFragment : Fragment() {
     private fun nextNotificationState() {
         val intent = Intent(requireActivity(), NotificationsActivity::class.java)
         startActivity(intent)
-        (activity as AppCompatActivity).overridePendingTransition(
+       activity?.overridePendingTransition(
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )
