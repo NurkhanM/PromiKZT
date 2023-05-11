@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
@@ -24,10 +26,10 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.slider.LabelFormatter
@@ -43,6 +45,11 @@ import product.promikz.screens.create.newProduct.ProductCreateAdapter
 import product.promikz.viewModels.HomeViewModel
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.ButtonGravity
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -53,13 +60,14 @@ import org.json.JSONObject
 import product.promikz.AppConstants.COUNTRY_ID
 import product.promikz.AppConstants.getBrandID
 import product.promikz.AppConstants.getCategoryID
-import product.promikz.MyUtils
 import product.promikz.MyUtils.uToast
 import product.promikz.screens.create.newProduct.brand.BrandProductChangeFragment
 import product.promikz.screens.create.newProduct.category.CategoryChangeFragment
 import product.promikz.screens.create.newProduct.country.CounterSelectFragment
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.net.HttpURLConnection
+import java.net.URL
 
 class ChangeProductFragment : Fragment() {
 
@@ -71,7 +79,6 @@ class ChangeProductFragment : Fragment() {
     private lateinit var mChangeProUpdate: HomeViewModel
 
     private var idProducts: Int = -1
-    private var selectedDelete: Boolean = false
 
     private lateinit var recyclerViewCreate: RecyclerView
     lateinit var adapterProduct: ProductCreateAdapter
@@ -98,7 +105,7 @@ class ChangeProductFragment : Fragment() {
     private var filePart: MultipartBody.Part? = null
     private var filePart2 = ArrayList<MultipartBody.Part>()
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "NAME_SHADOWING")
     @SuppressLint("SetTextI18n", "CommitTransaction")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -133,31 +140,19 @@ class ChangeProductFragment : Fragment() {
         recyclerViewCreate = binding.rvChangePro
         adapterProduct = ProductCreateAdapter(object : IClickListnearUpdateImage {
             override fun clickListener(baseID: String, index: Int) {
-                if (selectedDelete) {
-                    if (filePart2.size <= 1) {
-                        Toast.makeText(
-                            requireContext(),
-                            resources.getText(R.string.need_one_picture),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    } else {
-                        filePart2.removeAt(index)
-                        adapterProduct.deleteMyEducations(index)
-                    }
+                adapterProduct.deleteMyEducations(index)
 
+                selectedUrlAddress.removeAt(index)
+
+                showMultiImage(selectedUrlAddress)
+                if (selectedUrlAddress.size in 0..9) {
+                    binding.cardView3.visibility = View.VISIBLE
                 } else {
-                    Toast.makeText(
-                        requireContext(),
-                        resources.getText(R.string.upload_pictures),
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    binding.cardView3.visibility = View.GONE
                 }
-
+                binding.txtSizeList.text = selectedUrlAddress.size.toString()
 
             }
-
         })
         recyclerViewCreate.adapter = adapterProduct
         recyclerViewCreate.setHasFixedSize(true)
@@ -171,10 +166,6 @@ class ChangeProductFragment : Fragment() {
 
         setNormalMultiButton()
 
-
-
-
-
         binding.edtNameCity.setOnClickListener {
 
             val fragment = CounterSelectFragment()
@@ -184,9 +175,6 @@ class ChangeProductFragment : Fragment() {
                 .commit()
         }
 
-
-
-
         binding.textNewChangeProCategory.setOnClickListener {
             val fragment = CategoryChangeFragment()
             fragment.setTargetFragment(this, 50)
@@ -194,8 +182,6 @@ class ChangeProductFragment : Fragment() {
                 .add(fragment, fragment.tag)
                 .commit()
         }
-
-
 
 
         binding.textNewChangeProBrand.setOnClickListener {
@@ -210,10 +196,6 @@ class ChangeProductFragment : Fragment() {
         }
 
 
-
-
-
-
         mChangeProUpdate.getUpdateDataArrayUpdate("Bearer $TOKEN_USER", idProducts)
         mChangeProUpdate.myShowProducts.observe(viewLifecycleOwner) { list ->
 
@@ -222,13 +204,6 @@ class ChangeProductFragment : Fragment() {
             } else {
                 binding.textNewChangeProName.setText(nameSave)
             }
-
-
-            for (i in 0 until list.body()!!.data.images.size) {
-                selectedUrlAddress.add(list.body()!!.data.images[i].name.toUri())
-            }
-
-            adapterProduct.setList(selectedUrlAddress)
 
 
             if (list.body()?.data?.installment != null) {
@@ -243,9 +218,129 @@ class ChangeProductFragment : Fragment() {
                 binding.swichReview.isChecked = true
             }
 
+            // Загрузка изображения
+            val imageUrl = list.body()!!.data.img.toString()
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    val connection = URL(imageUrl).openConnection() as HttpURLConnection
+                    connection.doInput = true
+                    connection.connect()
+                    val inputStream = connection.inputStream
+
+                    // Сохранение изображения во внутреннем хранилище
+                    val resolver = requireContext().contentResolver
+                    val contentValues = ContentValues().apply {
+                        put(
+                            MediaStore.Images.Media.DISPLAY_NAME,
+                            "PromiImage.jpg"
+                        ) // название файла
+                        put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg") // тип файла
+                    }
+                    val imageUri =
+                        resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                    imageUri?.let { uri ->
+                        resolver.openOutputStream(uri).use { outputStream ->
+                            if (outputStream != null) {
+                                inputStream.copyTo(outputStream)
+                            }
+                        }
+                    }
+
+                    // Закрытие InputStream
+                    inputStream.close()
+
+                    // Использование полученного URI
+                    // (например, сохранение его в списке URI или передача в другую функцию)
+                    if (imageUri != null) {
+                        withContext(Dispatchers.Main) {
+                            filePartScopMetod(imageUri)
+                        }
+
+                    } else {
+                        // обработайте случай ошибки при сохранении изображения
+                    }
+                }
+            }
 
 
-            MyUtils.uGlide(requireContext(), binding.changeProIvImage, list.body()!!.data.img)
+            val projection = arrayOf(
+                MediaStore.Images.Media.DISPLAY_NAME,
+                MediaStore.Images.Media.DATA
+            )
+            val cursor = requireContext().contentResolver.query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                projection,
+                null,
+                null,
+                null
+            )
+            val existingImages = mutableSetOf<String>()
+            cursor?.use {
+                val nameColumn = it.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)
+                while (it.moveToNext()) {
+                    val name = it.getString(nameColumn)
+                    existingImages.add(name)
+                }
+            }
+
+            val results = List(list.body()!!.data.images.size) { CompletableDeferred<Uri?>() }
+
+            for (i in 0 until list.body()!!.data.images.size) {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+
+                        // Сохраняем изображение в галерее
+                        val resolver = requireContext().contentResolver
+                        val contentValues = ContentValues().apply {
+                            put(
+                                MediaStore.Images.Media.DISPLAY_NAME,
+                                "PromiImage$i.jpg"
+                            ) // название файла
+                            put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg") // тип файла
+                        }
+                        val uri = resolver.insert(
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            contentValues
+                        )
+                        uri?.let { uri ->
+                            resolver.openOutputStream(uri).use { outputStream ->
+                                if (outputStream != null) {
+                                    val inputStream =
+                                        URL(list.body()!!.data.images[i].name).openStream()
+                                    inputStream.use { input ->
+                                        input.copyTo(outputStream)
+                                    }
+                                }
+                            }
+                            results[i].complete(uri)
+                        } ?: results[i].complete(null)
+                    }
+                }
+            }
+
+            lifecycleScope.launch {
+                // Ждем завершения всех корутин и добавляем uri в список
+                val uris = results.awaitAll().filterNotNull()
+                selectedUrlAddress.addAll(uris)
+                adapterProduct.setList(selectedUrlAddress)
+                showMultiImage(selectedUrlAddress)
+                if (selectedUrlAddress.size in 0..9) {
+                    binding.cardView3.visibility = View.VISIBLE
+                } else {
+                    binding.cardView3.visibility = View.GONE
+                }
+                binding.txtSizeList.text = selectedUrlAddress.size.toString()
+
+                binding.progressImages.visibility = View.GONE
+                binding.cardView3.visibility = View.VISIBLE
+                binding.rvChangePro.visibility = View.VISIBLE
+            }
+
+
+
+
+
+
 
             if (descriptionSave == null) {
                 binding.textNewChangeProDescription.setText(list.body()?.data?.description)
@@ -280,7 +375,7 @@ class ChangeProductFragment : Fragment() {
 
             binding.changeProSpinnerState.setSelection(list.body()!!.data.state)
 
-            if (list.body()?.data?.show_fields == true){
+            if (list.body()?.data?.show_fields == true) {
                 binding.swichFields.isChecked = true
             }
 
@@ -304,7 +399,6 @@ class ChangeProductFragment : Fragment() {
 
         mChangeProUpdate.myUpdateCreate.observe(viewLifecycleOwner) { list ->
 
-
             if (list.isSuccessful) {
                 withStyle()
             } else {
@@ -314,16 +408,15 @@ class ChangeProductFragment : Fragment() {
                 binding.textTitle.text = resources.getString(R.string.edit)
                 try {
 
-
                     val jsonObj = JSONObject(list.errorBody()!!.charStream().readText())
                     val jsonObjError = JSONObject(jsonObj.getString("errors"))
                     val messageArray = ArrayList<String>()
 
-                    for (name in jsonObjError.keys()){
+                    for (name in jsonObjError.keys()) {
 
                         val nameArray = jsonObjError.getJSONArray(name)
 
-                        for (i in 0 until nameArray.length()){
+                        for (i in 0 until nameArray.length()) {
                             messageArray.add(nameArray.getString(i))
                             messageArray.add("\n\n")
 
@@ -352,11 +445,14 @@ class ChangeProductFragment : Fragment() {
                     binding.changeProSpinnerState.selectedItem != null
                 ) {
 
+//                    if (stateSelectImageFirst && stateSelectImageMulti){
+//                        addImageCash()
+//                    }
 
                     ed2.forEachIndexed { index, view ->
-                        when (view){
+                        when (view) {
                             is EditText -> {
-                                if (view.text.isNotEmpty()){
+                                if (view.text.isNotEmpty()) {
                                     map["fields[${edPivotID[index]}]"] = rb(rbView(ed2[index]))
                                 }
                             }
@@ -403,9 +499,9 @@ class ChangeProductFragment : Fragment() {
 
                 uploadED2.forEachIndexed { index, view ->
 
-                    when (view){
+                    when (view) {
                         is EditText -> {
-                            if (view.text.isNotEmpty()){
+                            if (view.text.isNotEmpty()) {
                                 map["fields[${edPivotID[index]}]"] = rb(rbView(uploadED2[index]))
                             }
                         }
@@ -533,6 +629,38 @@ class ChangeProductFragment : Fragment() {
 
     }
 
+    @Suppress("DEPRECATION")
+    private fun downloadImagesToGallery(context: Context, imageUris: List<Uri>): ArrayList<Uri> {
+        val imageUriList = ArrayList<Uri>()
+        imageUris.forEachIndexed { index, uri ->
+            val bitmap = MediaStore.Images.Media.getBitmap(
+                context.contentResolver,
+                uri
+            ) // Получаем Bitmap из URI
+            val imageFileName = "image_$index.jpg"
+            val contentValues = ContentValues().apply {
+                put(MediaStore.Images.Media.DISPLAY_NAME, imageFileName) // Задаем имя файла
+                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg") // Задаем MIME-тип
+            }
+            // Добавляем новую запись в галерею и получаем URI нового изображения
+            val contentResolver = context.contentResolver
+            val imageUri =
+                contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            imageUri?.let { uri ->
+                contentResolver.openOutputStream(uri).use { outputStream ->
+                    bitmap.compress(
+                        Bitmap.CompressFormat.JPEG,
+                        90,
+                        outputStream
+                    ) // Сохраняем Bitmap в OutputStream
+                }
+                imageUriList.add(uri) // Добавляем URI в список
+            }
+        }
+        return imageUriList // Возвращаем список URI
+    }
+
+
     private fun getLoadCity(id: Int) {
         mChangeProUpdate.getCity(id)
         mChangeProUpdate.myCity.observe(viewLifecycleOwner) { list ->
@@ -594,7 +722,6 @@ class ChangeProductFragment : Fragment() {
         } else {
             installment["show_fields"] = rb("0")
         }
-
 
         mChangeProUpdate.pushUpdateCreate(
             "Bearer $TOKEN_USER",
@@ -731,7 +858,7 @@ class ChangeProductFragment : Fragment() {
                         linearLayout2.addView(text)
 
                         binding.inChangeProElectron.addView(linearLayout2)
-                        if (list.body()?.data?.fields?.get(i)?.required == 1){
+                        if (list.body()?.data?.fields?.get(i)?.required == 1) {
                             val textSpan = list.body()?.data?.fields?.get(i)?.name + " *"
                             val spannableString = SpannableString(textSpan)
 
@@ -739,11 +866,16 @@ class ChangeProductFragment : Fragment() {
                             val endIndex = startIndex + 1
 
                             val colorSpan = ForegroundColorSpan(Color.RED)
-                            spannableString.setSpan(colorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            spannableString.setSpan(
+                                colorSpan,
+                                startIndex,
+                                endIndex,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
 
                             textView.text = spannableString
                             ed.add(editText)
-                        }else{
+                        } else {
                             ed.add(editText)
                             edPivotID.add(list.body()?.data?.fields?.get(i)?.pivot_id!!)
                         }
@@ -798,7 +930,7 @@ class ChangeProductFragment : Fragment() {
                         linearLayout2.addView(text)
 
                         binding.inChangeProElectron.addView(linearLayout2)
-                        if (list.body()?.data?.fields?.get(i)?.required == 1){
+                        if (list.body()?.data?.fields?.get(i)?.required == 1) {
                             val textSpan = list.body()?.data?.fields?.get(i)?.name + " *"
                             val spannableString = SpannableString(textSpan)
 
@@ -806,11 +938,16 @@ class ChangeProductFragment : Fragment() {
                             val endIndex = startIndex + 1
 
                             val colorSpan = ForegroundColorSpan(Color.RED)
-                            spannableString.setSpan(colorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            spannableString.setSpan(
+                                colorSpan,
+                                startIndex,
+                                endIndex,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
 
                             textView.text = spannableString
                             ed.add(editText)
-                        }else{
+                        } else {
                             ed.add(editText)
                             edPivotID.add(list.body()?.data?.fields?.get(i)?.pivot_id!!)
                         }
@@ -914,7 +1051,7 @@ class ChangeProductFragment : Fragment() {
                         linearLayout2.addView(slider)
 
                         binding.inChangeProElectron.addView(linearLayout2)
-                        if (list.body()?.data?.fields?.get(i)?.required == 1){
+                        if (list.body()?.data?.fields?.get(i)?.required == 1) {
                             val textSpan = list.body()?.data?.fields?.get(i)?.name + " *"
                             val spannableString = SpannableString(textSpan)
 
@@ -922,11 +1059,16 @@ class ChangeProductFragment : Fragment() {
                             val endIndex = startIndex + 1
 
                             val colorSpan = ForegroundColorSpan(Color.RED)
-                            spannableString.setSpan(colorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            spannableString.setSpan(
+                                colorSpan,
+                                startIndex,
+                                endIndex,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
 
                             textView.text = spannableString
                             ed.add(slider)
-                        }else{
+                        } else {
                             ed.add(slider)
                             edPivotID.add(list.body()?.data?.fields?.get(i)?.pivot_id!!)
                         }
@@ -953,7 +1095,7 @@ class ChangeProductFragment : Fragment() {
                         linearLayout2.addView(spinner)
 
                         binding.inChangeProElectron.addView(linearLayout2)
-                        if (list.body()?.data?.fields?.get(i)?.required == 1){
+                        if (list.body()?.data?.fields?.get(i)?.required == 1) {
                             val textSpan = list.body()?.data?.fields?.get(i)?.name + " *"
                             val spannableString = SpannableString(textSpan)
 
@@ -961,11 +1103,16 @@ class ChangeProductFragment : Fragment() {
                             val endIndex = startIndex + 1
 
                             val colorSpan = ForegroundColorSpan(Color.RED)
-                            spannableString.setSpan(colorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            spannableString.setSpan(
+                                colorSpan,
+                                startIndex,
+                                endIndex,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
 
                             textView.text = spannableString
                             ed.add(spinner)
-                        }else{
+                        } else {
                             ed.add(spinner)
                             edPivotID.add(list.body()?.data?.fields?.get(i)?.pivot_id!!)
                         }
@@ -1018,21 +1165,43 @@ class ChangeProductFragment : Fragment() {
     private fun setNormalMultiButton() {
         binding.changeProBtnNormalMulti.setOnClickListener {
             isStatusMultiImages = true
-            TedImagePicker.with(requireContext())
-                .max(10, resources.getText(R.string.maximum_10).toString())
-                .mediaType(gun0912.tedimagepicker.builder.type.MediaType.IMAGE)
-                .buttonGravity(ButtonGravity.BOTTOM)
-                .errorListener { message -> Log.d("ted", "message: $message") }
-                .selectedUri(selectedUriList)
-                .startMultiImage { list: List<Uri> ->
-                    selectedUriList.clear()
-                    selectedUriList.addAll(list)
-                    selectedDelete = true
-                    showMultiImage(selectedUriList)
-                }
+            if (selectedUrlAddress.isNotEmpty()) {
+                TedImagePicker.with(requireContext())
+                    .max(10, resources.getText(R.string.maximum_10).toString())
+                    .mediaType(gun0912.tedimagepicker.builder.type.MediaType.IMAGE)
+                    .buttonGravity(ButtonGravity.BOTTOM)
+                    .errorListener { message -> Log.d("ted", "message: $message") }
+                    .selectedUri(selectedUrlAddress)
+                    .startMultiImage { list: List<Uri> ->
+                        selectedUrlAddress.clear() // clear the list before adding new images
+                        selectedUrlAddress.addAll(list)
+                        showMultiImage(selectedUrlAddress)
+                        if (selectedUrlAddress.size in 0..9) {
+                            binding.cardView3.visibility = View.VISIBLE
+                        } else {
+                            binding.cardView3.visibility = View.GONE
+                        }
+                        binding.txtSizeList.text = selectedUrlAddress.size.toString()
+                    }
+            } else {
+                TedImagePicker.with(requireContext())
+                    .max(10, resources.getText(R.string.maximum_10).toString())
+                    .mediaType(gun0912.tedimagepicker.builder.type.MediaType.IMAGE)
+                    .buttonGravity(ButtonGravity.BOTTOM)
+                    .errorListener { message -> Log.d("ted", "message: $message") }
+                    .startMultiImage { list: List<Uri> ->
+                        selectedUrlAddress.clear() // clear the list before adding new images
+                        selectedUrlAddress.addAll(list)
+                        showMultiImage(selectedUrlAddress)
+                        if (selectedUrlAddress.size in 0..9) {
+                            binding.cardView3.visibility = View.VISIBLE
+                        } else {
+                            binding.cardView3.visibility = View.GONE
+                        }
+                        binding.txtSizeList.text = selectedUrlAddress.size.toString()
+                    }
+            }
         }
-
-
     }
 
     @SuppressLint("Recycle")
@@ -1042,14 +1211,26 @@ class ChangeProductFragment : Fragment() {
             adapterProduct.setList(uriList)
             val list: ArrayList<MultipartBody.Part> = ArrayList()
             for (i in 0 until uriList.size) {
-                val f = File.createTempFile("suffix", "prefix", requireContext().cacheDir)
-                f.outputStream()
-                    .use {
-                        requireContext().contentResolver.openInputStream(uriList[i])
-                            ?.copyTo(it)
-                        val requestBody = f.asRequestBody("image/*".toMediaTypeOrNull())
-                        list.add(MultipartBody.Part.createFormData("images[]", f.name, requestBody))
-                    }
+                val bitmap = BitmapFactory.decodeStream(
+                    requireContext().contentResolver.openInputStream(uriList[i])
+                )
+
+                val stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream)
+                val byteArray = stream.toByteArray()
+
+                val file = File(
+                    requireContext().cacheDir,
+                    "${System.currentTimeMillis()}_${uriList[i].lastPathSegment}"
+                )
+                file.writeBytes(byteArray)
+
+                val requestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                list.add(
+                    MultipartBody.Part.createFormData(
+                        "images[]", file.name, requestBody
+                    )
+                )
             }
             filePart2.clear()
             filePart2.addAll(list)
@@ -1066,6 +1247,7 @@ class ChangeProductFragment : Fragment() {
                 .show()
         }
     }
+
 
     @Suppress("DEPRECATION")
     private fun withStyle() {
@@ -1168,7 +1350,7 @@ class ChangeProductFragment : Fragment() {
                     linearLayout2.addView(editText)
                     linearLayout2.addView(text)
                     binding.fieldsUpload.addView(linearLayout2)
-                    if (res.body()?.data?.fields?.get(i)?.required == 1){
+                    if (res.body()?.data?.fields?.get(i)?.required == 1) {
                         val textSpan = res.body()?.data?.fields?.get(i)?.name + " *"
                         val spannableString = SpannableString(textSpan)
 
@@ -1176,11 +1358,16 @@ class ChangeProductFragment : Fragment() {
                         val endIndex = startIndex + 1
 
                         val colorSpan = ForegroundColorSpan(Color.RED)
-                        spannableString.setSpan(colorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        spannableString.setSpan(
+                            colorSpan,
+                            startIndex,
+                            endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
 
                         textView.text = spannableString
                         uploadED.add(editText)
-                    }else{
+                    } else {
                         uploadED2.add(editText)
                         edPivotID.add(res.body()?.data?.fields?.get(i)?.pivot_id!!)
                     }
@@ -1243,7 +1430,7 @@ class ChangeProductFragment : Fragment() {
                     linearLayout2.addView(editText)
                     linearLayout2.addView(text)
                     binding.fieldsUpload.addView(linearLayout2)
-                    if (res.body()?.data?.fields?.get(i)?.required == 1){
+                    if (res.body()?.data?.fields?.get(i)?.required == 1) {
                         val textSpan = res.body()?.data?.fields?.get(i)?.name + " *"
                         val spannableString = SpannableString(textSpan)
 
@@ -1251,11 +1438,16 @@ class ChangeProductFragment : Fragment() {
                         val endIndex = startIndex + 1
 
                         val colorSpan = ForegroundColorSpan(Color.RED)
-                        spannableString.setSpan(colorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        spannableString.setSpan(
+                            colorSpan,
+                            startIndex,
+                            endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
 
                         textView.text = spannableString
                         uploadED.add(editText)
-                    }else{
+                    } else {
                         uploadED2.add(editText)
                         edPivotID.add(res.body()?.data?.fields?.get(i)?.pivot_id!!)
                     }
@@ -1370,7 +1562,7 @@ class ChangeProductFragment : Fragment() {
 
                     binding.fieldsUpload.addView(linearLayout2)
 
-                    if (res.body()?.data?.fields?.get(i)?.required == 1){
+                    if (res.body()?.data?.fields?.get(i)?.required == 1) {
                         val textSpan = res.body()?.data?.fields?.get(i)?.name + " *"
                         val spannableString = SpannableString(textSpan)
 
@@ -1378,12 +1570,16 @@ class ChangeProductFragment : Fragment() {
                         val endIndex = startIndex + 1
 
                         val colorSpan = ForegroundColorSpan(Color.RED)
-                        spannableString.setSpan(colorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        spannableString.setSpan(
+                            colorSpan,
+                            startIndex,
+                            endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
 
                         textView.text = spannableString
                         uploadED.add(slider)
-                    }
-                    else{
+                    } else {
                         uploadED2.add(slider)
                         edPivotID.add(res.body()?.data?.fields?.get(i)?.pivot_id!!)
                     }
@@ -1427,7 +1623,7 @@ class ChangeProductFragment : Fragment() {
 
                     binding.fieldsUpload.addView(linearLayout2)
 
-                    if (res.body()?.data?.fields?.get(i)?.required == 1){
+                    if (res.body()?.data?.fields?.get(i)?.required == 1) {
                         val textSpan = res.body()?.data?.fields?.get(i)?.name + " *"
                         val spannableString = SpannableString(textSpan)
 
@@ -1435,12 +1631,16 @@ class ChangeProductFragment : Fragment() {
                         val endIndex = startIndex + 1
 
                         val colorSpan = ForegroundColorSpan(Color.RED)
-                        spannableString.setSpan(colorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        spannableString.setSpan(
+                            colorSpan,
+                            startIndex,
+                            endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
 
                         textView.text = spannableString
                         uploadED.add(spinner)
-                    }
-                    else{
+                    } else {
                         uploadED2.add(spinner)
                         edPivotID.add(res.body()?.data?.fields?.get(i)?.pivot_id!!)
                     }

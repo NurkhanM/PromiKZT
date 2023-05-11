@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.slider.LabelFormatter
 import com.google.android.material.slider.Slider
@@ -51,8 +53,6 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONException
 import org.json.JSONObject
 import product.promikz.AppConstants.COUNTRY_ID
-import product.promikz.MyUtils.uLogD
-import product.promikz.MyUtils.uToast
 import product.promikz.screens.create.newProduct.country.CounterSelectFragment
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -127,7 +127,12 @@ class ProducCreateFragment : Fragment() {
         recyclerViewCreate = binding.rvCreate
         adapterProduct = ProductCreateAdapter(object : IClickListnearUpdateImage {
             override fun clickListener(baseID: String, index: Int) {
+
                 adapterProduct.deleteMyEducations(index)
+                selectedUriList2?.removeAt(index)
+
+                showMultiImage(selectedUriList2!!)
+
                 if (selectedUriList2?.size in 0..9) {
                     binding.cardView3.visibility = View.VISIBLE
                 } else {
@@ -135,6 +140,7 @@ class ProducCreateFragment : Fragment() {
                 }
                 binding.txtSizeList.text = selectedUriList2?.size.toString()
             }
+
 
         })
         recyclerViewCreate.adapter = adapterProduct
@@ -904,16 +910,31 @@ class ProducCreateFragment : Fragment() {
             adapterProduct.setList(uriList)
             val list: ArrayList<MultipartBody.Part> = ArrayList()
             for (i in 0 until uriList.size) {
-                val f = File.createTempFile("suffix", "prefix", requireContext().cacheDir)
-                f.outputStream()
-                    .use {
-                        requireContext().contentResolver.openInputStream(uriList[i])?.copyTo(it)
-                        val requestBody = f.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-                        list.add(MultipartBody.Part.createFormData("images[]", f.name, requestBody))
-                    }
-                filePart2 = list
-                stateSelectImageMulti = true
+                val bitmap = BitmapFactory.decodeStream(
+                    requireContext().contentResolver.openInputStream(uriList[i])
+                )
+
+                val stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream)
+                val byteArray = stream.toByteArray()
+
+                val file = File(
+                    requireContext().cacheDir,
+                    "${System.currentTimeMillis()}_${uriList[i].lastPathSegment}"
+                )
+                file.writeBytes(byteArray)
+
+                val requestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                list.add(
+                    MultipartBody.Part.createFormData(
+                        "images[]", file.name, requestBody
+                    )
+                )
             }
+            filePart2 = list
+            stateSelectImageMulti = true
+
+
 
 
         } catch (e: Exception) {

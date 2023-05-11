@@ -5,7 +5,9 @@ data class Shop(
     val description: String,
     val id: Int,
     val img: String,
+    val isRating: Int,
     val name: String,
+    val ratingsAvg: Int,
     val status: Int,
     val verified: Int
 )

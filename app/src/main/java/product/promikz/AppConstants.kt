@@ -36,8 +36,6 @@ object AppConstants {
     var PRIVACY_USER = "https://promi.kz/privacyPolicy"
     var PRIVACY_AGREEMENT = "https://promi.kz/userAgreement"
 
-
-
     var shopInfo = false
     var categoryState = false
     var getCategoryID = -1
