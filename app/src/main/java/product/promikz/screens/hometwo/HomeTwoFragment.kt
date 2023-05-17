@@ -60,7 +60,7 @@ import product.promikz.screens.hometwo.story.StoryActivity
 import product.promikz.screens.kursy.KursyActivity
 import product.promikz.screens.notifications.index.NotificationsActivity
 import product.promikz.screens.pageErrorNetworks.TokenErrorActivity
-import product.promikz.screens.search.SSortActivity
+import product.promikz.screens.search.products.SSortActivity
 import product.promikz.screens.specialist.SpecialistActivity
 import product.promikz.screens.update.UpdateActivity
 import product.promikz.viewModels.HomeViewModel

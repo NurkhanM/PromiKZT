@@ -22,7 +22,7 @@ import product.promikz.databinding.FragmentKursyBinding
 import product.promikz.databinding.ItemMakeupModelsBinding
 import product.promikz.inteface.IClickListnearHomeFavorite
 import product.promikz.screens.home.TovarAdapterHome
-import product.promikz.screens.search.SSortActivity
+import product.promikz.screens.search.products.SSortActivity
 import product.promikz.screens.update.UpdateActivity
 import product.promikz.viewModels.HomeViewModel
 

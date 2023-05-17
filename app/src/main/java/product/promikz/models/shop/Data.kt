@@ -6,6 +6,7 @@ data class Data(
     val id: Int,
     val img: String,
     val name: String,
+    val ratingsAvg: Float,
     val status: Int,
     val user: User,
     val verified: Int

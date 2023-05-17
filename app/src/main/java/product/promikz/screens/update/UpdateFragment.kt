@@ -1,7 +1,6 @@
 package product.promikz.screens.update
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.ClipData
@@ -9,7 +8,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
@@ -35,13 +33,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.common.api.ApiException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.farahani.spaceitemdecoration.SpaceItemDecoration
 import org.json.JSONObject
 import org.jsoup.Jsoup
-import product.promikz.AppConstants
 import product.promikz.AppConstants.ID_PAY
+import product.promikz.AppConstants.REVIEW_STATE
 import product.promikz.AppConstants.TOKEN_USER
 import product.promikz.AppConstants.USER_OTHER_ID
 import product.promikz.AppConstants.USER_TYPE
@@ -50,7 +47,6 @@ import product.promikz.AppConstants.getCategoryCompareID
 import product.promikz.AppConstants.getProductID
 import product.promikz.AppConstants.userTelephony
 import product.promikz.MyUtils
-import product.promikz.MyUtils.uLogD
 import product.promikz.R
 import product.promikz.MyUtils.uToast
 import product.promikz.databinding.FragmentUpdateBinding
@@ -62,7 +58,6 @@ import product.promikz.models.products.show.Image
 import product.promikz.screens.complaint.product.ComplaintProductActivity
 import product.promikz.viewModels.HomeViewModel
 import product.promikz.screens.home.TovarAdapter
-import product.promikz.screens.refresh.RefreshActivity
 import product.promikz.screens.shop.ReviewAllFragment
 import product.promikz.screens.sravnit.CompareActivity
 import product.promikz.screens.update.autoMessage.AutoMessageAdapter
@@ -101,10 +96,7 @@ class UpdateFragment : Fragment() {
     private var isHarakter: Boolean = true
     private var isMenu: Boolean = true
     private var idProducts: Int = -1
-    private var nameOtherUser: String = ""
-    private var phoneOtherUser: String = ""
-    private var imageOtherUser: String = ""
-    private var descripOtherUser: String = ""
+    private var shopOtherUser: Int = -1
     private var idCategory: Int = -1
     private var idProductsShow: Int = -2
     private var indexShow: Int = 0
@@ -143,6 +135,11 @@ class UpdateFragment : Fragment() {
     private var autoMessageArray = ArrayList<AutoMessageModels>()
     private val newMessageMap = HashMap<String, String>()
 
+    override fun onStart() {
+        super.onStart()
+        REVIEW_STATE = true
+    }
+
     @SuppressLint("CommitTransaction")
     @Suppress("DEPRECATION")
     override fun onCreateView(
@@ -162,7 +159,6 @@ class UpdateFragment : Fragment() {
         dialog = Dialog(requireContext())
         dialogPay = Dialog(requireContext())
         dialogLoader = Dialog(requireContext())
-
 
         // Здесь проверка на Лайк
         view.itemFavorite.setOnClickListener {
@@ -435,10 +431,7 @@ class UpdateFragment : Fragment() {
         view.nextAnotherUser.setOnClickListener {
 
             val intent = Intent(requireActivity(), UserOtherActivity::class.java)
-            intent.putExtra("User2_1", nameOtherUser)
-            intent.putExtra("User2_2", phoneOtherUser)
-            intent.putExtra("User2_3", imageOtherUser)
-            intent.putExtra("User2_4", descripOtherUser)
+            intent.putExtra("User2_1", shopOtherUser)
             activityResultLauncher.launch(intent)
 
             (activity as AppCompatActivity).overridePendingTransition(
@@ -832,6 +825,9 @@ class UpdateFragment : Fragment() {
                         isReview = true
                     }
 
+                    if (list.body()?.data?.isReview == true){
+                        REVIEW_STATE = false
+                    }
 
                     if (list.body()?.data?.isRating == null) {
                         binding.isRatingUser.rating = 0.0f
@@ -893,10 +889,7 @@ class UpdateFragment : Fragment() {
                         list.body()?.data?.shop?.img
                     )
 
-                    nameOtherUser = list.body()?.data?.shop?.name.toString()
-                    phoneOtherUser = list.body()?.data?.user?.phone.toString()
-                    imageOtherUser = list.body()?.data?.shop?.img.toString()
-                    descripOtherUser = list.body()?.data?.shop?.description.toString()
+                    shopOtherUser = list.body()?.data?.shop?.id!!
                     USER_OTHER_ID = list.body()?.data?.shop?.id!!
 
                     if (list.body()?.data?.verified == 0) {

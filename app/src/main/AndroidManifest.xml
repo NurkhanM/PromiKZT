@@ -28,30 +28,36 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopKZ"
         tools:targetApi="31">
-
+        <activity
+            android:name=".screens.search.specialist.sortInfo.SortSpecInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.search.specialist.SortSpecActivity"
+            android:exported="false" />
         <activity
             android:name=".screens.link.LinkActivity"
             android:exported="true">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="http"
-                    android:host="promi.kz" />
+                    android:host="promi.kz"
+                    android:scheme="http" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="https"
-                    android:host="promi.kz" />
+                    android:host="promi.kz"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".screens.specialist.filter.FilterSpecialistActivity"
             android:exported="false" />
@@ -128,7 +134,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".screens.search.ssortInfo.SsortInfoActivity"
+            android:name=".screens.search.products.ssortInfo.SsortInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
@@ -283,7 +289,7 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.search.SSortActivity"
+            android:name=".screens.search.products.SSortActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateVisible"

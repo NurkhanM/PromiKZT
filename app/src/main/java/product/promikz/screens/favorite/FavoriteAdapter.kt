@@ -89,7 +89,7 @@ class FavoriteAdapter(private val mIClickListnear: IClickListnearHomeFavorite) :
         }
 
 
-        holder.binding.itemHomeLike.text = currentItem.views.toString()
+        holder.binding.itemHomeViews.text = currentItem.views.toString()
         holder.binding.itemHomeLike.text = currentItem.likeCount.toString()
 
         if (currentItem.price == 0) {

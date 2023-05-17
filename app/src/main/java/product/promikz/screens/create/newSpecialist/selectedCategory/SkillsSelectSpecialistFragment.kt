@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 import product.promikz.AppConstants.TOKEN_USER
 import product.promikz.AppConstants.params3
 import product.promikz.AppConstants.specialistAllNumber
-import product.promikz.AppConstants.specialistAllNumber2
 import product.promikz.R
 import product.promikz.viewModels.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -53,6 +52,13 @@ class SkillsSelectSpecialistFragment : BottomSheetDialogFragment() {
         mHomeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         _binding = FragmentCategorySelectSpecialistBinding.inflate(inflater, container, false)
         val view = binding
+        categoryIndexName.clear()
+        categoryName.clear()
+        categoryIndexId.clear()
+        categoryNameText.clear()
+        checkBoxes.clear()
+        params3.clear()
+        specialistAllNumber.clear()
 
 
         // Определите радиус скругления краев
@@ -117,12 +123,12 @@ class SkillsSelectSpecialistFragment : BottomSheetDialogFragment() {
 
         checkBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                if (isContains(specialistAllNumber2, id)) {
-                    specialistAllNumber = removeItem(specialistAllNumber2, id)
+                if (isContains(specialistAllNumber, id)) {
+                    specialistAllNumber = removeItem(specialistAllNumber, id)
                     params3.keys.removeAll { it == "skills[${categoryIndexId[id]}]" }
                     categoryNameText.remove(categoryIndexName[id])
                 } else {
-                    if (specialistAllNumber2.size > 3) {
+                    if (specialistAllNumber.size > 3) {
                         checkBox.isChecked = false
                         Toast.makeText(
                             requireContext(),
@@ -130,14 +136,14 @@ class SkillsSelectSpecialistFragment : BottomSheetDialogFragment() {
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
-                        specialistAllNumber2.add(id)
+                        specialistAllNumber.add(id)
                         categoryNameText.add(categoryIndexName[id])
                         params3["skills[${categoryIndexId[id]}]"] =
                             rb(categoryIndexId[id].toString())
                     }
                 }
             } else {
-                specialistAllNumber2 = removeItem(specialistAllNumber2, id)
+                specialistAllNumber = removeItem(specialistAllNumber, id)
                 params3.keys.removeAll { it == "skills[${categoryIndexId[id]}]" }
                 categoryNameText.remove(categoryIndexName[id])
             }

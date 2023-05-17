@@ -23,14 +23,13 @@ import product.promikz.AppConstants.CATEGORY_INT_FILTERS_DATA
 import product.promikz.AppConstants.FILTERS_TYPE
 import product.promikz.AppConstants.FILTER_INT_ALL
 import product.promikz.AppConstants.MAP_FILTERS_PRODUCTS
-import product.promikz.MyUtils.uLogD
 import product.promikz.MyUtils.uToast
 import product.promikz.databinding.ActivityMainBinding
 import product.promikz.databinding.FragmentHomeBinding
 import product.promikz.databinding.FragmentTwoAdvertBinding
 import product.promikz.databinding.ItemMakeupModelsBinding
 import product.promikz.inteface.IClickListnearHomeFilterCategory
-import product.promikz.screens.search.SSortActivity
+import product.promikz.screens.search.products.SSortActivity
 import product.promikz.viewModels.HomeViewModel
 
 

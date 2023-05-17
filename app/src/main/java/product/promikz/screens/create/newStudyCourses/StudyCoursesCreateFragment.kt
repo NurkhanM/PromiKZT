@@ -35,6 +35,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONException
 import org.json.JSONObject
 import product.promikz.AppConstants
+import product.promikz.AppConstants.U4EB_STATE
 import product.promikz.MainActivity
 import product.promikz.MyUtils
 import product.promikz.R
@@ -338,6 +339,7 @@ class StudyCoursesCreateFragment : Fragment() {
     private fun uploadProduct() {
         params.clear()
         params["type"] = rb("2")
+        params["category_id"] = rb(U4EB_STATE)
         params["name"] = rb(binding.textNewProductName.text.toString().trim())
         params["country_id"] = rb(AppConstants.COUNTRY_ID.toString())
         if (binding.textNewProductPrice.length() != 0) {

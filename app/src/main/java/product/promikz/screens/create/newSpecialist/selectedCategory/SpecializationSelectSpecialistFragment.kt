@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 import product.promikz.AppConstants.TOKEN_USER
 import product.promikz.AppConstants.params4
 import product.promikz.AppConstants.specializationAllNumber
-import product.promikz.AppConstants.specializationAllNumber2
 import product.promikz.R
 import product.promikz.viewModels.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -52,6 +51,15 @@ class SpecializationSelectSpecialistFragment : BottomSheetDialogFragment() {
         mHomeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         _binding = FragmentCategorySelectSpecialistBinding.inflate(inflater, container, false)
         val view = binding
+
+
+        categoryIndexName.clear()
+        categoryName.clear()
+        categoryIndexId.clear()
+        categoryNameText.clear()
+        checkBoxes.clear()
+        params4.clear()
+        specializationAllNumber.clear()
 
 
         // Определите радиус скругления краев
@@ -114,12 +122,12 @@ class SpecializationSelectSpecialistFragment : BottomSheetDialogFragment() {
 
         checkBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                if (isContains(specializationAllNumber2, id)) {
-                    specializationAllNumber = removeItem(specializationAllNumber2, id)
+                if (isContains(specializationAllNumber, id)) {
+                    specializationAllNumber = removeItem(specializationAllNumber, id)
                     params4.keys.removeAll { it == "specializations[${categoryIndexId[id]}]" }
                     categoryNameText.remove(categoryIndexName[id])
                 } else {
-                    if (specializationAllNumber2.size > 3) {
+                    if (specializationAllNumber.size > 3) {
                         checkBox.isChecked = false
                         Toast.makeText(
                             requireContext(),
@@ -127,7 +135,7 @@ class SpecializationSelectSpecialistFragment : BottomSheetDialogFragment() {
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
-                        specializationAllNumber2.add(id)
+                        specializationAllNumber.add(id)
                         categoryNameText.add(categoryIndexName[id])
                         params4["specializations[${categoryIndexId[id]}]"] =
                             rb(categoryIndexId[id].toString())
@@ -135,7 +143,7 @@ class SpecializationSelectSpecialistFragment : BottomSheetDialogFragment() {
                     }
                 }
             } else {
-                specializationAllNumber2 = removeItem(specializationAllNumber2, id)
+                specializationAllNumber = removeItem(specializationAllNumber, id)
                 params4.keys.removeAll { it == "specializations[${categoryIndexId[id]}]" }
                 categoryNameText.remove(categoryIndexName[id])
             }

@@ -63,7 +63,13 @@ class SpecialistReviewBSH : BottomSheetDialogFragment() {
             if (user.isSuccessful) {
                 user.body()?.let { adapter.setData(it.data) }
                 binding.progressNewCreatePro.visibility = View.GONE
-                binding.linShowReview.visibility = View.VISIBLE
+                if (AppConstants.REVIEW_STATE_SPECIALIST){
+                    binding.linShowReview.visibility = View.VISIBLE
+                    binding.textState.visibility = View.GONE
+                }else{
+                    binding.linShowReview.visibility = View.GONE
+                    binding.textState.visibility = View.VISIBLE
+                }
             }
         }
 
@@ -77,6 +83,7 @@ class SpecialistReviewBSH : BottomSheetDialogFragment() {
                     AppConstants.SPECIALIST_ALL
                 )
                 binding.edtNewMessage.setText("")
+                AppConstants.REVIEW_STATE_SPECIALIST = false
             } else {
                 MyUtils.uToast(requireContext(), "null field")
             }

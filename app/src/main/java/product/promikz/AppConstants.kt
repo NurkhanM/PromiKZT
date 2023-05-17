@@ -55,6 +55,8 @@ object AppConstants {
 
     var specialistAllNumber = ArrayList<Int>()
     var specialistAllNumber2 = ArrayList<Int>()
+    var specializationAllNumber = ArrayList<Int>()
+
     var SEARCH_PARAMS_NUMBER = ArrayList<Int>()
     val SEARCH_TEXTVIEW_TITLE = ArrayList<TextView>()
 
@@ -62,8 +64,7 @@ object AppConstants {
     var ARRAY_LIST_FILTER_ID =  ArrayList<Int>()
     var ARRAY_LIST_FILTER_INDEX = 0
 
-    var specializationAllNumber = ArrayList<Int>()
-    var specializationAllNumber2 = ArrayList<Int>()
+
 
     var imagesStoryAll = ArrayList<String>()
     var imagesStoryFollow = ArrayList<String?>()
@@ -108,7 +109,10 @@ object AppConstants {
     var MAP_SEARCH_CITIES: List<Int> = emptyList<Int>()
     var MAP_SEARCH_DOP_FILTERS = HashMap<String, String>()
 
-
     var FILTER_INT_ALL = ArrayList<Int>()
+
+    var REVIEW_STATE = true
+    var REVIEW_STATE_SPECIALIST = true
+    var U4EB_STATE = ""
 
 }

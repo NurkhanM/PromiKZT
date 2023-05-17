@@ -69,12 +69,14 @@ class NotificationShowFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     fun initViews(list: Response<NotificationShowModels>) {
         if (notificationType == NOTIFICATION_PROMI) {
             with(bindingPromi!!) {
                 val sender = list.body()?.data?.user?.name
                 tvTitle.text = list.body()?.data?.data?.title
                 tvSender.text = sender
+                date.text = list.body()?.created_at
                 tvMessage.text = list.body()?.data?.data?.text
                 progressBar.visibility = View.GONE
                 scrollView.visibility = View.VISIBLE
@@ -115,7 +117,7 @@ class NotificationShowFragment : Fragment() {
         }
     }
 
-    fun initErrorView() {
+    private fun initErrorView() {
         if (notificationType == NOTIFICATION_PROMI) {
             with(bindingPromi!!) {
                 cons2.visibility = View.VISIBLE

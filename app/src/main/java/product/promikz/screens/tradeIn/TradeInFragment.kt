@@ -33,7 +33,7 @@ import product.promikz.databinding.FragmentTwoAdvertBinding
 import product.promikz.databinding.ItemMakeupModelsBinding
 import product.promikz.inteface.IClickListnearHomeFilterCategory
 import product.promikz.screens.home.categoryfilter.CategoryFiltersAdapter
-import product.promikz.screens.search.SSortActivity
+import product.promikz.screens.search.products.SSortActivity
 
 class TradeInFragment : Fragment() {
 

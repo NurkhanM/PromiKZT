@@ -204,6 +204,24 @@
                             android:layout_height="10dp"
                             android:background="?colorOnPrimary" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/update_text_description"
+                            android:textColor="@color/black4"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="" />
+
 
                         <LinearLayout
                             android:id="@+id/moreProductsState"

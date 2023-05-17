@@ -16,7 +16,7 @@ data class Data(
     var isLike: Boolean,
     val isRating: Float?,
     val isReport: Int?,
-    val isReview: String?,
+    val isReview: Boolean,
     val likeCount: Int,
     val link: String?,
     val myProduct: Int,

@@ -31,7 +31,8 @@ class SpecialistAdapter(private val mIClickListnear: IClickListnearHomeSpecialis
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = ItemSpecialistModelsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemSpecialistModelsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         context = parent.context
         return MyViewHolder(binding)
     }
@@ -47,6 +48,7 @@ class SpecialistAdapter(private val mIClickListnear: IClickListnearHomeSpecialis
 
         holder.binding.itemHomeLike.text = currentItem.likeCount.toString()
         holder.binding.itemExperience.text = currentItem.experience.toString()
+        holder.binding.textSklonosti.text = getYearForm(currentItem.experience)
 
         if (currentItem.ratingsAvg != null) {
             holder.binding.itemSpeRating.rating = currentItem.ratingsAvg
@@ -79,6 +81,19 @@ class SpecialistAdapter(private val mIClickListnear: IClickListnearHomeSpecialis
         notifyDataSetChanged()
     }
 
-    inner class MyViewHolder(val binding: ItemSpecialistModelsBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(val binding: ItemSpecialistModelsBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    private fun getYearForm(number: Int): String {
+        val lastDigit = number % 10
+        val lastTwoDigits = number % 100
+        return when {
+            lastDigit == 1 && lastTwoDigits != 11 -> "год"
+            lastDigit in 2..4 && lastTwoDigits !in 12..14 -> "года"
+            else -> "лет"
+        }
+    }
+
+
 
 }

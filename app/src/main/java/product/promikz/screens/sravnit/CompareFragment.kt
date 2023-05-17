@@ -15,7 +15,7 @@ import product.promikz.AppConstants.compareAll
 import product.promikz.AppConstants.getCategoryCompareID
 import product.promikz.MyUtils.uToast
 import product.promikz.viewModels.HomeViewModel
-import product.promikz.screens.search.SSortActivity
+import product.promikz.screens.search.products.SSortActivity
 import product.promikz.databinding.FragmentCampareBinding
 import product.promikz.inteface.IClickListnearCompare
 

@@ -39,6 +39,7 @@ import kotlinx.coroutines.launch
 import product.promikz.AppConstants.ID_SHOP_MY
 import product.promikz.AppConstants.KEY_ID_SHOP_MY
 import product.promikz.AppConstants.MY_SPECIALIST
+import product.promikz.AppConstants.U4EB_STATE
 import product.promikz.AppConstants.USER_ID
 import product.promikz.AppConstants.VERIFY_USER_EMAIL
 import product.promikz.AppConstants.VERIFY_USER_PHONE
@@ -121,6 +122,7 @@ class SplashFragment : Fragment() {
                         priceMAX = data.body()?.data?.price?.max!!
 //                    priceAVG = data.body()?.data?.price?.avg!!
                         priceMIN = data.body()?.data?.price?.min!!
+                        U4EB_STATE = data.body()?.data?.categoryMain?.schools.toString()
 
                         if (TOKEN_USER != "null") {
 

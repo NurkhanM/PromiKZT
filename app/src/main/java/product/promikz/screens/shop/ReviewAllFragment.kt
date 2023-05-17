@@ -16,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
+import product.promikz.AppConstants.REVIEW_STATE
 import product.promikz.AppConstants.getCategoryID
 import product.promikz.AppConstants.getProductID
 import product.promikz.inteface.IClickListnearShops
@@ -44,7 +45,6 @@ class ReviewAllFragment : BottomSheetDialogFragment() {
         mHomeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         _binding = FragmentReviewAllBinding.inflate(inflater, container, false)
 
-
         val adapter = ShopsAdapter(object : IClickListnearShops {
             @SuppressLint("InflateParams")
             override fun clickListener(int: Int, name: String, boolean: Boolean) {
@@ -63,7 +63,13 @@ class ReviewAllFragment : BottomSheetDialogFragment() {
             if (user.isSuccessful) {
                 user.body()?.let { adapter.setData(it.data) }
                 binding.progressNewCreatePro.visibility = View.GONE
-                binding.linShowReview.visibility = View.VISIBLE
+                if (REVIEW_STATE){
+                    binding.linShowReview.visibility = View.VISIBLE
+                    binding.textState.visibility = View.GONE
+                }else{
+                    binding.linShowReview.visibility = View.GONE
+                    binding.textState.visibility = View.VISIBLE
+                }
             }
         }
 
@@ -77,6 +83,7 @@ class ReviewAllFragment : BottomSheetDialogFragment() {
                     getProductID
                 )
                 binding.edtNewMessage.setText("")
+                REVIEW_STATE = false
             } else {
                 uToast(requireContext(), "null field")
             }

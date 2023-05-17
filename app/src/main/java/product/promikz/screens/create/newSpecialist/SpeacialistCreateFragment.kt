@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import product.promikz.AppConstants.TOKEN_USER
@@ -44,6 +45,7 @@ import product.promikz.AppConstants.getBrandID
 import product.promikz.AppConstants.getCategoryID
 import product.promikz.AppConstants.getSpecialistIDSTATE
 import product.promikz.AppConstants.params4
+import product.promikz.AppConstants.specializationAllNumber
 import product.promikz.databinding.FragmentSpeacialistCreateBinding
 import product.promikz.screens.create.newSpecialist.selectedCategory.SpecializationSelectSpecialistFragment
 import tech.hibk.searchablespinnerlibrary.SearchableItem
@@ -65,6 +67,8 @@ class SpeacialistCreateFragment : Fragment() {
     private var cityIndex: Int? = 0
     private var justTime: Int? = 0
 
+
+
     @SuppressLint("CommitTransaction")
     @Suppress("DEPRECATION")
     override fun onCreateView(
@@ -76,6 +80,7 @@ class SpeacialistCreateFragment : Fragment() {
         _binding = FragmentSpeacialistCreateBinding.inflate(inflater, container, false)
         val view = binding
         dialog = Dialog(requireContext())
+        val hintColor = ContextCompat.getColor(requireContext(), R.color.black4)
 
         val departure = resources.getStringArray(R.array.Departure)
         val arrayAdapterState = ArrayAdapter(requireContext(), R.layout.item_dropdown, departure)
@@ -83,7 +88,8 @@ class SpeacialistCreateFragment : Fragment() {
 
         view.textInputLayoutPro3.setOnClickListener {
             specialistAllNumber.clear()
-            view.createEdtSkills.text = ""
+            view.createEdtSkills.text = resources.getString(R.string.choose_your_skills)
+            binding.createEdtSkills.setTextColor(hintColor)
 
             val fragment = SkillsSelectSpecialistFragment()
             fragment.setTargetFragment(this, 82)
@@ -94,7 +100,8 @@ class SpeacialistCreateFragment : Fragment() {
 
         view.textInputLayoutPro4.setOnClickListener {
             specialistAllNumber2.clear()
-            view.createEdtCategory.text = ""
+            view.createEdtCategory.text = resources.getString(R.string.select_skill_category)
+            binding.createEdtCategory.setTextColor(hintColor)
 
             val fragment = CategorySelectSpecialistFragment()
             fragment.setTargetFragment(this, 83)
@@ -105,7 +112,9 @@ class SpeacialistCreateFragment : Fragment() {
         }
 
         view.textInputLayoutSpecialization.setOnClickListener {
-            view.createEdtSpecialization.text = ""
+            specializationAllNumber.clear()
+            view.createEdtSpecialization.text = resources.getString(R.string.enter_specialitazion)
+            binding.createEdtSpecialization.setTextColor(hintColor)
 
             val fragment = SpecializationSelectSpecialistFragment()
             fragment.setTargetFragment(this, 84)
@@ -121,7 +130,8 @@ class SpeacialistCreateFragment : Fragment() {
             view.fonCreate.visibility = View.GONE
 
             if (view.createEdtExperience.length() != 0 && countryIndex != 0 &&
-                params2.size != 0 && params3.size != 0 && params4.size != 0
+                params2.size != 0 && params3.size != 0 && params4.size != 0 &&
+                view.textNewProductDescription.text?.length != 0
             ) {
                 if (stateSelectImageFirst) {
                     uploadProduct()
@@ -139,6 +149,10 @@ class SpeacialistCreateFragment : Fragment() {
                     resources.getText(R.string.add_all_fields),
                     Toast.LENGTH_SHORT
                 ).show()
+                view.createLoader.visibility = View.GONE
+                view.textTitle.text = resources.getString(R.string.create_specialist)
+                view.clickUpdateBackCard.visibility = View.VISIBLE
+                view.fonCreate.visibility = View.VISIBLE
             }
 
         }
@@ -204,6 +218,7 @@ class SpeacialistCreateFragment : Fragment() {
 
     private fun uploadProduct() {
 
+        params["description"] = rb(binding.textNewProductDescription.text.toString().trim())
         params["experience"] = rb(binding.createEdtExperience.text.toString().trim())
         params["departure"] = rb(binding.createSpinDeparture.selectedItemPosition.toString())
         params["city_id"] = rb("$cityIndex")
@@ -363,20 +378,25 @@ class SpeacialistCreateFragment : Fragment() {
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        val defaultColor = ContextCompat.getColor(requireContext(), R.color.black)
         if (requestCode == 82 && resultCode == Activity.RESULT_OK) {
             val result = data?.getStringExtra("resultSpecialistSkill")
             if (result != null) {
                 binding.createEdtSkills.text = result
+                binding.createEdtSkills.setTextColor(defaultColor)
             }
         } else if (requestCode == 83 && resultCode == Activity.RESULT_OK) {
             val result = data?.getStringExtra("resultSelectSpecialist")
             if (result != null) {
                 binding.createEdtCategory.text = result
+                binding.createEdtCategory.setTextColor(defaultColor)
             }
-        }else if (requestCode == 84 && resultCode == Activity.RESULT_OK) {
+        } else if (requestCode == 84 && resultCode == Activity.RESULT_OK) {
             val result = data?.getStringExtra("resultSpecialistSelect")
             if (result != null) {
                 binding.createEdtSpecialization.text = result
+                binding.createEdtSpecialization.setTextColor(defaultColor)
             }
         }
     }

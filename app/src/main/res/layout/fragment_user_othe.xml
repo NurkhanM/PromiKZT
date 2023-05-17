@@ -155,7 +155,8 @@
                                         android:layout_height="wrap_content"
                                         android:gravity="center_vertical"
                                         android:orientation="horizontal"
-                                        android:visibility="gone">
+                                        android:layout_gravity="center_vertical"
+                                        android:visibility="visible">
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -165,15 +166,27 @@
                                             android:textSize="18sp" />
 
                                         <RatingBar
-                                            android:id="@+id/productRating"
-                                            style="?android:attr/ratingBarStyleIndicator"
+                                            android:id="@+id/shopRating"
+                                            style="@style/Widget.AppCompat.RatingBar.Small"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:numStars="5"
                                             android:progressTint="@color/fon1"
-                                            android:rating="3"
-                                            android:scaleX="0.9"
-                                            android:scaleY="0.9" />
+                                            android:rating="3" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textColor="@color/black3"
+                                            android:text=" "
+                                            android:textSize="18sp" />
+                                        <TextView
+                                            android:id="@+id/textRating"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textColor="@color/black3"
+                                            android:textSize="18sp" />
+
 
                                     </LinearLayout>
                                 </LinearLayout>

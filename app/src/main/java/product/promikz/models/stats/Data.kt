@@ -2,6 +2,7 @@ package product.promikz.models.stats
 
 data class Data(
     val price: Price,
+    val categoryMain: CategoryMain,
     val totalCountAdvertising: Int,
     val totalCountBrand: Int,
     val totalCountCategory: Int,

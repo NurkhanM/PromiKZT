@@ -33,7 +33,7 @@ import product.promikz.databinding.ItemMakeupModelsBinding
 import product.promikz.inteface.IClickListnearHomeFilterCategory
 import product.promikz.models.products.index.Data
 import product.promikz.screens.home.TovarAdapterHome
-import product.promikz.screens.search.SSortActivity
+import product.promikz.screens.search.products.SSortActivity
 
 
 class HomeFragmentPlus : Fragment() {

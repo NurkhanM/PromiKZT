@@ -44,10 +44,7 @@ class UserOtheFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-    private var nameOtherUser: String = ""
-    private var phoneOtherUser: String = ""
-    private var imageOtherUser: String = ""
-    private var descripOtherUser: String = ""
+    private var shopOtherUser: Int = -1
     private lateinit var mProfileViewModel: HomeViewModel
 
     private lateinit var recyclerViewActive: RecyclerView
@@ -78,16 +75,24 @@ class UserOtheFragment : Fragment() {
         dialogLoader = Dialog(requireContext())
 
         val arguments = (activity as AppCompatActivity).intent.extras
-        nameOtherUser = arguments!!["User2_1"] as String
-        phoneOtherUser = arguments["User2_2"] as String
-        imageOtherUser = arguments["User2_3"] as String
-        descripOtherUser = arguments["User2_4"] as String
+        shopOtherUser = arguments!!["User2_1"] as Int
 
-        view.anotherUserName.text = nameOtherUser
-        view.anotherUserPhone.text = phoneOtherUser
-        view.anotherUserDescription.text = descripOtherUser
+        mProfileViewModel.getShops(shopOtherUser)
+        mProfileViewModel.myShopsModels.observe(viewLifecycleOwner){ list ->
 
-        MyUtils.uGlide(requireContext(), view.anotherUserImage, imageOtherUser)
+            if (list.isSuccessful){
+                view.anotherUserName.text = list.body()?.data?.name
+                view.anotherUserPhone.text = list.body()?.data?.user?.phone
+                view.anotherUserDescription.text = list.body()?.data?.description
+
+                MyUtils.uGlide(requireContext(), view.anotherUserImage, list.body()?.data?.img)
+
+                view.shopRating.rating = list.body()?.data?.ratingsAvg!!
+                view.textRating.text = list.body()?.data?.ratingsAvg.toString()
+
+            }
+
+        }
 
         recyclerViewActive = view.rvActive
 
@@ -148,10 +153,7 @@ class UserOtheFragment : Fragment() {
 
 
 
-        //// ***********
-
-
-        recyclerViewDeActive = view?.rvDeActive!!
+        recyclerViewDeActive = view.rvDeActive
         adapterDeActive = ProfileDeActiveAdapter(object : IClickListnearProfille {
             override fun clickListener(
                 baseID: Int,

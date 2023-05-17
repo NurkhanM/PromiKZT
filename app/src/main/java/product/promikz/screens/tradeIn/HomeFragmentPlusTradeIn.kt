@@ -31,7 +31,7 @@ import product.promikz.databinding.ItemMakeupModelsBinding
 import product.promikz.inteface.IClickListnearHomeFilterCategory
 import product.promikz.models.products.index.Data
 import product.promikz.screens.home.categoryfilter.CategoryFiltersAdapterPlus
-import product.promikz.screens.search.SSortActivity
+import product.promikz.screens.search.products.SSortActivity
 
 
 class HomeFragmentPlusTradeIn : Fragment() {

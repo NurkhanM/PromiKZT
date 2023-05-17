@@ -15,8 +15,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import product.promikz.AppConstants.TOKEN_USER
-import product.promikz.AppConstants.specialistAllNumber
 import product.promikz.AppConstants.params2
+import product.promikz.AppConstants.specialistAllNumber2
 import product.promikz.R
 import product.promikz.viewModels.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -51,6 +51,14 @@ class CategorySelectSpecialistFragment : BottomSheetDialogFragment() {
         mHomeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         _binding = FragmentCategorySelectSpecialistBinding.inflate(inflater, container, false)
         val view = binding
+
+        categoryIndexName.clear()
+        categoryName.clear()
+        categoryIndexId.clear()
+        categoryNameText.clear()
+        checkBoxes.clear()
+        params2.clear()
+        specialistAllNumber2.clear()
 
 
         // Определите радиус скругления краев
@@ -130,12 +138,12 @@ class CategorySelectSpecialistFragment : BottomSheetDialogFragment() {
 
         checkBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                if (isContains(specialistAllNumber, id)) {
-                    specialistAllNumber = removeItem(specialistAllNumber, id)
+                if (isContains(specialistAllNumber2, id)) {
+                    specialistAllNumber2 = removeItem(specialistAllNumber2, id)
                     params2.keys.removeAll { it == "categories[${categoryIndexId[id]}]" }
                     categoryNameText.remove(categoryIndexName[id])
                 } else {
-                    if (specialistAllNumber.size > 3) {
+                    if (specialistAllNumber2.size > 3) {
                         checkBox.isChecked = false
                         Toast.makeText(
                             requireContext(),
@@ -143,14 +151,14 @@ class CategorySelectSpecialistFragment : BottomSheetDialogFragment() {
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
-                        specialistAllNumber.add(id)
+                        specialistAllNumber2.add(id)
                         categoryNameText.add(categoryIndexName[id])
                         params2["categories[${categoryIndexId[id]}]"] =
                             rb(categoryIndexId[id].toString())
                     }
                 }
             } else {
-                specialistAllNumber = removeItem(specialistAllNumber, id)
+                specialistAllNumber2 = removeItem(specialistAllNumber2, id)
                 params2.keys.removeAll { it == "categories[${categoryIndexId[id]}]" }
                 categoryNameText.remove(categoryIndexName[id])
             }

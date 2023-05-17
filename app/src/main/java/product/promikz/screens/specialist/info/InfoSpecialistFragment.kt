@@ -26,6 +26,8 @@ import product.promikz.R
 import product.promikz.viewModels.HomeViewModel
 import product.promikz.screens.shop.SpecialistReviewBSH
 import com.google.android.gms.common.api.ApiException
+import product.promikz.AppConstants
+import product.promikz.AppConstants.REVIEW_STATE_SPECIALIST
 import product.promikz.AppConstants.SPECIALIST_ALL
 import product.promikz.MyUtils
 import product.promikz.MyUtils.uLogD
@@ -76,6 +78,11 @@ class InfoSpecialistFragment : Fragment() {
     private var clicked = false
 
 
+    override fun onStart() {
+        super.onStart()
+        REVIEW_STATE_SPECIALIST = true
+    }
+
     @Suppress("DEPRECATION")
     @SuppressLint("UseRequireInsteadOfGet", "CommitTransaction")
     override fun onCreateView(
@@ -92,16 +99,15 @@ class InfoSpecialistFragment : Fragment() {
         SPECIALIST_ALL = arguments["spec"] as Int
 
 
-
         // Здесь проверка на Лайк
         view.updateImageFavorite.setOnClickListener {
-                isLike = if (isLike) {
-                    view.updateImageFavorite.setImageResource(R.drawable.ic_favorite)
-                    false
-                } else {
-                    view.updateImageFavorite.setImageResource(R.drawable.ic_favorite2)
-                    true
-                }
+            isLike = if (isLike) {
+                view.updateImageFavorite.setImageResource(R.drawable.ic_favorite)
+                false
+            } else {
+                view.updateImageFavorite.setImageResource(R.drawable.ic_favorite2)
+                true
+            }
             mImageArrayUpdate.postSpecialist("Bearer $TOKEN_USER", idSpecialist)
         }
 
@@ -116,21 +122,26 @@ class InfoSpecialistFragment : Fragment() {
                     "Bearer $TOKEN_USER",
                     "specialist",
                     idSpecialist,
-                    rating.toString())
+                    rating.toString()
+                )
                 Toast.makeText(requireContext(), "$rating", Toast.LENGTH_SHORT).show()
                 view.btnSendRating.visibility = View.GONE
                 binding.textRating.text = "Вы поставили рейтинг к этому специалисту"
             } else {
-                Toast.makeText(requireContext(), resources.getText(R.string.need_sign_up), Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    resources.getText(R.string.need_sign_up),
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
 
         }
 
         view.floatingActionButtonReview.setOnClickListener {
-                (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
-                    .add(SpecialistReviewBSH(), "specialist")
-                    .commit()
+            (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
+                .add(SpecialistReviewBSH(), "specialist")
+                .commit()
 
         }
 
@@ -145,7 +156,6 @@ class InfoSpecialistFragment : Fragment() {
         view.clickUpdateBackCard.setOnClickListener {
             activity?.onBackPressed()
         }
-
 
 
         val resultCode1 = 103
@@ -190,7 +200,8 @@ class InfoSpecialistFragment : Fragment() {
 
         view.nextCopyLink.setOnClickListener {
 
-            val clipboardManager = activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipboardManager =
+                activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             clipboardManager.setPrimaryClip(ClipData.newPlainText("", urlProducts))
 
             MyUtils.uToast(requireContext(), "Copied")
@@ -207,10 +218,9 @@ class InfoSpecialistFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
-        binding?.updateAll?.visibility = View.GONE
-        binding?.dopTextUpdate?.visibility = View.INVISIBLE
-        binding?.UpdateWorkError?.visibility = View.VISIBLE
-
+        binding.updateAll.visibility = View.GONE
+        binding.dopTextUpdate.visibility = View.INVISIBLE
+        binding.UpdateWorkError.visibility = View.VISIBLE
 
         try {
             mImageArrayUpdate.getSpecialistShow("Bearer $TOKEN_USER", idSpecialist)
@@ -221,17 +231,23 @@ class InfoSpecialistFragment : Fragment() {
                     MyUtils.uGlide(requireContext(), binding.imgAddFirst, list.body()?.data?.img)
 
                     binding.textNameUser.text = list.body()?.data?.user?.name
-                    binding.textExperience.text = list.body()?.data?.experience.toString()
+                    binding.textExperience.text = list.body()?.data?.experience.toString() + " ${
+                        getYearForm(
+                            list.body()?.data?.experience!!
+                        )
+                    }"
+
                     binding.textLocationInfo.text = list.body()?.data?.city?.name
                     binding.textNumberUser.text = list.body()?.data?.user?.phone
                     binding.textEmailUser.text = list.body()?.data?.user?.email
+                    binding.textDescription.text = list.body()?.data?.description?.toString()
 
                     nameProducts = list.body()?.data?.user?.name.toString()
                     urlProducts = url + list.body()?.data?.id.toString()
 
-                    if (list.body()?.data?.departure.toString() == "1"){
+                    if (list.body()?.data?.departure.toString() == "1") {
                         binding.textDeparture.text = resources.getText(R.string.ready_move)
-                    }else {
+                    } else {
                         binding.textDeparture.text = resources.getText(R.string.not)
                     }
 
@@ -244,40 +260,55 @@ class InfoSpecialistFragment : Fragment() {
                         binding.btnSendRating.visibility = View.GONE
                     }
 
+                    if (list.body()?.data?.isReview == true) {
+                        REVIEW_STATE_SPECIALIST = false
+                    }
 
-                    if (list.body()?.data?.skills?.isNotEmpty() == true){
+                    if (list.body()?.data?.skills?.isNotEmpty() == true) {
                         val array = list.body()?.data?.skills!!
                         val arrayString = ArrayList<String>()
-                        array.forEach{
+                        array.forEach {
                             arrayString.add(it.name)
                         }
-                        binding.textSkills.text = arrayString.joinToString(prefix = "", postfix = "", separator = " / ") // <1•2•3•4•5•6>
+                        binding.textSkills.text = arrayString.joinToString(
+                            prefix = "",
+                            postfix = "",
+                            separator = " / "
+                        ) // <1•2•3•4•5•6>
 
-                    }else{
+                    } else {
                         binding.textSkills.text = resources.getText(R.string.not_skills)
                     }
 
-                    if (list.body()?.data?.categories?.isNotEmpty() == true){
+                    if (list.body()?.data?.categories?.isNotEmpty() == true) {
                         val array = list.body()?.data?.categories!!
                         val arrayString = ArrayList<String>()
-                        array.forEach{
+                        array.forEach {
                             arrayString.add(it.name)
                         }
-                        binding.textCategory.text = arrayString.joinToString(prefix = "", postfix = "", separator = " / ") // <1•2•3•4•5•6>
+                        binding.textCategory.text = arrayString.joinToString(
+                            prefix = "",
+                            postfix = "",
+                            separator = " / "
+                        ) // <1•2•3•4•5•6>
 
-                    }else{
+                    } else {
                         binding.textCategory.text = resources.getText(R.string.not_skills)
                     }
 
-                    if (list.body()?.data?.specializations?.isNotEmpty() == true){
+                    if (list.body()?.data?.specializations?.isNotEmpty() == true) {
                         val array = list.body()?.data?.specializations!!
                         val arrayString = ArrayList<String>()
-                        array.forEach{
+                        array.forEach {
                             arrayString.add(it.name)
                         }
-                        binding.textSpecialization.text = arrayString.joinToString(prefix = "", postfix = "", separator = " / ") // <1•2•3•4•5•6>
+                        binding.textSpecialization.text = arrayString.joinToString(
+                            prefix = "",
+                            postfix = "",
+                            separator = " / "
+                        ) // <1•2•3•4•5•6>
 
-                    }else{
+                    } else {
                         binding.textSpecialization.text = resources.getText(R.string.not_skills)
                     }
 
@@ -321,7 +352,8 @@ class InfoSpecialistFragment : Fragment() {
             mImageArrayUpdate.getReviewsSpecialist(idSpecialist)
             mImageArrayUpdate.myReviewsSpecialist.observe(viewLifecycleOwner) { user ->
                 if (user.isSuccessful) {
-                    binding.textReviewSpecialist.text = "(${user.body()!!.meta.total} ${resources.getText(R.string.reviews)})"
+                    binding.textReviewSpecialist.text =
+                        "(${user.body()!!.meta.total} ${resources.getText(R.string.reviews)})"
                 }
 
             }
@@ -383,20 +415,26 @@ class InfoSpecialistFragment : Fragment() {
     }
 
     private fun checkPermission() {
-        if (ContextCompat.checkSelfPermission(requireActivity(),
-                Manifest.permission.CALL_PHONE)
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.CALL_PHONE
+            )
             != PackageManager.PERMISSION_GRANTED
         ) {
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
-                    Manifest.permission.CALL_PHONE)
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    requireActivity(),
+                    Manifest.permission.CALL_PHONE
+                )
             ) {
                 uLogD("SUCCESS")
             } else {
 
-                ActivityCompat.requestPermissions(requireActivity(),
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
                     arrayOf(Manifest.permission.CALL_PHONE),
-                    42)
+                    42
+                )
             }
         } else {
 
@@ -405,8 +443,21 @@ class InfoSpecialistFragment : Fragment() {
     }
 
     private fun callPhone() {
-        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel: + ${product.promikz.AppConstants.userTelephony}"))
+        val intent = Intent(
+            Intent.ACTION_CALL,
+            Uri.parse("tel: + ${AppConstants.userTelephony}")
+        )
         startActivity(intent)
+    }
+
+    private fun getYearForm(number: Int): String {
+        val lastDigit = number % 10
+        val lastTwoDigits = number % 100
+        return when {
+            lastDigit == 1 && lastTwoDigits != 11 -> "год"
+            lastDigit in 2..4 && lastTwoDigits !in 12..14 -> "года"
+            else -> "лет"
+        }
     }
 
     override fun onDestroyView() {

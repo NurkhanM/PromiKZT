@@ -9,7 +9,7 @@ data class Specialist(
     val isLike: Boolean,
     val isRating: Float?,
     val isReport: Int?,
-    val isReview: String?,
+    val isReview: Boolean,
     val likeCount: Int,
     val ratingsAvg: Float?,
     val reportCount: Int,
