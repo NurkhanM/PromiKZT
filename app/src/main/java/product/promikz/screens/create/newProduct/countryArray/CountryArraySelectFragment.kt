@@ -47,6 +47,7 @@ class CountryArraySelectFragment : BottomSheetDialogFragment() {
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         _binding = FragmentCategorySelectBinding.inflate(inflater, container, false)
         val view = binding
+        COUNTRY_ID_ARRAY.clear()
 
 
         // Определите радиус скругления краев

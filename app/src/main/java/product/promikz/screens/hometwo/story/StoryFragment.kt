@@ -32,6 +32,7 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
     private var storiesProgressView: StoriesProgressView? = null
     private var image: ImageView? = null
     private var counter = 0
+    private var show = "-1"
 
     private val durations = longArrayOf(
         500L, 1000L, 1500L, 4000L, 6000L, 8000L
@@ -59,6 +60,7 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -66,7 +68,12 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         // Inflate the layout for this fragment
         _binding = FragmentStoryBinding.inflate(inflater, container, false)
         val view = binding
-        storiesProgressView = binding.root.findViewById<View>(R.id.stories) as StoriesProgressView
+
+        val arguments = (activity as AppCompatActivity).intent.extras
+        show = arguments!!["show"] as String
+        binding.itemHomeViews.text = show
+
+            storiesProgressView = binding.root.findViewById<View>(R.id.stories) as StoriesProgressView
         storiesProgressView!!.setStoriesCount(PROGRESS_COUNT)
         storiesProgressView!!.setStoryDuration(durations[4])
         storiesProgressView!!.setStoriesListener(this)

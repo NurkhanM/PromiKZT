@@ -26,6 +26,8 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import product.promikz.AppConstants
+import product.promikz.AppConstants.MAP_SEARCH_DOP_FILTERS
 import product.promikz.databinding.FragmentCategorySelectSpecialistBinding
 
 class CategorySelectSpecialistFragment : BottomSheetDialogFragment() {
@@ -57,6 +59,7 @@ class CategorySelectSpecialistFragment : BottomSheetDialogFragment() {
         categoryIndexId.clear()
         categoryNameText.clear()
         checkBoxes.clear()
+        MAP_SEARCH_DOP_FILTERS.clear()
         params2.clear()
         specialistAllNumber2.clear()
 
@@ -140,6 +143,7 @@ class CategorySelectSpecialistFragment : BottomSheetDialogFragment() {
             if (isChecked) {
                 if (isContains(specialistAllNumber2, id)) {
                     specialistAllNumber2 = removeItem(specialistAllNumber2, id)
+                    MAP_SEARCH_DOP_FILTERS.keys.removeAll { it == "categories[${categoryIndexId[id]}]" }
                     params2.keys.removeAll { it == "categories[${categoryIndexId[id]}]" }
                     categoryNameText.remove(categoryIndexName[id])
                 } else {
@@ -153,12 +157,13 @@ class CategorySelectSpecialistFragment : BottomSheetDialogFragment() {
                     } else {
                         specialistAllNumber2.add(id)
                         categoryNameText.add(categoryIndexName[id])
-                        params2["categories[${categoryIndexId[id]}]"] =
-                            rb(categoryIndexId[id].toString())
+                        MAP_SEARCH_DOP_FILTERS["categories[${categoryIndexId[id]}]"] = categoryIndexId[id].toString()
+                        params2["categories[${categoryIndexId[id]}]"] = rb(categoryIndexId[id].toString())
                     }
                 }
             } else {
                 specialistAllNumber2 = removeItem(specialistAllNumber2, id)
+                MAP_SEARCH_DOP_FILTERS.keys.removeAll { it == "categories[${categoryIndexId[id]}]" }
                 params2.keys.removeAll { it == "categories[${categoryIndexId[id]}]" }
                 categoryNameText.remove(categoryIndexName[id])
             }

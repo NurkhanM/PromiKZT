@@ -1,6 +1,7 @@
 package product.promikz.screens.specialist
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import gun0912.tedimagepicker.util.ToastUtil
+import product.promikz.MyUtils.uToast
 import product.promikz.R
 import product.promikz.databinding.ItemSpecialistModelsBinding
 import product.promikz.inteface.IClickListnearHomeSpecialist
@@ -41,30 +43,35 @@ class SpecialistAdapter(private val mIClickListnear: IClickListnearHomeSpecialis
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = listTovar[position]
 
-        holder.binding.itemStateTop.visibility = View.GONE
-        holder.binding.itemVip.visibility = View.GONE
-        holder.binding.itemStateVerified.visibility = View.GONE
-        holder.binding.itemStateHot.visibility = View.GONE
+        try {
 
-        holder.binding.itemHomeLike.text = currentItem.likeCount.toString()
-        holder.binding.itemExperience.text = currentItem.experience.toString()
-        holder.binding.textSklonosti.text = getYearForm(currentItem.experience)
+            holder.binding.itemStateTop.visibility = View.GONE
+            holder.binding.itemVip.visibility = View.GONE
+            holder.binding.itemStateVerified.visibility = View.GONE
+            holder.binding.itemStateHot.visibility = View.GONE
 
-        if (currentItem.ratingsAvg != null) {
-            holder.binding.itemSpeRating.rating = currentItem.ratingsAvg
-        } else {
-            holder.binding.itemSpeRating.rating = 0f
+            holder.binding.itemHomeLike.text = currentItem.likeCount.toString()
+            holder.binding.itemExperience.text = currentItem.experience.toString()
+            holder.binding.textSklonosti.text = getYearForm(currentItem.experience)
+
+            if (currentItem.ratingsAvg != null) {
+                holder.binding.itemSpeRating.rating = currentItem.ratingsAvg
+            } else {
+                holder.binding.itemSpeRating.rating = 0f
+            }
+
+            holder.binding.itemSpeName.text = currentItem.user.name
+            holder.binding.itemHomeCityName.text = currentItem.city.name
+
+            Glide.with(context).load(currentItem.img)
+                .thumbnail(Glide.with(context).load(R.drawable.loader_small))
+                .centerCrop()
+                .into(holder.binding.itemHomeImages)
+
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
         }
 
-        holder.binding.itemSpeName.text = currentItem.user.name
-        holder.binding.itemHomeCityName.text = currentItem.city.name
-
-        Glide.with(ToastUtil.context).load(currentItem.img)
-            .thumbnail(Glide.with(ToastUtil.context).load(R.drawable.loader2))
-            .centerCrop()
-            .into(holder.binding.itemHomeImages)
-
-//        }
 
         holder.binding.rowCostom.setOnClickListener {
             mIClickListnear.clickListener(currentItem.id, holder.binding, false, position)
@@ -93,7 +100,6 @@ class SpecialistAdapter(private val mIClickListnear: IClickListnearHomeSpecialis
             else -> "лет"
         }
     }
-
 
 
 }

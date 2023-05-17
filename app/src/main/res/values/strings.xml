@@ -227,7 +227,7 @@
     <string name="create_specialist">Создать специалиста</string>
     <string name="enter_work_experience">Введите опыт работы</string>
     <string name="Enter_completed_works">Введите (кол-во) выполненных работ</string>
-    <string name="choose_your_skills">Выберите ваши умении</string>
+    <string name="choose_your_skills">Выберите умении</string>
     <string name="select_skill_category">Выберите категорию умении</string>
     <string name="moving">Переезд</string>
     <string name="change">Изменить</string>
@@ -238,7 +238,7 @@
     <string name="favorite">Избранные</string>
     <string name="create_trade_in">Создать объявление для обмена</string>
     <string name="enter_product_name">Введите название продукта</string>
-    <string name="price_from">Цена от:</string>
+    <string name="price_from">от:</string>
     <string name="before">до:</string>
     <string name="from_verified_sellers">От проверенных продавцов</string>
     <string name="hots">Горячие</string>
@@ -289,7 +289,7 @@
     <string name="change_shops">Редактировать магазин</string>
     <string name="describe_your_store">Опишите Ваш магазин</string>
     <string name="specialists">Специалисты</string>
-    <string name="go_to_website">Перейти на сайт</string>
+    <string name="go_to_website">&gt;Перейти на сайт&lt;</string>
     <string name="trade_in">Обмен</string>
     <string name="more_about_product">Подробнее о товаре</string>
     <string name="shop">Магазин:</string>
@@ -337,7 +337,7 @@
     <string name="enter_old_password">Введите старый пароль</string>
     <string name="enter_new_password_again">Введите новый пароль еще раз</string>
     <string name="change_profile">Редактировать профиль</string>
-    <string name="enter_specialitazion">Выберите вашу специализацию</string>
+    <string name="enter_specialitazion">Выберите специализацию</string>
     <string name="specialization">Специализация</string>
     <string name="confidentiality">Нужно согласиться с пользовательским соглашением</string>
     <string name="privacy">Регистрируясь, вы принимаете </string>

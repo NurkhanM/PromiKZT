@@ -26,6 +26,7 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import product.promikz.AppConstants.MAP_SEARCH_DOP_FILTERS
 import product.promikz.databinding.FragmentCategorySelectSpecialistBinding
 
 class SkillsSelectSpecialistFragment : BottomSheetDialogFragment() {
@@ -57,6 +58,7 @@ class SkillsSelectSpecialistFragment : BottomSheetDialogFragment() {
         categoryIndexId.clear()
         categoryNameText.clear()
         checkBoxes.clear()
+        MAP_SEARCH_DOP_FILTERS.clear()
         params3.clear()
         specialistAllNumber.clear()
 
@@ -70,7 +72,8 @@ class SkillsSelectSpecialistFragment : BottomSheetDialogFragment() {
             .build()
 
         // Получите ссылку на корневую View и установите для нее фон с использованием ShapeAppearanceModel
-        val bottomSheet = dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        val bottomSheet =
+            dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
         bottomSheet?.background = MaterialShapeDrawable(shapeAppearanceModel)
             .apply {
                 setTint(ContextCompat.getColor(requireContext(), R.color.white))
@@ -101,11 +104,13 @@ class SkillsSelectSpecialistFragment : BottomSheetDialogFragment() {
 
         }
         view.addCategory.setOnClickListener {
-            intent.putExtra("resultSpecialistSkill", categoryNameText.joinToString(
-                prefix = "",
-                postfix = "",
-                separator = ", \n\n"
-            ))
+            intent.putExtra(
+                "resultSpecialistSkill", categoryNameText.joinToString(
+                    prefix = "",
+                    postfix = "",
+                    separator = ", \n\n"
+                )
+            )
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
 
             dismiss()
@@ -125,6 +130,7 @@ class SkillsSelectSpecialistFragment : BottomSheetDialogFragment() {
             if (isChecked) {
                 if (isContains(specialistAllNumber, id)) {
                     specialistAllNumber = removeItem(specialistAllNumber, id)
+                    MAP_SEARCH_DOP_FILTERS.keys.removeAll { it == "skills[${categoryIndexId[id]}]" }
                     params3.keys.removeAll { it == "skills[${categoryIndexId[id]}]" }
                     categoryNameText.remove(categoryIndexName[id])
                 } else {
@@ -138,12 +144,13 @@ class SkillsSelectSpecialistFragment : BottomSheetDialogFragment() {
                     } else {
                         specialistAllNumber.add(id)
                         categoryNameText.add(categoryIndexName[id])
-                        params3["skills[${categoryIndexId[id]}]"] =
-                            rb(categoryIndexId[id].toString())
+                        MAP_SEARCH_DOP_FILTERS["skills[${categoryIndexId[id]}]"] = categoryIndexId[id].toString()
+                        params3["skills[${categoryIndexId[id]}]"] = rb(categoryIndexId[id].toString())
                     }
                 }
             } else {
                 specialistAllNumber = removeItem(specialistAllNumber, id)
+                MAP_SEARCH_DOP_FILTERS.keys.removeAll { it == "skills[${categoryIndexId[id]}]" }
                 params3.keys.removeAll { it == "skills[${categoryIndexId[id]}]" }
                 categoryNameText.remove(categoryIndexName[id])
             }

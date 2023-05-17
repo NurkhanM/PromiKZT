@@ -3,13 +3,16 @@ package product.promikz.screens.specialist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.bumptech.glide.Glide
 import product.promikz.NetworkConnection
 import product.promikz.R
 import product.promikz.databinding.ActivitySpecialistBinding
+import product.promikz.databinding.ItemSpecialistModelsBinding
 
 class SpecialistActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySpecialistBinding
+    private lateinit var bindingAdapter: ItemSpecialistModelsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,4 +38,5 @@ class SpecialistActivity : AppCompatActivity() {
         super.onBackPressed()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right )
     }
+
 }

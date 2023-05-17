@@ -26,6 +26,7 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import product.promikz.AppConstants.MAP_SEARCH_DOP_FILTERS
 import product.promikz.databinding.FragmentCategorySelectSpecialistBinding
 
 class SpecializationSelectSpecialistFragment : BottomSheetDialogFragment() {
@@ -58,6 +59,7 @@ class SpecializationSelectSpecialistFragment : BottomSheetDialogFragment() {
         categoryIndexId.clear()
         categoryNameText.clear()
         checkBoxes.clear()
+        MAP_SEARCH_DOP_FILTERS.clear()
         params4.clear()
         specializationAllNumber.clear()
 
@@ -124,6 +126,7 @@ class SpecializationSelectSpecialistFragment : BottomSheetDialogFragment() {
             if (isChecked) {
                 if (isContains(specializationAllNumber, id)) {
                     specializationAllNumber = removeItem(specializationAllNumber, id)
+                    MAP_SEARCH_DOP_FILTERS.keys.removeAll { it == "specializations[${categoryIndexId[id]}]" }
                     params4.keys.removeAll { it == "specializations[${categoryIndexId[id]}]" }
                     categoryNameText.remove(categoryIndexName[id])
                 } else {
@@ -137,13 +140,14 @@ class SpecializationSelectSpecialistFragment : BottomSheetDialogFragment() {
                     } else {
                         specializationAllNumber.add(id)
                         categoryNameText.add(categoryIndexName[id])
-                        params4["specializations[${categoryIndexId[id]}]"] =
-                            rb(categoryIndexId[id].toString())
+                        MAP_SEARCH_DOP_FILTERS["specializations[${categoryIndexId[id]}]"] = categoryIndexId[id].toString()
+                        params4["specializations[${categoryIndexId[id]}]"] = rb(categoryIndexId[id].toString())
 
                     }
                 }
             } else {
                 specializationAllNumber = removeItem(specializationAllNumber, id)
+                MAP_SEARCH_DOP_FILTERS.keys.removeAll { it == "specializations[${categoryIndexId[id]}]" }
                 params4.keys.removeAll { it == "specializations[${categoryIndexId[id]}]" }
                 categoryNameText.remove(categoryIndexName[id])
             }

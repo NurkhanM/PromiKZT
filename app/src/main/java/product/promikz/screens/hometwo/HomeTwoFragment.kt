@@ -146,9 +146,10 @@ class HomeTwoFragment : Fragment() {
 
         recyclerViewStory = view.rvStory
         adapterStory = HomeTwoAdapter(object : IClickListnearHomeStory {
-            override fun clickListener(pos: Int) {
+            override fun clickListener(pos: Int, show: String) {
 
-                mHomeViewModel.getStory()
+
+//                mHomeViewModel.getStory()
                 mHomeViewModel.myStory.observe(viewLifecycleOwner) { response ->
                     loop@ for (i in 0 until response.body()?.data?.size!!) {
                         if (response.body()?.data!![i].id == pos) {
@@ -175,7 +176,7 @@ class HomeTwoFragment : Fragment() {
 
                 val intent = Intent(requireActivity(), StoryActivity::class.java)
                 intent.putExtra("story", pos)
-//                        intent.putExtra("follow", follow)
+                intent.putExtra("show", show)
                 startActivity(intent)
                 (activity as AppCompatActivity).overridePendingTransition(
                     R.anim.zoom_enter,
@@ -352,7 +353,7 @@ class HomeTwoFragment : Fragment() {
         postToList()
 
 
-        mHomeViewModel.getStory()
+//        mHomeViewModel.getStory()
         mHomeViewModel.myStory.observe(viewLifecycleOwner)
         { response ->
 
@@ -577,7 +578,7 @@ class HomeTwoFragment : Fragment() {
     private fun nextNotificationState() {
         val intent = Intent(requireActivity(), NotificationsActivity::class.java)
         startActivity(intent)
-       activity?.overridePendingTransition(
+        activity?.overridePendingTransition(
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )

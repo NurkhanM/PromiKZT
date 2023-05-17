@@ -7,6 +7,7 @@ import product.promikz.models.errors.Errors
 import product.promikz.models.products.index.ProductIndexModels
 import product.promikz.models.products.ratingAVG.RatingAVGModels
 import product.promikz.models.products.show.ProductShowModels
+import product.promikz.models.specialist.index.SpecialistIndexModels
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -53,6 +54,16 @@ interface ProductApi {
         @QueryMap filters: HashMap<String, String>,
         @Query("cities[]") cities: List<Int>
     ): Response<ProductIndexModels>
+
+
+    @GET("/api/specialist?notReports=1")
+    @Headers("Accept: application/json")
+    suspend fun getSortSpecialist(
+        @Header("Authorization") auth: String,
+        @QueryMap params: HashMap<String, String>,
+        @QueryMap filters: HashMap<String, String>,
+        @Query("cities[]") cities: List<Int>
+    ): Response<SpecialistIndexModels>
 
     @GET("/api/products?notReports=1")
     @Headers("Accept: application/json")

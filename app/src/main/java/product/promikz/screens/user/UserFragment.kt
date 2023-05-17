@@ -111,6 +111,7 @@ class UserFragment : Fragment() {
                 binding.userName.text = list.body()?.data?.name
                 binding.userEmail.text = list.body()?.data?.email
                 binding.userStatus.text = list.body()?.data?.status
+                binding.userDate.text = list.body()?.data?.created_at
                 binding.userType.text = list.body()?.data?.type?.let { getStatusUser(it) }
                 if (list.body()?.data?.type != "0"){
                     binding.isStateType.visibility = View.GONE

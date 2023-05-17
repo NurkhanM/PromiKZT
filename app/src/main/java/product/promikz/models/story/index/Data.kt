@@ -7,6 +7,7 @@ data class Data(
     val id: Int,
     val images: List<Image>,
     val img: String,
+    val views: Int,
     val name: String,
     val status: Int
 )

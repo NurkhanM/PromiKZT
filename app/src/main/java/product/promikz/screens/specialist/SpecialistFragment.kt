@@ -21,6 +21,7 @@ import product.promikz.databinding.FragmentSpecialistBinding
 import product.promikz.databinding.ItemMakeupModelsBinding
 import product.promikz.databinding.ItemSpecialistModelsBinding
 import product.promikz.inteface.IClickListnearHomeSpecialist
+import product.promikz.screens.search.specialist.SortSpecActivity
 import product.promikz.screens.specialist.filter.FilterSpecialistActivity
 
 class SpecialistFragment : Fragment() {
@@ -105,7 +106,7 @@ class SpecialistFragment : Fragment() {
         }
 
         view.imgSpecialistFilters.setOnClickListener {
-            val intent = Intent(requireActivity(), FilterSpecialistActivity::class.java)
+            val intent = Intent(requireActivity(), SortSpecActivity::class.java)
             startActivity(intent)
             (activity as AppCompatActivity).overridePendingTransition(
                 R.anim.zoom_enter,

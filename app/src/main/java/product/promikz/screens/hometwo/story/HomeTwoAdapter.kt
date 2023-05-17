@@ -30,7 +30,7 @@ class HomeTwoAdapter(private val mIClickListnearHomeStory: IClickListnearHomeSto
         holder.binding.descHome2Item.text = currentItem.description
 
         holder.binding.rowHomeTwo.setOnClickListener {
-            mIClickListnearHomeStory.clickListener(currentItem.id)
+            mIClickListnearHomeStory.clickListener(currentItem.id, currentItem.views.toString())
         }
     }
 

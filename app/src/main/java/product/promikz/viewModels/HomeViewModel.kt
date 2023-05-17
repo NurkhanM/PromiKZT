@@ -65,6 +65,7 @@ class HomeViewModel : ViewModel() {
     val myFilterProducts: MutableLiveData<Response<ProductIndexModels>> = MutableLiveData()
     val myFilterProductsEND: MutableLiveData<Response<ProductIndexModels>> = MutableLiveData()
     val myGetSortProducts: MutableLiveData<Response<ProductIndexModels>> = MutableLiveData()
+    val myGetSortSpecialist: MutableLiveData<Response<SpecialistIndexModels>> = MutableLiveData()
     val mySpecialistShow: MutableLiveData<Response<SpecialistShowModels>> = MutableLiveData()
     val mySpecialistPage: MutableLiveData<Response<SpecialistIndexModels>> = MutableLiveData()
     val mySimilar: MutableLiveData<Response<SimilarModels>> = MutableLiveData()
@@ -305,6 +306,12 @@ class HomeViewModel : ViewModel() {
     fun getSortProducts(auth: String, params: HashMap<String, String>,filters: HashMap<String, String>, cities: List<Int>) {
         viewModelScope.launch {
             myGetSortProducts.value = repo.getSortProductsRepository(auth, params, filters, cities)
+        }
+    }
+
+    fun getSortSpecialist(auth: String, params: HashMap<String, String>,filters: HashMap<String, String>, cities: List<Int>) {
+        viewModelScope.launch {
+            myGetSortSpecialist.value = repo.getSortSpecialistRepository(auth, params, filters, cities)
         }
     }
 

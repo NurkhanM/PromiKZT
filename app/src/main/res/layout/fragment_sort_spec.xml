@@ -112,99 +112,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="RtlSymmetry" />
 
-
-            <TextView
-                android:id="@+id/text_name_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
-                android:text="@string/category"
-                android:textSize="16sp"
-                android:textStyle="bold|normal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtSearch" />
-
-            <LinearLayout
-                android:id="@+id/lin2SortSearch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_name_category">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayoutPro3"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="@string/select_category"
-                    app:boxCornerRadiusBottomEnd="@dimen/all_radius_12dp"
-                    app:boxCornerRadiusBottomStart="@dimen/all_radius_12dp"
-                    app:boxCornerRadiusTopEnd="@dimen/all_radius_12dp"
-                    app:boxCornerRadiusTopStart="@dimen/all_radius_12dp"
-                    app:boxStrokeColor="@color/fon1"
-                    app:endIconDrawable="@drawable/ic_next"
-                    app:endIconMode="custom"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lineVieCP3">
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textNewProductCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:inputType="text"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="20dp"
-                        android:textSize="16sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayoutPro33"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="@string/select_brand"
-                    android:visibility="gone"
-                    app:boxCornerRadiusBottomEnd="@dimen/all_radius_12dp"
-                    app:boxCornerRadiusBottomStart="@dimen/all_radius_12dp"
-                    app:boxCornerRadiusTopEnd="@dimen/all_radius_12dp"
-                    app:boxCornerRadiusTopStart="@dimen/all_radius_12dp"
-                    app:boxStrokeColor="@color/fon1"
-                    app:endIconDrawable="@drawable/ic_next"
-                    app:endIconMode="custom"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPro3">
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textNewProductBrand"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:inputType="text"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="20dp"
-                        android:textSize="16sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
             <TextView
                 android:id="@+id/text_name_location"
                 android:layout_width="wrap_content"
@@ -215,7 +122,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold|normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lin2SortSearch" />
+                app:layout_constraintTop_toBottomOf="@+id/edtSearch" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/linCountry"
@@ -247,104 +154,83 @@
                     android:inputType="text"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="20dp"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <TextView
-                android:id="@+id/text_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/state"
-                android:textSize="16sp"
-                android:textStyle="bold|normal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linPrice" />
-
             <LinearLayout
-                android:id="@+id/linState"
+                android:id="@+id/textInputLayoutPro3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/button_background2"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_state">
+                app:layout_constraintTop_toBottomOf="@+id/linCountry">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/linRadioState"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/createEdtSkills"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="end"
-                    android:orientation="horizontal">
+                    android:layout_marginVertical="20dp"
+                    android:text="@string/choose_your_skills"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black3"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/new_text" />
+            </LinearLayout>
 
-                    <RadioButton
-                        android:id="@+id/radioNew"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
+            <LinearLayout
+                android:id="@+id/textInputLayoutPro4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@drawable/button_background"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPro3">
 
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/linRadioState2"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/createEdtCategory"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_marginVertical="20dp"
+                    android:text="@string/select_skill_category"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black3"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="Б/У" />
+            </LinearLayout>
 
-                    <RadioButton
-                        android:id="@+id/radioBU"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
+            <LinearLayout
+                android:id="@+id/textInputLayoutSpecialization"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@drawable/button_background"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPro4">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/linRadioState3"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/createEdtSpecialization"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="Все" />
-
-                    <RadioButton
-                        android:id="@+id/radioAll"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:layout_marginVertical="20dp"
+                    android:text="@string/enter_specialitazion"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black3"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -354,11 +240,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:text="@string/price"
+                android:text="@string/experience"
                 android:textSize="16sp"
                 android:textStyle="bold|normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linCountry" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSpecialization" />
 
             <LinearLayout
                 android:id="@+id/linPrice"
@@ -394,6 +280,8 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout2"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -420,357 +308,77 @@
 
 
             <TextView
-                android:id="@+id/text_name_sort"
+                android:id="@+id/text_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:text="@string/sort_string"
+                android:text="@string/departure"
                 android:textSize="16sp"
                 android:textStyle="bold|normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linState" />
+                app:layout_constraintTop_toBottomOf="@+id/linPrice" />
 
             <LinearLayout
-                android:id="@+id/linSort"
+                android:id="@+id/linState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:baselineAligned="false"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_name_sort">
+                app:layout_constraintTop_toBottomOf="@+id/text_state">
 
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/linDefault"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="@string/from_verified_sellers" />
-
-                        <CheckBox
-                            android:id="@+id/chbSuccess"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/fon1" />
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/linStarted"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/update_text_vip" />
-
-                        <CheckBox
-                            android:id="@+id/chbVIP"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/fon1" />
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/linSmall"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/fast" />
-
-                        <CheckBox
-                            android:id="@+id/chbHot"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/fon1" />
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/linBig"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/top" />
-
-                        <CheckBox
-                            android:id="@+id/chbTop"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/fon1" />
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/linPrev"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/review_with" />
-
-                        <CheckBox
-                            android:id="@+id/chbPrev"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/fon1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/linDefault2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:text="@string/default_string" />
-
-                        <RadioButton
-                            android:id="@+id/radioDefault"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/fon1" />
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/linStarted2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:text="@string/first_new" />
-
-                        <RadioButton
-                            android:id="@+id/radioStarted"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/fon1" />
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/linSmall2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:text="@string/cheaper_first" />
-
-                        <RadioButton
-                            android:id="@+id/radioSmall"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/fon1" />
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/linBig2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:text="@string/first_max_price" />
-
-                        <RadioButton
-                            android:id="@+id/radioBig"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/fon1" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/text_name_dop_filters"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linSort">
-
-                <TextView
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/linRadioState"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:text="@string/fields_additional"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imgHarakter"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginEnd="25dp"
-                    android:src="@drawable/bottom" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="готов" />
+
+                    <RadioButton
+                        android:id="@+id/radio1"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/linRadioState2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="неготов" />
+
+                    <RadioButton
+                        android:id="@+id/radio2"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
             </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/dop_filters"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_name_dop_filters">
-
-
-            </LinearLayout>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dop_filters" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

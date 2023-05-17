@@ -183,6 +183,15 @@ class Repository {
         return RetroFitInstance.productApi.getSortProducts(auth, params,filters, cities)
     }
 
+    suspend fun getSortSpecialistRepository(
+        auth: String,
+        params: HashMap<String, String>,
+        filters: HashMap<String, String>,
+        cities: List<Int>
+    ): Response<SpecialistIndexModels> {
+        return RetroFitInstance.productApi.getSortSpecialist(auth, params,filters, cities)
+    }
+
     suspend fun getSpecialistPageRepository(
         auth: String,
     ): Response<SpecialistIndexModels> {
