@@ -10,6 +10,7 @@ data class Data(
     val id: Int,
     val img: String,
     val name: String,
+    val isSubscriber: Boolean,
     val parent_id: Int,
     val slug: String
 )

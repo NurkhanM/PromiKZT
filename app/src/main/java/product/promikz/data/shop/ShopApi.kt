@@ -12,6 +12,7 @@ interface ShopApi {
     @GET("/api/shop/{idShop}")
     @Headers("Accept: application/json")
     suspend fun getShops(
+        @Header("Authorization") auth: String,
         @Path("idShop") number: Int
     ): Response<ShopsModels>
 

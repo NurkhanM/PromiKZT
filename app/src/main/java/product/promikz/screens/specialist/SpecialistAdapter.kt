@@ -1,15 +1,12 @@
 package product.promikz.screens.specialist
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import gun0912.tedimagepicker.util.ToastUtil
-import product.promikz.MyUtils.uToast
 import product.promikz.R
 import product.promikz.databinding.ItemSpecialistModelsBinding
 import product.promikz.inteface.IClickListnearHomeSpecialist

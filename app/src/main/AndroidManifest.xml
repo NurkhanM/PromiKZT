@@ -29,6 +29,9 @@
         android:theme="@style/Theme.ShopKZ"
         tools:targetApi="31">
         <activity
+            android:name=".screens.subscriber.SubscriberActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.search.specialist.sortInfo.SortSpecInfoActivity"
             android:exported="false" />
         <activity

@@ -106,7 +106,7 @@ class ShopChangeFragment : Fragment() {
     }
 
     private fun ref() {
-        viewModel.getShops(ID_SHOP_USER)
+        viewModel.getShops("Bearer $TOKEN_USER", ID_SHOP_USER)
         viewModel.myShopsModels.observe(viewLifecycleOwner) { list ->
             if (list.isSuccessful) {
                 binding.shopCreateEditName.setText(list.body()?.data?.name)

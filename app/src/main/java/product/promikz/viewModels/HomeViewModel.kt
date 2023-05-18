@@ -5,6 +5,7 @@ import product.promikz.repository.Repository
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import product.promikz.MyUtils.uLogD
 import product.promikz.models.auth.email.one.ActivitedSuccessModels
 import product.promikz.models.auth.login.LoginModels
 import product.promikz.models.banner.BannerIndexModels
@@ -40,6 +41,9 @@ import product.promikz.models.specialist.index.SpecialistIndexModels
 import product.promikz.models.specialist.show.SpecialistShowModels
 import product.promikz.models.specialist.skills.SkillsModels
 import product.promikz.models.story.index.StoryIndex
+import product.promikz.models.subscriber.category.SubCategoryModels
+import product.promikz.models.subscriber.index.IndexSubscriberModels
+import product.promikz.models.subscriber.shop.SubShopModels
 import product.promikz.models.user.UserModels
 import product.promikz.models.version.VersionModels
 import retrofit2.Response
@@ -57,6 +61,9 @@ class HomeViewModel : ViewModel() {
     val myStory: MutableLiveData<Response<StoryIndex>> = MutableLiveData()
     private val myBanner = MutableLiveData<String?>()
     val myShowProducts: MutableLiveData<Response<ProductShowModels>> = MutableLiveData()
+    val mySubCategory: MutableLiveData<Response<SubCategoryModels>> = MutableLiveData()
+    val mySubShop: MutableLiveData<Response<SubShopModels>> = MutableLiveData()
+    val myIndexSubscriber: MutableLiveData<Response<IndexSubscriberModels>> = MutableLiveData()
     val myShopsON: MutableLiveData<Response<ProductIndexModels>> = MutableLiveData()
     val myShopsOFF: MutableLiveData<Response<ProductIndexModels>> = MutableLiveData()
     val myDeleteProduct: MutableLiveData<Response<String>> = MutableLiveData()
@@ -252,6 +259,24 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun subCategory(auth: String, number: Int) {
+        viewModelScope.launch {
+            mySubCategory.value = repo.subCategoryRepository(auth, number)
+        }
+    }
+
+    fun subShop(auth: String, number: Int) {
+        viewModelScope.launch {
+            mySubShop.value = repo.subShopRepository(auth, number)
+        }
+    }
+
+    fun subIndex(auth: String) {
+        viewModelScope.launch {
+            myIndexSubscriber.value = repo.subIndexRepository(auth)
+        }
+    }
+
     fun getShopsON(
         auth: String,
         idShop: String
@@ -334,9 +359,9 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun getShops(number: Int) {
+    fun getShops(auth: String, number: Int) {
         viewModelScope.launch {
-            myShopsModels.value = repo.getShopsRepository(number)
+            myShopsModels.value = repo.getShopsRepository(auth, number)
         }
     }
 
@@ -435,6 +460,7 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             myGetCategoryID.value = repo.getCategoryIDRepository(auth, number)
         }
+
     }
 
     fun getCategoryIDEnd(auth: String, number: Int) {

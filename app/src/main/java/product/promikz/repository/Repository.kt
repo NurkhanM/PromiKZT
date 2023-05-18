@@ -43,6 +43,9 @@ import product.promikz.models.similar.SimilarModels
 import product.promikz.models.specialist.index.SpecialistIndexModels
 import product.promikz.models.specialist.show.SpecialistShowModels
 import product.promikz.models.specialist.skills.SkillsModels
+import product.promikz.models.subscriber.category.SubCategoryModels
+import product.promikz.models.subscriber.index.IndexSubscriberModels
+import product.promikz.models.subscriber.shop.SubShopModels
 import product.promikz.models.user.UserModels
 import retrofit2.Response
 
@@ -138,6 +141,26 @@ class Repository {
         return RetroFitInstance.productApi.getUpdateDataArrayUpdate(auth, number)
     }
 
+    suspend fun subCategoryRepository(
+        auth: String,
+        number: Int,
+    ): Response<SubCategoryModels> {
+        return RetroFitInstance.subscriberApi.subCategory(auth, number)
+    }
+
+    suspend fun subIndexRepository(
+        auth: String
+    ): Response<IndexSubscriberModels> {
+        return RetroFitInstance.subscriberApi.subIndex(auth)
+    }
+
+    suspend fun subShopRepository(
+        auth: String,
+        number: Int,
+    ): Response<SubShopModels> {
+        return RetroFitInstance.subscriberApi.subShop(auth, number)
+    }
+
     suspend fun getShopsONRepository(
         auth: String,
         idShop: String
@@ -213,9 +236,10 @@ class Repository {
     }
 
     suspend fun getShopsRepository(
+        auth: String,
         number: Int,
     ): Response<ShopsModels> {
-        return RetroFitInstance.shopApi.getShops(number)
+        return RetroFitInstance.shopApi.getShops(auth, number)
     }
 
     suspend fun postDeleteShopRepository(

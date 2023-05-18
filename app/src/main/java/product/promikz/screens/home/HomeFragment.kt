@@ -47,7 +47,6 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerViewCF: RecyclerView
     lateinit var adapter: TovarAdapterHome
     private lateinit var adapterCF: CategoryFiltersAdapter
-    private lateinit var vieww: View
     private lateinit var viewModel: HomeViewModel
 
 
@@ -158,12 +157,11 @@ class HomeFragment : Fragment() {
                 binding.rvCategoryPage.visibility = View.VISIBLE
                 user.body()?.let {
                     adapterCF.setList(it.data)
-//                    arrayCategoryAll.addAll(it.data)
                 }
             }else{
                 binding.loaderfilter.visibility = View.VISIBLE
                 binding.rvCategoryPage.visibility = View.GONE
-                MyUtils.uToast(requireContext(), "Error Server")
+                uToast(requireContext(), "Error Server")
             }
         }
     }

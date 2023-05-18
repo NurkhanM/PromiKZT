@@ -178,7 +178,7 @@ class HomeTwoFragment : Fragment() {
                 intent.putExtra("story", pos)
                 intent.putExtra("show", show)
                 startActivity(intent)
-                (activity as AppCompatActivity).overridePendingTransition(
+                activity?.overridePendingTransition(
                     R.anim.zoom_enter,
                     R.anim.zoom_exit
                 )
@@ -549,6 +549,7 @@ class HomeTwoFragment : Fragment() {
 
                 //accaunt
                 navMenu.findItem(R.id.nav_view_menu_favorite).isVisible = true
+                navMenu.findItem(R.id.nav_view_menu_subscriber).isVisible = true
                 navMenu.findItem(R.id.nav_view_menu_login).isVisible = true
                 navMenu.findItem(R.id.nav_view_menu_chad).isVisible = true
                 navMenu.findItem(R.id.nav_view_menu_buy).isVisible = true

@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.common.api.ApiException
 import org.json.JSONObject
 import product.promikz.AppConstants
+import product.promikz.AppConstants.TOKEN_USER
 import product.promikz.AppConstants.USER_OTHER_ID
 import product.promikz.MyUtils
 import product.promikz.R
@@ -55,6 +56,7 @@ class UserOtheFragment : Fragment() {
     lateinit var dialog: Dialog
     private lateinit var dialogPay: Dialog
     lateinit var dialogLoader: Dialog
+    private var isSubscriber = false
 
     private var isMenu: Boolean = true
 
@@ -77,13 +79,21 @@ class UserOtheFragment : Fragment() {
         val arguments = (activity as AppCompatActivity).intent.extras
         shopOtherUser = arguments!!["User2_1"] as Int
 
-        mProfileViewModel.getShops(shopOtherUser)
+        mProfileViewModel.getShops("Bearer $TOKEN_USER", shopOtherUser)
         mProfileViewModel.myShopsModels.observe(viewLifecycleOwner){ list ->
 
             if (list.isSuccessful){
                 view.anotherUserName.text = list.body()?.data?.name
                 view.anotherUserPhone.text = list.body()?.data?.user?.phone
                 view.anotherUserDescription.text = list.body()?.data?.description
+
+                isSubscriber = if (list.body()?.data?.isSubscriber == true){
+                    view.shopSubscriber.setImageResource(R.drawable.ic_star2)
+                    true
+                }else{
+                    view.shopSubscriber.setImageResource(R.drawable.ic_star)
+                    false
+                }
 
                 MyUtils.uGlide(requireContext(), view.anotherUserImage, list.body()?.data?.img)
 
@@ -108,7 +118,7 @@ class UserOtheFragment : Fragment() {
                 } else {
                     viewAdapter.imgFavorite.setImageResource(R.drawable.ic_favorite)
                 }
-                mProfileViewModel.postLike("Bearer ${AppConstants.TOKEN_USER}", baseID)
+                mProfileViewModel.postLike("Bearer $TOKEN_USER", baseID)
 
             }
 
@@ -326,6 +336,18 @@ class UserOtheFragment : Fragment() {
 //                    jsonObj.getString("errors").toString().replace("[\"", "").replace("\"]", "")
                 )
             }
+        }
+
+        view.shopSubscriber.setOnClickListener {
+
+            isSubscriber = if (isSubscriber){
+                view.shopSubscriber.setImageResource(R.drawable.ic_star)
+                false
+            }else{
+                view.shopSubscriber.setImageResource(R.drawable.ic_star2)
+                true
+            }
+            mProfileViewModel.subShop("Bearer $TOKEN_USER", shopOtherUser)
         }
 
         return view.root

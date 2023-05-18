@@ -10,6 +10,7 @@ data class Children(
     val id: Int,
     val img: String,
     val name: String,
+    var isSubscriber: Boolean,
     val parent_id: Int,
     val slug: String
 )

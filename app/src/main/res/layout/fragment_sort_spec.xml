@@ -159,6 +159,21 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
+
+            <TextView
+                android:id="@+id/text_name_specialization"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Мастерство в определенных навыках"
+                android:textSize="16sp"
+                android:textStyle="bold|normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linCountry" />
+
+
+
             <LinearLayout
                 android:id="@+id/textInputLayoutPro3"
                 android:layout_width="match_parent"
@@ -169,7 +184,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linCountry">
+                app:layout_constraintTop_toBottomOf="@+id/text_name_specialization">
 
                 <TextView
                     android:id="@+id/createEdtSkills"
@@ -379,6 +394,13 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linState"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -25,6 +25,7 @@ import product.promikz.AppConstants.CATEGORY_INT_SEARCH_DATA
 import product.promikz.AppConstants.FILTER_INT_ALL
 import product.promikz.AppConstants.MAP_FILTERS_PRODUCTS
 import product.promikz.AppConstants.STATE_INT_FILTERS
+import product.promikz.MyUtils.uLogD
 import product.promikz.MyUtils.uToast
 import product.promikz.databinding.ActivityMainBinding
 import product.promikz.databinding.FragmentHomePlusBinding
@@ -49,8 +50,9 @@ class HomeFragmentPlus : Fragment() {
     private lateinit var recyclerViewCF: RecyclerView
     lateinit var adapter: TovarAdapterHome
     private lateinit var adapterCF: CategoryFiltersAdapterPlus
-    private lateinit var vieww: View
     private lateinit var viewModel: HomeViewModel
+
+    private var isSubscrip = false
 
     @Suppress("DEPRECATION")
     @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged")
@@ -240,17 +242,26 @@ class HomeFragmentPlus : Fragment() {
         viewModel.myGetCategoryID.observe(viewLifecycleOwner) { list ->
 
             if (list.isSuccessful) {
-                binding.loaderfilter?.visibility = View.GONE
-                binding.rvCategoryPage?.visibility = View.VISIBLE
+                binding.loaderfilter.visibility = View.GONE
+                binding.rvCategoryPage.visibility = View.VISIBLE
                 list.body()?.data?.children.let {
                     if (it != null) {
                         adapterCF.setList(it)
                     }
                 }
 
+                stateImageSubscriber(list?.body()?.data?.isSubscriber!!)
+                binding.textCategory.text = list.body()?.data?.name
+                binding.imgHomeFavorite.setOnClickListener {
+                    isSubscrip = !isSubscrip
+                    stateImageSubscriber(isSubscrip)
+                    viewModel.subCategory("Bearer $TOKEN_USER", list.body()?.data?.id!!)
+                }
+
+
             } else {
-                binding.loaderfilter?.visibility = View.GONE
-                binding.rvCategoryPage?.visibility = View.VISIBLE
+                binding.loaderfilter.visibility = View.GONE
+                binding.rvCategoryPage.visibility = View.VISIBLE
                 uToast(requireContext(), "Error Server")
             }
 
@@ -263,21 +274,40 @@ class HomeFragmentPlus : Fragment() {
         viewModel.myGetCategoryEnd.observe(viewLifecycleOwner) { list ->
 
             if (list.isSuccessful) {
-                binding.loaderfilter?.visibility = View.GONE
-                binding.rvCategoryPage?.visibility = View.VISIBLE
+                binding.loaderfilter.visibility = View.GONE
+                binding.rvCategoryPage.visibility = View.VISIBLE
                 list.body()?.data?.children.let {
                     if (it != null) {
                         adapterCF.setList(it)
                     }
                 }
+                stateImageSubscriber(list?.body()?.data?.isSubscriber!!)
+                binding.textCategory.text = list.body()?.data?.name
+                binding.imgHomeFavorite.setOnClickListener {
+                    isSubscrip = !isSubscrip
+                    stateImageSubscriber(isSubscrip)
+                    viewModel.subCategory("Bearer $TOKEN_USER", list.body()?.data?.id!!)
+                }
 
             } else {
-                binding.loaderfilter?.visibility = View.GONE
-                binding.rvCategoryPage?.visibility = View.VISIBLE
+                binding.loaderfilter.visibility = View.GONE
+                binding.rvCategoryPage.visibility = View.VISIBLE
                 uToast(requireContext(), "Error Server")
             }
 
 
+        }
+
+    }
+
+    private fun stateImageSubscriber(boolean: Boolean){
+
+        isSubscrip = if(boolean){
+            binding.imgHomeFavorite.setImageResource(R.drawable.ic_star2)
+            true
+        }else{
+            binding.imgHomeFavorite.setImageResource(R.drawable.ic_star)
+            false
         }
 
     }

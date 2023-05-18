@@ -39,6 +39,7 @@ import product.promikz.MyUtils.uToast
 import product.promikz.databinding.ActivityMainBinding
 import product.promikz.screens.kursy.KursyActivity
 import product.promikz.screens.pay.PayActivity
+import product.promikz.screens.subscriber.SubscriberActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -134,6 +135,7 @@ class MainActivity : AppCompatActivity() {
         navMenu.findItem(R.id.nav_view_menu_setting).isVisible = false
 
         navMenu.findItem(R.id.nav_view_menu_favorite).isVisible = false
+        navMenu.findItem(R.id.nav_view_menu_subscriber).isVisible = false
         navMenu.findItem(R.id.nav_view_menu_login).isVisible = false
         navMenu.findItem(R.id.nav_view_menu_chad).isVisible = false
         navMenu.findItem(R.id.nav_view_menu_buy).isVisible = false
@@ -157,6 +159,14 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.nav_view_menu_favorite -> {
                     val intent = Intent(this, FavoriteActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    it.isChecked = false
+                    it.isCheckable = false
+                }
+
+                R.id.nav_view_menu_subscriber -> {
+                    val intent = Intent(this, SubscriberActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     it.isChecked = false

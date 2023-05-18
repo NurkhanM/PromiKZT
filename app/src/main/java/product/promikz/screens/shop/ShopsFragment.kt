@@ -144,7 +144,7 @@ class ShopsFragment : Fragment() {
 
             } else {
 
-                viewModel.getShops(ID_SHOP_USER)
+                viewModel.getShops("Bearer $TOKEN_USER", ID_SHOP_USER)
                 viewModel.myShopsModels.observe(viewLifecycleOwner) { list ->
                     if (list.isSuccessful) {
                         binding.shopName.text = list.body()?.data?.name

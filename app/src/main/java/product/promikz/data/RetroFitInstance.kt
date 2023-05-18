@@ -19,6 +19,7 @@ import product.promikz.data.skills.SkillApi
 import product.promikz.data.specialist.SpecialistApi
 import product.promikz.data.specialization.SpecializationApi
 import product.promikz.data.story.StoryApi
+import product.promikz.data.subscriber.SubscriberApi
 import product.promikz.data.user.UserApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -102,6 +103,9 @@ object RetroFitInstance {
     }
     val reportApi: ReportApi by lazy {
         retrofit.create(ReportApi::class.java)
+    }
+    val subscriberApi: SubscriberApi by lazy {
+        retrofit.create(SubscriberApi::class.java)
     }
 
 }
