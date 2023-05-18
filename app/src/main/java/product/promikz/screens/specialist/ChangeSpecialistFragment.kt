@@ -1,7 +1,9 @@
 package product.promikz.screens.specialist
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -12,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import product.promikz.R
@@ -31,6 +34,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import product.promikz.AppConstants
 import product.promikz.AppConstants.COUNTRY_ID
 import product.promikz.AppConstants.MY_SPECIALIST
 import product.promikz.AppConstants.TOKEN_USER
@@ -67,44 +71,60 @@ class ChangeSpecialistFragment : Fragment() {
         val view = binding
         dialog = Dialog(requireContext())
 
+        val hintColor = ContextCompat.getColor(requireContext(), R.color.black4)
         val departure = resources.getStringArray(R.array.Departure)
         val arrayAdapterState = ArrayAdapter(requireContext(), R.layout.item_dropdown, departure)
         view.createSpinDeparture.adapter = arrayAdapterState
 
 
         view.textInputLayoutPro3.setOnClickListener {
-            product.promikz.AppConstants.specialistAllNumber.clear()
-            view.createEdtSkills.text = ""
-            (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
-                .add(SkillsSelectSpecialistFragment(), "get")
+            AppConstants.specialistAllNumber.clear()
+            view.createEdtSkills.text = resources.getString(R.string.choose_your_skills)
+            binding.createEdtSkills.setTextColor(hintColor)
+
+            val fragment = SkillsSelectSpecialistFragment()
+            fragment.setTargetFragment(this, 82)
+            parentFragmentManager.beginTransaction()
+                .add(fragment, fragment.tag)
                 .commit()
         }
 
-
         view.textInputLayoutPro4.setOnClickListener {
-            product.promikz.AppConstants.specialistAllNumber2.clear()
-            view.createEdtCategory.text = ""
-            (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
-                .add(CategorySelectSpecialistFragment(), "get")
+            AppConstants.specialistAllNumber2.clear()
+            view.createEdtCategory.text = resources.getString(R.string.select_skill_category)
+            binding.createEdtCategory.setTextColor(hintColor)
+
+            val fragment = CategorySelectSpecialistFragment()
+            fragment.setTargetFragment(this, 83)
+            parentFragmentManager.beginTransaction()
+                .add(fragment, fragment.tag)
                 .commit()
+
         }
 
         view.textInputLayoutSpecialization.setOnClickListener {
-//            specialistAllNumber2.clear()
-            view.createEdtSpecialization.text = ""
-            (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
-                .add(SpecializationSelectSpecialistFragment(), "get")
+            AppConstants.specializationAllNumber.clear()
+            view.createEdtSpecialization.text = resources.getString(R.string.enter_specialitazion)
+            binding.createEdtSpecialization.setTextColor(hintColor)
+
+            val fragment = SpecializationSelectSpecialistFragment()
+            fragment.setTargetFragment(this, 84)
+            parentFragmentManager.beginTransaction()
+                .add(fragment, fragment.tag)
                 .commit()
         }
 
+
         view.postProductBTN.setOnClickListener {
 
-            view?.createLoader?.visibility = View.VISIBLE
-            view?.textTitle?.text = resources.getString(R.string.wait)
-            view?.clickUpdateBackCard?.visibility = View.GONE
-            view?.fonCreate?.visibility = View.GONE
+            view.createLoader.visibility = View.VISIBLE
+            view.textTitle.text = resources.getString(R.string.wait)
+            view.clickUpdateBackCard.visibility = View.GONE
+            view.fonCreate.visibility = View.GONE
 
-            if (view.createEdtExperience.length() != 0 && COUNTRY_ID != 0
+            if (view.createEdtExperience.length() != 0 && COUNTRY_ID != 0 &&
+                params2.size != 0 && params3.size != 0 && params4.size != 0 &&
+                view.textNewProductDescription.text?.length != 0
             ) {
                 if (stateSelectImageFirst) {
                     uploadProduct()
@@ -117,10 +137,10 @@ class ChangeSpecialistFragment : Fragment() {
                         .show()
                 }
             } else {
-                view?.createLoader?.visibility = View.GONE
-                view?.textTitle?.text = resources.getString(R.string.change_specialist)
-                view?.clickUpdateBackCard?.visibility = View.VISIBLE
-                view?.fonCreate?.visibility = View.VISIBLE
+                view.createLoader.visibility = View.GONE
+                view.textTitle.text = resources.getString(R.string.change_specialist)
+                view.clickUpdateBackCard.visibility = View.VISIBLE
+                view.fonCreate.visibility = View.VISIBLE
                 Toast.makeText(
                     requireContext(),
                     resources.getText(R.string.add_all_fields),
@@ -175,6 +195,7 @@ class ChangeSpecialistFragment : Fragment() {
 
 
                     binding.createEdtExperience.setText(list.body()?.data?.experience.toString())
+                    binding.textNewProductDescription.setText(list.body()?.data?.description.toString())
 
                     if (list.body()?.data?.skills?.isNotEmpty() == true) {
                         var str = ""
@@ -238,10 +259,10 @@ class ChangeSpecialistFragment : Fragment() {
                 }
             } else {
 
-                binding?.createLoader?.visibility = View.GONE
-                binding?.textTitle?.text = resources.getString(R.string.change_specialist)
-                binding?.clickUpdateBackCard?.visibility = View.VISIBLE
-                binding?.fonCreate?.visibility = View.VISIBLE
+                binding.createLoader.visibility = View.GONE
+                binding.textTitle.text = resources.getString(R.string.change_specialist)
+                binding.clickUpdateBackCard.visibility = View.VISIBLE
+                binding.fonCreate.visibility = View.VISIBLE
 
                 val sem = list.errorBody()?.source()?.buffer?.snapshot()?.utf8().toString()
                 alertDialogCancel(sem)
@@ -255,6 +276,7 @@ class ChangeSpecialistFragment : Fragment() {
         params["_method"] = rb("put")
         params["experience"] = rb(binding.createEdtExperience.text.toString().trim())
         params["departure"] = rb(binding.createSpinDeparture.selectedItemPosition.toString())
+        params["description"] = rb(binding.textNewProductDescription.text.toString().trim())
         params["city_id"] = rb(COUNTRY_ID.toString())
 
 
@@ -351,6 +373,31 @@ class ChangeSpecialistFragment : Fragment() {
         }
         dialog.show()
 
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        val defaultColor = ContextCompat.getColor(requireContext(), R.color.black)
+        if (requestCode == 82 && resultCode == Activity.RESULT_OK) {
+            val result = data?.getStringExtra("resultSpecialistSkill")
+            if (result != null) {
+                binding.createEdtSkills.text = result
+                binding.createEdtSkills.setTextColor(defaultColor)
+            }
+        } else if (requestCode == 83 && resultCode == Activity.RESULT_OK) {
+            val result = data?.getStringExtra("resultSelectSpecialist")
+            if (result != null) {
+                binding.createEdtCategory.text = result
+                binding.createEdtCategory.setTextColor(defaultColor)
+            }
+        } else if (requestCode == 84 && resultCode == Activity.RESULT_OK) {
+            val result = data?.getStringExtra("resultSpecialistSelect")
+            if (result != null) {
+                binding.createEdtSpecialization.text = result
+                binding.createEdtSpecialization.setTextColor(defaultColor)
+            }
+        }
     }
 
     override fun onDestroyView() {

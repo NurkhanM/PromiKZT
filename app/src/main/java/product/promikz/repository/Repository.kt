@@ -43,6 +43,7 @@ import product.promikz.models.similar.SimilarModels
 import product.promikz.models.specialist.index.SpecialistIndexModels
 import product.promikz.models.specialist.show.SpecialistShowModels
 import product.promikz.models.specialist.skills.SkillsModels
+import product.promikz.models.story.show.StoryShowModels
 import product.promikz.models.subscriber.category.SubCategoryModels
 import product.promikz.models.subscriber.index.IndexSubscriberModels
 import product.promikz.models.subscriber.shop.SubShopModels
@@ -111,6 +112,10 @@ class Repository {
 
     suspend fun getStoryRepository(): Response<StoryIndex> {
         return RetroFitInstance.storyApi.getStory()
+    }
+
+    suspend fun getStoryShowRepository(idStory: String): Response<StoryShowModels> {
+        return RetroFitInstance.storyApi.getStoryShow(idStory)
     }
 
 

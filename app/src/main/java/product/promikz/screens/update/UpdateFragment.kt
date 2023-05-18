@@ -890,7 +890,7 @@ class UpdateFragment : Fragment() {
                     )
 
                     shopOtherUser = list.body()?.data?.shop?.id!!
-                    USER_OTHER_ID = list.body()?.data?.shop?.id!!
+//                    USER_OTHER_ID = list.body()?.data?.shop?.id!!
 
                     if (list.body()?.data?.verified == 0) {
                         binding.stVerification.visibility = View.GONE

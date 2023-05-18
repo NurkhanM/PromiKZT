@@ -52,9 +52,11 @@ class SubscriberAdapter(private val mIClickListnear: IClickListnearSubscriber) :
 
         holder.itemView.setOnClickListener {
             mIClickListnear.clickListener(
-                currentItem.id.toString(),
+                currentItem.subscriber.id,
                 position,
-                holder
+                holder,
+                currentItem.subscriber_type,
+                currentItem.subscriber.name
             )
         }
         holder.binding.ivDelete.setOnClickListener {

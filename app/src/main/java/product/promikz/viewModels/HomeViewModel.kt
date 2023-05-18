@@ -41,6 +41,7 @@ import product.promikz.models.specialist.index.SpecialistIndexModels
 import product.promikz.models.specialist.show.SpecialistShowModels
 import product.promikz.models.specialist.skills.SkillsModels
 import product.promikz.models.story.index.StoryIndex
+import product.promikz.models.story.show.StoryShowModels
 import product.promikz.models.subscriber.category.SubCategoryModels
 import product.promikz.models.subscriber.index.IndexSubscriberModels
 import product.promikz.models.subscriber.shop.SubShopModels
@@ -59,6 +60,7 @@ class HomeViewModel : ViewModel() {
     val myPayGenerateBanner: MutableLiveData<Response<PayGenereteModels>> = MutableLiveData()
     val myPayGenerateStory: MutableLiveData<Response<PayGenereteModels>> = MutableLiveData()
     val myStory: MutableLiveData<Response<StoryIndex>> = MutableLiveData()
+    val myStoryShow: MutableLiveData<Response<StoryShowModels>> = MutableLiveData()
     private val myBanner = MutableLiveData<String?>()
     val myShowProducts: MutableLiveData<Response<ProductShowModels>> = MutableLiveData()
     val mySubCategory: MutableLiveData<Response<SubCategoryModels>> = MutableLiveData()
@@ -196,6 +198,12 @@ class HomeViewModel : ViewModel() {
     fun getStory() {
         viewModelScope.launch {
             myStory.value = repo.getStoryRepository()
+        }
+    }
+
+    fun getStoryShow(idStory: String) {
+        viewModelScope.launch {
+            myStoryShow.value = repo.getStoryShowRepository(idStory)
         }
     }
 

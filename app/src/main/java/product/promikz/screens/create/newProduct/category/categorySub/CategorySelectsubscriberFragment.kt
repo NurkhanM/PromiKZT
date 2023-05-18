@@ -22,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
+import product.promikz.AppConstants
 import product.promikz.databinding.CastomSelectSubscriberCategoryBinding
 import product.promikz.databinding.FragmentCategorySelectBinding
 import product.promikz.inteface.IClickListnearSubscriberCategory
@@ -54,7 +55,6 @@ class CategorySelectsubscriberFragment : BottomSheetDialogFragment() {
         _binding = FragmentCategorySelectBinding.inflate(inflater, container, false)
         val view = binding
 
-        getCategoryID = -1
 
         // Определите радиус скругления краев
         val radius = resources.getDimension(R.dimen.corner_radius)
@@ -72,6 +72,8 @@ class CategorySelectsubscriberFragment : BottomSheetDialogFragment() {
                 setTint(ContextCompat.getColor(requireContext(), R.color.white))
             }
 
+
+
         val adapter = CategorySelectSubscriberAdapter(object : IClickListnearSubscriberCategory {
             @SuppressLint("InflateParams", "SyntheticAccessor")
             override fun clickListener(int: Int, name: String, boolean: Boolean) {
@@ -80,8 +82,11 @@ class CategorySelectsubscriberFragment : BottomSheetDialogFragment() {
                     justTime = justTime!! + 1
                     rekursia(int)
                 } else {
-                    getCategoryID = int
+                    AppConstants.getCategorySearchSortID = int
+                    AppConstants.CATEGORY_INT_SEARCH_DATA = int
                     intent.putExtra("result", name)
+                    targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
+                    AppConstants.compareAll.clear()
                     targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
                     dismiss()
                 }
@@ -152,9 +157,11 @@ class CategorySelectsubscriberFragment : BottomSheetDialogFragment() {
                     justTime = justTime!! + 1
                     rekursia(int)
                 } else {
-                    getCategoryID = int
+                    AppConstants.getCategorySearchSortID = int
+                    AppConstants.CATEGORY_INT_SEARCH_DATA = int
                     intent.putExtra("result", name)
                     targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
+                    AppConstants.compareAll.clear()
                     targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
                     dismiss()
                 }

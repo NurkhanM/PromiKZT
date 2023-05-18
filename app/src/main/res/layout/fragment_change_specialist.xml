@@ -121,15 +121,47 @@
 
             </androidx.cardview.widget.CardView>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutPro2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="@string/add_description"
+                app:boxCornerRadiusBottomEnd="@dimen/all_radius_12dp"
+                app:boxCornerRadiusBottomStart="@dimen/all_radius_12dp"
+                app:boxCornerRadiusTopEnd="@dimen/all_radius_12dp"
+                app:boxCornerRadiusTopStart="@dimen/all_radius_12dp"
+                app:boxStrokeColor="@color/fon1"
+                app:counterEnabled="true"
+                app:counterMaxLength="300"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragmentContainerProductCreate">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textNewProductDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:inputType="textMultiLine"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="20dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
             <View
                 android:id="@+id/lineVieCP2"
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
-                android:layout_marginTop="10dp"
                 android:background="?colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragmentContainerProductCreate" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPro2" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutPro"

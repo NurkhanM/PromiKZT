@@ -1,6 +1,7 @@
 package product.promikz.screens.subscriber
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,10 +10,14 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import product.promikz.AppConstants
+import product.promikz.AppConstants.MAP_SEARCH
 import product.promikz.AppConstants.TOKEN_USER
+import product.promikz.AppConstants.categoryState
 import product.promikz.R
 import product.promikz.databinding.FragmentSubsriberBinding
 import product.promikz.inteface.IClickListnearSubscriber
+import product.promikz.screens.search.products.ssortInfo.SsortInfoActivity
+import product.promikz.screens.update.userOther.UserOtherActivity
 import product.promikz.viewModels.HomeViewModel
 
 class SubsriberFragment : Fragment() {
@@ -34,17 +39,36 @@ class SubsriberFragment : Fragment() {
 
 
 
-        mNotification.subIndex("Bearer ${AppConstants.TOKEN_USER}")
+        mNotification.subIndex("Bearer $TOKEN_USER")
 
 
         adapter = SubscriberAdapter(object : IClickListnearSubscriber {
             override fun clickListener(
-                baseID: String,
+                baseID: Int,
                 position: Int,
-                holder: RecyclerView.ViewHolder
+                holder: RecyclerView.ViewHolder,
+                type: String,
+                name: String
             ) {
 
-//                startActivity(intent)
+                if (isNameNotification(type) == "Shop"){
+                    val intent = Intent(requireActivity(), UserOtherActivity::class.java)
+                    intent.putExtra("User2_1", baseID)
+                    startActivity(intent)
+                }else{
+                    MAP_SEARCH["category"] = baseID.toString()
+                    categoryState = true
+                    val intent = Intent(requireActivity(), SsortInfoActivity::class.java)
+                    intent.putExtra("subCategory", name)
+                    startActivity(intent)
+                }
+
+
+                activity?.overridePendingTransition(
+                    R.anim.zoom_enter,
+                    R.anim.zoom_exit
+                )
+
 
 
             }
@@ -76,6 +100,19 @@ class SubsriberFragment : Fragment() {
         }
         ref()
         return binding.root
+    }
+
+    private fun isNameNotification(str: String): String {
+        return when (str) {
+            "App\\Models\\Shop" -> {
+                return "Shop"
+            }
+            "App\\Notifications\\Category" -> {
+                return "Category"
+            }
+
+            else -> "Error"
+        }
     }
 
 

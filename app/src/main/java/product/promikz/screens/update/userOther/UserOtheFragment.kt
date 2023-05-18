@@ -357,7 +357,7 @@ class UserOtheFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         try {
-            mProfileViewModel.getShopsON("Bearer ${AppConstants.TOKEN_USER}", USER_OTHER_ID.toString())
+            mProfileViewModel.getShopsON("Bearer ${AppConstants.TOKEN_USER}", shopOtherUser.toString())
             mProfileViewModel.myShopsON.observe(viewLifecycleOwner) { list ->
                 if (list.isSuccessful){
                     list.body()?.data?.let { adapterActive.setList(it) }
@@ -365,7 +365,7 @@ class UserOtheFragment : Fragment() {
                     uToast(requireContext(), "Active adapter Error")
                 }
             }
-            mProfileViewModel.getShopsOFF("Bearer ${AppConstants.TOKEN_USER}", USER_OTHER_ID.toString())
+            mProfileViewModel.getShopsOFF("Bearer ${AppConstants.TOKEN_USER}", shopOtherUser.toString())
             mProfileViewModel.myShopsOFF.observe(viewLifecycleOwner) { list ->
                 if (list.isSuccessful){
                     list.body()?.data?.let { adapterDeActive.setList(it) }

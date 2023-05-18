@@ -42,15 +42,11 @@ class NotificationAdapter(private val mIClickListnear: IClickListnearNotificatio
                 val sender = isNameNotification(currentItem.type)
                 tvSender.text = sender
                 tvIcon.text = sender.substring(0, 1)
-                notifType = if (sender == "PromiKZ") {
-                    //todo Uncomment
-                    //tvIcon.backgroundTintList =
-                    //  context.resources.getColorStateList(product.promikz.R.color.blue)
-                    VIEW_TYPE_PROMI
-                } else {
-                    // tvIcon.backgroundTintList =
-                    //   context.resources.getColorStateList(product.promikz.R.color.color)
-                    VIEW_TYPE_REPORT
+
+                notifType = when (sender) {
+                    "PromiKZ" ->  VIEW_TYPE_PROMI
+                    "Ответ на жалобу" ->  VIEW_TYPE_REPORT
+                    else -> {VIEW_TYPE_PROMI}
                 }
             }
         }
@@ -151,6 +147,9 @@ class NotificationAdapter(private val mIClickListnear: IClickListnearNotificatio
             }
             "App\\Notifications\\Report" -> {
                 return "Ответ на жалобу"
+            }
+            "App\\Notifications\\SubscribersNotify" -> {
+                return "Подписки"
             }
             else -> "Error"
         }

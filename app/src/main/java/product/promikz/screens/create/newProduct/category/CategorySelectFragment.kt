@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -62,7 +62,8 @@ class CategorySelectFragment : BottomSheetDialogFragment() {
             .build()
 
         // Получите ссылку на корневую View и установите для нее фон с использованием ShapeAppearanceModel
-        val bottomSheet = dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        val bottomSheet =
+            dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
         bottomSheet?.background = MaterialShapeDrawable(shapeAppearanceModel)
             .apply {
                 setTint(ContextCompat.getColor(requireContext(), R.color.white))
@@ -92,7 +93,31 @@ class CategorySelectFragment : BottomSheetDialogFragment() {
         mHomeViewModel.myCategoryIndex.observe(viewLifecycleOwner) { user ->
             if (user.isSuccessful) {
                 view.progressNewCreatePro.visibility = View.GONE
-                user.body()?.let { adapter.setData(it.data) }
+
+
+                user.body()?.let { response ->
+                    adapter.setData(response.data)
+
+                    binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(query: String?): Boolean {
+                            return false
+                        }
+
+                        @SuppressLint("NotifyDataSetChanged")
+                        override fun onQueryTextChange(newText: String?): Boolean {
+                            val filteredList = response.data.filter { item ->
+                                item.name?.contains(newText.orEmpty(), ignoreCase = true) == true
+                            }
+                            adapter.setData(filteredList)
+                            adapter.notifyDataSetChanged()
+
+                            return true
+                        }
+                    })
+                }
+
+
+
             }
 
         }
@@ -152,11 +177,28 @@ class CategorySelectFragment : BottomSheetDialogFragment() {
         mHomeViewModel.getCategoryID("Bearer $TOKEN_USER", int)
         mHomeViewModel.myGetCategoryID.observe(viewLifecycleOwner) { res ->
             if (res.isSuccessful) {
-                res.body()?.data.let { it?.let { it1 -> it1.children?.let { it2 ->
-                    adapter.setData(
-                        it2
-                    )
-                } } }
+                binding.searchView.setQuery("", false)
+
+                res.body()?.let { response ->
+                    response.data.children?.let { adapter.setData(it) }
+
+                    binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(query: String?): Boolean {
+                            return false
+                        }
+
+                        @SuppressLint("NotifyDataSetChanged")
+                        override fun onQueryTextChange(newText: String?): Boolean {
+                            val filteredList = response.data.children?.filter { item ->
+                                item.name.contains(newText.orEmpty(), ignoreCase = true)
+                            }
+                            filteredList?.let { adapter.setData(it) }
+                            adapter.notifyDataSetChanged()
+
+                            return true
+                        }
+                    })
+                }
             }
         }
     }

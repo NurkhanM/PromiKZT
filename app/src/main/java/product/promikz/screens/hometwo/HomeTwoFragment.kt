@@ -149,7 +149,7 @@ class HomeTwoFragment : Fragment() {
             override fun clickListener(pos: Int, show: String) {
 
 
-//                mHomeViewModel.getStory()
+                mHomeViewModel.getStoryShow(pos.toString())
                 mHomeViewModel.myStory.observe(viewLifecycleOwner) { response ->
                     loop@ for (i in 0 until response.body()?.data?.size!!) {
                         if (response.body()?.data!![i].id == pos) {

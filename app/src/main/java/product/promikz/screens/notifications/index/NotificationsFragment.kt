@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import product.promikz.AppConstants.TOKEN_USER
+import product.promikz.AppConstants.totalNotification
 import product.promikz.R
 import product.promikz.databinding.FragmentNotificationsBinding
 import product.promikz.inteface.IClickListnearNotification
@@ -32,6 +33,10 @@ class NotificationsFragment : Fragment() {
     ): View? {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         mNotification = ViewModelProvider(this)[HomeViewModel::class.java]
+
+        //todo Sdelat normalno
+        totalNotification = 0
+
         adapter = NotificationAdapter(object : IClickListnearNotification {
             override fun clickListener(
                 baseID: String,

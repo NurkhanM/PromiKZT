@@ -176,7 +176,8 @@ class HomeFragmentPlusBrand : Fragment() {
     private fun brandFilterMed() {
         recyclerViewCF = binding.rvCategoryPage
         adapterBF = BrandFiltersAdapter(object : IClickListnearHomeStory {
-            override fun clickListener(pos: Int) {
+
+            override fun clickListener(pos: Int, show: String) {
                 Navigation.findNavController(binding.root).navigate(R.id.action_homeFragmentPlusBrand_self)
             }
 

@@ -1,12 +1,10 @@
 package product.promikz.screens.specialist.info
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,19 +16,16 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import product.promikz.AppConstants.TOKEN_USER
 import product.promikz.R
 import product.promikz.viewModels.HomeViewModel
 import product.promikz.screens.shop.SpecialistReviewBSH
 import com.google.android.gms.common.api.ApiException
-import product.promikz.AppConstants
 import product.promikz.AppConstants.REVIEW_STATE_SPECIALIST
 import product.promikz.AppConstants.SPECIALIST_ALL
+import product.promikz.AppConstants.userTelephony
 import product.promikz.MyUtils
-import product.promikz.MyUtils.uLogD
 import product.promikz.databinding.FragmentInfoSpecialistBinding
 import product.promikz.screens.complaint.specialist.ComplaintSpecialistActivity
 
@@ -49,7 +44,6 @@ class InfoSpecialistFragment : Fragment() {
     private var urlProducts: String = ""
 
     private var idSpecialist: Int = -1
-    private lateinit var vieww: View
 
     private val rotateOpen: Animation by lazy {
         AnimationUtils.loadAnimation(
@@ -237,10 +231,14 @@ class InfoSpecialistFragment : Fragment() {
                         )
                     }"
 
+                    if (list.body()?.data?.user?.phone?.isNotEmpty()!!) {
+                        userTelephony = list.body()?.data?.user?.phone!!
+                    }
+
                     binding.textLocationInfo.text = list.body()?.data?.city?.name
                     binding.textNumberUser.text = list.body()?.data?.user?.phone
                     binding.textEmailUser.text = list.body()?.data?.user?.email
-                    binding.textDescription.text = list.body()?.data?.description?.toString()
+                    binding.textDescription.text = list.body()?.data?.description
 
                     nameProducts = list.body()?.data?.user?.name.toString()
                     urlProducts = url + list.body()?.data?.id.toString()
@@ -320,6 +318,7 @@ class InfoSpecialistFragment : Fragment() {
                             list.body()?.data?.ratingsAvg!!
                         binding.numberRatingAVG.text = binding.svgRating.rating.toString()
                     }
+
 
                     if (list.body()?.data?.isRating == null) {
                         binding.isRatingUser.rating = 0.0f
@@ -415,38 +414,8 @@ class InfoSpecialistFragment : Fragment() {
     }
 
     private fun checkPermission() {
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.CALL_PHONE
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    requireActivity(),
-                    Manifest.permission.CALL_PHONE
-                )
-            ) {
-                uLogD("SUCCESS")
-            } else {
-
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(Manifest.permission.CALL_PHONE),
-                    42
-                )
-            }
-        } else {
-
-            callPhone()
-        }
-    }
-
-    private fun callPhone() {
-        val intent = Intent(
-            Intent.ACTION_CALL,
-            Uri.parse("tel: + ${AppConstants.userTelephony}")
-        )
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:$userTelephony")
         startActivity(intent)
     }
 

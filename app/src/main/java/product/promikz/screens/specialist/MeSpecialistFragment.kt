@@ -78,17 +78,6 @@ class MeSpecialistFragment : Fragment() {
             onAddButtonClicked()
         }
 
-
-        view.floatingActionButtonReview.setOnClickListener {
-            if (TOKEN_USER != "null") {
-                (activity as AppCompatActivity).supportFragmentManager.beginTransaction().add(SpecialistReviewBSH(), "specialist").commit()
-            } else {
-                Toast.makeText(requireContext(), resources.getText(R.string.need_sign_up), Toast.LENGTH_SHORT)
-                    .show()
-            }
-
-        }
-
         view.floatingActionButtonShare.setOnClickListener {
             showSharingDialogAsKotlinWithURL(nameProducts, urlProducts)
         }
@@ -140,6 +129,7 @@ class MeSpecialistFragment : Fragment() {
                         binding.textLocationInfo.text = list.body()?.data?.city?.name
                         binding.textNumberUser.text = list.body()?.data?.user?.phone
                         binding.textEmailUser.text = list.body()?.data?.user?.email
+                        binding.textDescription.text = list.body()?.data?.description
 
                         nameProducts = list.body()?.data?.user?.name.toString()
                         urlProducts = url + list.body()?.data?.id.toString()
@@ -151,39 +141,51 @@ class MeSpecialistFragment : Fragment() {
                         }
 
 
-                        if (list.body()?.data?.skills?.isNotEmpty() == true){
+                        if (list.body()?.data?.skills?.isNotEmpty() == true) {
                             val array = list.body()?.data?.skills!!
                             val arrayString = ArrayList<String>()
-                            array.forEach{
+                            array.forEach {
                                 arrayString.add(it.name)
                             }
-                            binding.textSkills.text = arrayString.joinToString(prefix = "", postfix = "", separator = ", ") // <1•2•3•4•5•6>
+                            binding.textSkills.text = arrayString.joinToString(
+                                prefix = "",
+                                postfix = "",
+                                separator = ", "
+                            ) // <1•2•3•4•5•6>
 
-                        }else{
+                        } else {
                             binding.textSkills.text = resources.getText(R.string.not_skills)
                         }
 
-                        if (list.body()?.data?.categories?.isNotEmpty() == true){
+                        if (list.body()?.data?.categories?.isNotEmpty() == true) {
                             val array = list.body()?.data?.categories!!
                             val arrayString = ArrayList<String>()
-                            array.forEach{
+                            array.forEach {
                                 arrayString.add(it.name)
                             }
-                            binding.textCategory.text = arrayString.joinToString(prefix = "", postfix = "", separator = ", ") // <1•2•3•4•5•6>
+                            binding.textCategory.text = arrayString.joinToString(
+                                prefix = "",
+                                postfix = "",
+                                separator = ", "
+                            ) // <1•2•3•4•5•6>
 
-                        }else{
+                        } else {
                             binding.textCategory.text = resources.getText(R.string.not_skills)
                         }
 
-                        if (list.body()?.data?.specializations?.isNotEmpty() == true){
+                        if (list.body()?.data?.specializations?.isNotEmpty() == true) {
                             val array = list.body()?.data?.specializations!!
                             val arrayString = ArrayList<String>()
-                            array.forEach{
+                            array.forEach {
                                 arrayString.add(it.name)
                             }
-                            binding.textSpecialization.text = arrayString.joinToString(prefix = "", postfix = "", separator = ", ") // <1•2•3•4•5•6>
+                            binding.textSpecialization.text = arrayString.joinToString(
+                                prefix = "",
+                                postfix = "",
+                                separator = ", "
+                            ) // <1•2•3•4•5•6>
 
-                        }else{
+                        } else {
                             binding.textSpecialization.text = resources.getText(R.string.not_skills)
                         }
 
@@ -215,7 +217,8 @@ class MeSpecialistFragment : Fragment() {
                 mImageArrayUpdate.getReviewsSpecialist(MY_SPECIALIST)
                 mImageArrayUpdate.myReviewsSpecialist.observe(viewLifecycleOwner) { user ->
                     if (user.isSuccessful) {
-                        binding.textReviewSpecialist.text = "(${user.body()!!.meta.total} ${resources.getText(R.string.reviews)})"
+                        binding.textReviewSpecialist.text =
+                            "(${user.body()!!.meta.total} ${resources.getText(R.string.reviews)})"
                     }
 
                 }
@@ -241,34 +244,24 @@ class MeSpecialistFragment : Fragment() {
 
     private fun setVisibility(clicked: Boolean) {
         if (!clicked) {
-           binding.floatingActionButtonReview.visibility = View.VISIBLE
-           binding.floatingActionButtonShare.visibility = View.VISIBLE
+            binding.floatingActionButtonShare.visibility = View.VISIBLE
         } else {
-            binding.floatingActionButtonReview.visibility = View.INVISIBLE
             binding.floatingActionButtonShare.visibility = View.INVISIBLE
         }
     }
 
     private fun setAnimation(clicked: Boolean) {
         if (!clicked) {
-            binding.floatingActionButtonReview.startAnimation(rotateFrom)
             binding.floatingActionButtonShare.startAnimation(rotateFrom)
             binding.fabId.startAnimation(rotateOpen)
         } else {
-            binding.floatingActionButtonReview.startAnimation(rotateTo)
             binding.floatingActionButtonShare.startAnimation(rotateTo)
             binding.fabId.startAnimation(rotateClose)
         }
     }
 
     private fun setClickable(clicked: Boolean) {
-        if (!clicked) {
-            binding.floatingActionButtonReview.isClickable = true
-            binding.floatingActionButtonShare.isClickable = true
-        } else {
-            binding.floatingActionButtonReview.isClickable = false
-            binding.floatingActionButtonShare.isClickable = false
-        }
+        binding.floatingActionButtonShare.isClickable = !clicked
     }
 
     private fun showSharingDialogAsKotlinWithURL(text: String, url: String) {

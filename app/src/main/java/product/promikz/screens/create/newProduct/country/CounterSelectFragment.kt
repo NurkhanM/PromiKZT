@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -89,7 +90,26 @@ class CounterSelectFragment : BottomSheetDialogFragment() {
             if (countryRES.isSuccessful) {
                 countryRES.body()?.data?.let {
                     binding.progressNewCreatePro.visibility = View.GONE
-                    adapterCounter.setData(it)
+                    countryRES.body()?.let { response ->
+                        adapterCounter.setData(response.data)
+
+                        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                            override fun onQueryTextSubmit(query: String?): Boolean {
+                                return false
+                            }
+
+                            @SuppressLint("NotifyDataSetChanged")
+                            override fun onQueryTextChange(newText: String?): Boolean {
+                                val filteredList = response.data.filter { item ->
+                                    item.name.contains(newText.orEmpty(), ignoreCase = true)
+                                }
+                                adapterCounter.setData(filteredList)
+                                adapterCounter.notifyDataSetChanged()
+
+                                return true
+                            }
+                        })
+                    }
                     arrayCountryAll = it as ArrayList<Data>
                 }
             } else {
@@ -115,6 +135,27 @@ class CounterSelectFragment : BottomSheetDialogFragment() {
                 }
             }
         }
+
+        binding.searchView.setQuery("", false)
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val filteredList = arrayCountryRekursia.filter { item ->
+                    item.name.contains(newText.orEmpty(), ignoreCase = true)
+                }
+                adapterCounter.setData(filteredList)
+                adapterCounter.notifyDataSetChanged()
+
+                return true
+            }
+        })
+
+
         adapterCounter.setData(arrayCountryRekursia)
     }
 

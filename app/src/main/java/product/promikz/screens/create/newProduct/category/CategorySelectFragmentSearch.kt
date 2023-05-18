@@ -5,14 +5,9 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -66,7 +61,8 @@ class CategorySelectFragmentSearch : BottomSheetDialogFragment() {
             .build()
 
         // Получите ссылку на корневую View и установите для нее фон с использованием ShapeAppearanceModel
-        val bottomSheet = dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        val bottomSheet =
+            dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
         bottomSheet?.background = MaterialShapeDrawable(shapeAppearanceModel)
             .apply {
                 setTint(ContextCompat.getColor(requireContext(), R.color.white))
@@ -164,11 +160,15 @@ class CategorySelectFragmentSearch : BottomSheetDialogFragment() {
         mHomeViewModel.getCategoryID("Bearer $TOKEN_USER", int)
         mHomeViewModel.myGetCategoryID.observe(viewLifecycleOwner) { res ->
             if (res.isSuccessful) {
-                res.body()?.data.let { it?.let { it1 -> it1.children?.let { it2 ->
-                    adapter.setData(
-                        it2
-                    )
-                } } }
+                res.body()?.data.let {
+                    it?.let { it1 ->
+                        it1.children?.let { it2 ->
+                            adapter.setData(
+                                it2
+                            )
+                        }
+                    }
+                }
             }
         }
     }
