@@ -44,9 +44,9 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="35dp"
+                android:contentDescription="TODO"
                 android:padding="2dp"
-                android:src="@drawable/shops_icon"
-                android:contentDescription="TODO" />
+                android:src="@drawable/shops_icon" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -70,9 +70,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/createToolbar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/createToolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -114,12 +114,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold|normal"
                 android:fontFamily="@font/jost"
                 android:gravity="center"
                 android:text="@string/easy_buy"
                 android:textColor="@color/fon1"
                 android:textSize="25sp"
+                android:textStyle="bold|normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardImage" />
@@ -129,8 +129,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
-                android:orientation="vertical"
                 android:layout_marginTop="40dp"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -139,34 +139,39 @@
                     android:id="@+id/buttonCreateSpecialist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/purple_500"
+                    android:background="@drawable/background_promi2"
                     android:elevation="10dp"
-                    app:cornerRadius="@dimen/all_radius_12dp"
                     android:text="@string/create_specialist"
                     android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    app:backgroundTint="@null"
+                    app:cornerRadius="@dimen/all_radius_12dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonCreateProducts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cornerRadius="@dimen/all_radius_12dp"
-                    android:backgroundTint="@color/purple_500"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_promi2"
                     android:elevation="10dp"
                     android:text="@string/create_ads"
                     android:textAllCaps="false"
-                    android:textStyle="bold" />
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null"
+                    app:cornerRadius="@dimen/all_radius_12dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonCreateProductsForTradeIn"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cornerRadius="@dimen/all_radius_12dp"
                     android:text="@string/create_trade_in"
                     android:textAllCaps="false"
                     android:textStyle="bold|normal"
+                    app:cornerRadius="@dimen/all_radius_12dp"
                     app:strokeColor="@color/purple_500" />
 
                 <com.google.android.material.button.MaterialButton
@@ -174,10 +179,10 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cornerRadius="@dimen/all_radius_12dp"
                     android:text="@string/сreate_training_courses"
                     android:textAllCaps="false"
                     android:textStyle="bold|normal"
+                    app:cornerRadius="@dimen/all_radius_12dp"
                     app:strokeColor="@color/purple_500" />
 
             </LinearLayout>
@@ -189,7 +194,7 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAllCreate"/>
+                app:layout_constraintTop_toBottomOf="@+id/btnAllCreate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

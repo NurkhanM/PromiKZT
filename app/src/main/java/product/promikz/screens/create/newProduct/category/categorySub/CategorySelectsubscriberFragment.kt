@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -113,7 +114,30 @@ class CategorySelectsubscriberFragment : BottomSheetDialogFragment() {
         mHomeViewModel.myCategoryIndex.observe(viewLifecycleOwner) { user ->
             if (user.isSuccessful) {
                 view.progressNewCreatePro.visibility = View.GONE
-                user.body()?.let { adapter.setData(it.data) }
+                binding.searchView.setQuery("", false)
+
+                user.body()?.let { response ->
+                    adapter.setData(response.data)
+
+                    binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(query: String?): Boolean {
+                            return false
+                        }
+
+                        @SuppressLint("NotifyDataSetChanged")
+                        override fun onQueryTextChange(newText: String?): Boolean {
+                            val filteredList = response.data.filter { item ->
+                                item.name?.contains(newText.orEmpty(), ignoreCase = true) == true
+                            }
+                            adapter.setData(filteredList)
+                            adapter.notifyDataSetChanged()
+
+                            return true
+                        }
+                    })
+                }
+
+
             }
 
         }
@@ -187,14 +211,26 @@ class CategorySelectsubscriberFragment : BottomSheetDialogFragment() {
         mHomeViewModel.getCategoryID("Bearer $TOKEN_USER", int)
         mHomeViewModel.myGetCategoryID.observe(viewLifecycleOwner) { res ->
             if (res.isSuccessful) {
-                res.body()?.data.let {
-                    it?.let { it1 ->
-                        it1.children?.let { it2 ->
-                            adapter.setData(
-                                it2
-                            )
+                binding.searchView.setQuery("", false)
+                res.body()?.let { response ->
+                    response.data.children?.let { adapter.setData(it) }
+
+                    binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(query: String?): Boolean {
+                            return false
                         }
-                    }
+
+                        @SuppressLint("NotifyDataSetChanged")
+                        override fun onQueryTextChange(newText: String?): Boolean {
+                            val filteredList = response.data.children?.filter { item ->
+                                item.name.contains(newText.orEmpty(), ignoreCase = true)
+                            }
+                            filteredList?.let { adapter.setData(it) }
+                            adapter.notifyDataSetChanged()
+
+                            return true
+                        }
+                    })
                 }
             }
         }

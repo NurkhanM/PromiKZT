@@ -79,7 +79,7 @@ class TovarAdapter(private val mIClickListnear: IClickListnearHomeFavorite) :
         if (currentItem.price == 0) {
             holder.binding.itemHomePrice.text = "Договорная"
         } else {
-            holder.binding.itemHomePrice.text = currentItem.price.toString() + " Тг"
+            holder.binding.itemHomePrice.text = currentItem.price.toString() + " ₸"
         }
 
 

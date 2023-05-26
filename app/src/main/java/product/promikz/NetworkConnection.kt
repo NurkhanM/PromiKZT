@@ -4,43 +4,15 @@ package product.promikz
 
 import android.content.Context
 import android.net.*
-import android.os.Build
 import androidx.lifecycle.LiveData
 
 class NetworkConnection(context: Context) : LiveData<Boolean>() {
 
-    private var connectivityManager: ConnectivityManager =
+    private val connectivityManager: ConnectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    private lateinit var networkCallback: ConnectivityManager.NetworkCallback
-
-    override fun onActive() {
-        super.onActive()
-        updateConnection()
-        when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> {
-                connectivityManager.registerDefaultNetworkCallback(connectivityManagerCallback())
-            }
-
-            else -> {
-                lollipopNetworkRequest()
-            }
-        }
-    }
-
-    private fun lollipopNetworkRequest() {
-        val requestBuilder = NetworkRequest.Builder()
-            .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
-            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-            .addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
-        connectivityManager.registerNetworkCallback(
-            requestBuilder.build(),
-            connectivityManagerCallback()
-        )
-    }
-
-    private fun connectivityManagerCallback(): ConnectivityManager.NetworkCallback {
-        networkCallback = object : ConnectivityManager.NetworkCallback() {
+    private val networkCallback: ConnectivityManager.NetworkCallback =
+        object : ConnectivityManager.NetworkCallback() {
             override fun onLost(network: Network) {
                 super.onLost(network)
                 postValue(false)
@@ -51,11 +23,35 @@ class NetworkConnection(context: Context) : LiveData<Boolean>() {
                 postValue(true)
             }
         }
-        return networkCallback
+
+    private var isRegistered = false
+
+    override fun onActive() {
+        super.onActive()
+        updateConnection()
+        if (!isRegistered) {
+            val requestBuilder = NetworkRequest.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                .addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
+            connectivityManager.registerNetworkCallback(
+                requestBuilder.build(),
+                networkCallback
+            )
+            isRegistered = true
+        }
+    }
+
+    override fun onInactive() {
+        super.onInactive()
+        if (isRegistered) {
+            connectivityManager.unregisterNetworkCallback(networkCallback)
+            isRegistered = false
+        }
     }
 
     private fun updateConnection() {
-        val actoveNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
-        postValue(actoveNetwork?.isConnected == true)
+        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+        postValue(activeNetwork?.isConnected == true)
     }
 }

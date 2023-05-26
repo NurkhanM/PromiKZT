@@ -27,14 +27,10 @@ class CategoryFiltersAdapter(private val mIClickListnearHomeStory: IClickListnea
         val currentItem = listHome[position]
         holder.binding.catNameFilters.text = currentItem.name
         holder.binding.cfFirst.setOnClickListener {
-            currentItem.name?.let { it1 ->
-                mIClickListnearHomeStory.clickListener(
-                    currentItem.id, it1
-                )
-            }
+            mIClickListnearHomeStory.clickListener(currentItem.id,
+                currentItem.name.toString(), currentItem.children?.isEmpty() == true
+            )
         }
-
-
 
     }
 

@@ -9,5 +9,6 @@ data class Data(
     val img: String,
     val name: String,
     val status: Any,
+    val user: User,
     val views: Int
 )

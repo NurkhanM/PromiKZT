@@ -33,6 +33,7 @@ import product.promikz.screens.sravnit.CompareActivity
 import product.promikz.screens.user.UserActivity
 import com.google.android.material.navigation.NavigationView
 import product.promikz.AppConstants.CATEGORY_INT_SEARCH_DATA
+import product.promikz.AppConstants.STATE_IS_BRAND
 import product.promikz.AppConstants.categoryState
 import product.promikz.MyUtils.uGlide
 import product.promikz.MyUtils.uLogD
@@ -302,6 +303,7 @@ class MainActivity : AppCompatActivity() {
         if (destination.id == R.id.nav_view_menu_home) {
             CATEGORY_INT_SEARCH_DATA = 0
             categoryState = false
+            STATE_IS_BRAND = false
         }
     }
 
@@ -318,6 +320,7 @@ class MainActivity : AppCompatActivity() {
         if (drawerLayout.isDrawerOpen((START))) {
             drawerLayout.closeDrawer(START)
         } else {
+            STATE_IS_BRAND = false
             super.onBackPressed()
         }
     }

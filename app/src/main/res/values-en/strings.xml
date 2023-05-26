@@ -335,7 +335,7 @@
     <string name="complaint">Complaint</string>
     <string name="wait">Wait a bit</string>
     <string name="change_specialist">Change Specialist</string>
-    <string name="tenge_kz">\u0020Тг</string>
+    <string name="tenge_kz">\u0020₸</string>
     <string name="non_message">You don\'t have any new messages yet</string>
     <string name="fast">Fast</string>
     <string name="select_country">Select City</string>

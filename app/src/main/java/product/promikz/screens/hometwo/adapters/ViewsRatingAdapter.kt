@@ -39,7 +39,7 @@ class ViewsRatingAdapter(private val mIClickListnear: IClickListnearHomeRating) 
         val currentItem = listTovar[position]
 
         if (currentItem.price != 0) {
-            holder.binding.itemHomePrice.text = currentItem.price.toString() + " Тг"
+            holder.binding.itemHomePrice.text = currentItem.price.toString() + " ₸"
         } else {
             holder.binding.itemHomePrice.text = "Договорная"
         }

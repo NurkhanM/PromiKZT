@@ -180,7 +180,7 @@ class HomeFragmentPlusTradeIn : Fragment() {
             }
         } catch (e: ApiException) {
             e.printStackTrace()
-            binding?.dopText?.visibility = View.VISIBLE
+            binding.dopText.visibility = View.VISIBLE
         }
 
     }
@@ -205,7 +205,7 @@ class HomeFragmentPlusTradeIn : Fragment() {
             }
         } catch (e: ApiException) {
             e.printStackTrace()
-            binding?.dopText?.visibility = View.VISIBLE
+            binding.dopText.visibility = View.VISIBLE
         }
 
     }
@@ -214,7 +214,7 @@ class HomeFragmentPlusTradeIn : Fragment() {
         recyclerViewCF = binding.rvCategoryPage
         adapterCF = CategoryFiltersAdapterPlus(object : IClickListnearHomeFilterCategory {
 
-            override fun clickListener(id: Int, name: String) {
+            override fun clickListener(id: Int, name: String, boolean: Boolean) {
                 CATEGORY_INT_FILTERS_DATA = id
                 FILTER_INT_ALL.add(id)
                 MAP_FILTERS_PRODUCTS.clear()
@@ -233,8 +233,8 @@ class HomeFragmentPlusTradeIn : Fragment() {
         viewModel.myGetCategoryID.observe(viewLifecycleOwner) { list ->
 
             if (list.isSuccessful) {
-                binding?.loaderfilter?.visibility = View.GONE
-                binding?.rvCategoryPage?.visibility = View.VISIBLE
+                binding.loaderfilter.visibility = View.GONE
+                binding.rvCategoryPage.visibility = View.VISIBLE
                 list.body()?.data?.children.let {
                     if (it != null) {
                         adapterCF.setList(it)
@@ -242,8 +242,8 @@ class HomeFragmentPlusTradeIn : Fragment() {
                 }
 
             } else {
-                binding?.loaderfilter?.visibility = View.GONE
-                binding?.rvCategoryPage?.visibility = View.VISIBLE
+                binding.loaderfilter.visibility = View.GONE
+                binding.rvCategoryPage.visibility = View.VISIBLE
                 uToast(requireContext(), "Error Server")
             }
 
@@ -256,8 +256,8 @@ class HomeFragmentPlusTradeIn : Fragment() {
         viewModel.myGetCategoryEnd.observe(viewLifecycleOwner) { list ->
 
             if (list.isSuccessful) {
-                binding?.loaderfilter?.visibility = View.GONE
-                binding?.rvCategoryPage?.visibility = View.VISIBLE
+                binding.loaderfilter.visibility = View.GONE
+                binding.rvCategoryPage.visibility = View.VISIBLE
                 list.body()?.data?.children.let {
                     if (it != null) {
                         adapterCF.setList(it)
@@ -265,8 +265,8 @@ class HomeFragmentPlusTradeIn : Fragment() {
                 }
 
             } else {
-                binding?.loaderfilter?.visibility = View.GONE
-                binding?.rvCategoryPage?.visibility = View.VISIBLE
+                binding.loaderfilter.visibility = View.GONE
+                binding.rvCategoryPage.visibility = View.VISIBLE
                 uToast(requireContext(), "Error Server")
             }
 

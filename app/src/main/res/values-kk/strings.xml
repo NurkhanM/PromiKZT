@@ -334,7 +334,7 @@
     <string name="complaint">Шағымдану</string>
     <string name="wait">Кішкене күте тұрыңыз</string>
     <string name="change_specialist">Маман құру</string>
-    <string name="tenge_kz">\u0020Тг</string>
+    <string name="tenge_kz">\u0020₸</string>
     <string name="non_message">Сізде әлі жаңа хабарлар жоқ</string>
     <string name="fast">Срочное</string>
     <string name="select_country">Выберите город</string>

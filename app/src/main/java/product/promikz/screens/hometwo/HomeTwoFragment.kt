@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -33,12 +33,9 @@ import product.promikz.*
 import product.promikz.AppConstants.APP_PREFERENCES
 import product.promikz.AppConstants.FILTERS_TYPE
 import product.promikz.AppConstants.ID_SHOP_MY
-import product.promikz.AppConstants.PROGRESS_COUNT
 import product.promikz.AppConstants.TOKEN_USER
 import product.promikz.AppConstants.followBannerString
 import product.promikz.AppConstants.getSpecialistIDSTATE
-import product.promikz.AppConstants.imagesStoryAll
-import product.promikz.AppConstants.imagesStoryFollow
 import product.promikz.AppConstants.totalCountProduct
 import product.promikz.AppConstants.totalCountSchool
 import product.promikz.AppConstants.totalCountSpecialist
@@ -55,8 +52,7 @@ import product.promikz.inteface.IClickListnearHomeStory
 import product.promikz.models.test.storeGaid.GaidModels
 import product.promikz.screens.hometwo.adapters.GaidAdapter
 import product.promikz.screens.hometwo.adapters.ViewsRatingAdapter
-import product.promikz.screens.hometwo.story.HomeTwoAdapter
-import product.promikz.screens.hometwo.story.StoryActivity
+import product.promikz.screens.hometwo.stories.screen.StoriesActivity
 import product.promikz.screens.kursy.KursyActivity
 import product.promikz.screens.notifications.index.NotificationsActivity
 import product.promikz.screens.pageErrorNetworks.TokenErrorActivity
@@ -64,15 +60,17 @@ import product.promikz.screens.search.products.SSortActivity
 import product.promikz.screens.specialist.SpecialistActivity
 import product.promikz.screens.update.UpdateActivity
 import product.promikz.viewModels.HomeViewModel
-import product.promikz.viewModels.ProfileViewModel
 import kotlin.math.abs
 
 
 class HomeTwoFragment : Fragment() {
 
+    private var token: String? = null
+
 
     private var _binding: FragmentHomeTwoBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?: throw IllegalStateException("Binding not initialized.")
+
 
     private var activityBinding: ActivityMainBinding? = null
 
@@ -90,9 +88,7 @@ class HomeTwoFragment : Fragment() {
     private var currentPagerSize = 1
 
     private lateinit var preferencesTheme: SharedPreferences
-    private lateinit var mHomeViewModel: HomeViewModel
-    private lateinit var mProfileViewModel: ProfileViewModel
-
+    private val mHomeViewModel by viewModels<HomeViewModel>()
 
     lateinit var slideHandler: Handler
     lateinit var slideRunnable: Runnable
@@ -110,8 +106,12 @@ class HomeTwoFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        mProfileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
-        mHomeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+
+        if (savedInstanceState != null) {
+            TOKEN_USER = savedInstanceState.getString("token").toString()
+        }
+
+
         _binding = FragmentHomeTwoBinding.inflate(inflater, container, false)
         val view = binding
 
@@ -146,42 +146,17 @@ class HomeTwoFragment : Fragment() {
 
         recyclerViewStory = view.rvStory
         adapterStory = HomeTwoAdapter(object : IClickListnearHomeStory {
-            override fun clickListener(pos: Int, show: String) {
+            override fun clickListener(pos: Int, idStories: Int, show: String) {
 
-
-                mHomeViewModel.getStoryShow(pos.toString())
-                mHomeViewModel.myStory.observe(viewLifecycleOwner) { response ->
-                    loop@ for (i in 0 until response.body()?.data?.size!!) {
-                        if (response.body()?.data!![i].id == pos) {
-                            if (response.body()?.data!![i].images.isNotEmpty()) {
-                                PROGRESS_COUNT = response.body()?.data!![i].images.size
-                                imagesStoryAll.clear()
-                                imagesStoryFollow.clear()
-                                for (k in 0 until response.body()?.data!![i].images.size) {
-                                    imagesStoryAll.add(response.body()?.data!![i].images[k].name)
-                                    imagesStoryFollow.add(response.body()?.data!![i].images[k].link.toString())
-                                }
-                            } else {
-                                PROGRESS_COUNT = 1
-                                imagesStoryAll.clear()
-                                imagesStoryFollow.clear()
-                                imagesStoryAll.add("https://www.mordeo.org/files/uploads/2022/05/The-Boys-Dawn-of-The-Seven-Series-Poster-4K-Ultra-HD-Mobile-Wallpaper.jpg")
-                                imagesStoryFollow.add("https://www.mordeo.org/files/uploads/2022/05/The-Boys-Dawn-of-The-Seven-Series-Poster-4K-Ultra-HD-Mobile-Wallpaper.jpg")
-                            }
-
-                            break@loop
-                        }
-                    }
-                }
-
-                val intent = Intent(requireActivity(), StoryActivity::class.java)
-                intent.putExtra("story", pos)
-                intent.putExtra("show", show)
+                val intent = Intent(requireActivity(), StoriesActivity::class.java)
+                intent.putExtra("storyID", idStories)
+                intent.putExtra("storyPOS", pos)
                 startActivity(intent)
-                activity?.overridePendingTransition(
+                (activity as AppCompatActivity).overridePendingTransition(
                     R.anim.zoom_enter,
                     R.anim.zoom_exit
                 )
+
             }
 
         })
@@ -359,11 +334,14 @@ class HomeTwoFragment : Fragment() {
 
             if (response.body()?.data?.isNotEmpty() == true) {
                 response.body()?.data?.let { adapterStory.setList(it) }
+
             } else {
                 view.homeTxtStory.visibility = View.GONE
             }
 
         }
+
+
 
         ratingAvgGetRequest()
 
@@ -629,6 +607,19 @@ class HomeTwoFragment : Fragment() {
         binding.htDrawer.setOnClickListener {
             activityBinding?.layoutDrawer?.openDrawer(GravityCompat.START)
         }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        if (savedInstanceState != null) {
+            token = savedInstanceState.getString("token")
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString("token", TOKEN_USER)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onDestroyView() {

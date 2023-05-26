@@ -64,6 +64,7 @@ class CompareFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
             getCategoryCompareID = -2
+            binding.recyclerView.visibility = View.GONE
         }
 
 

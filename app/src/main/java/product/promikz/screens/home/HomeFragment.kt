@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import product.promikz.*
@@ -23,6 +23,7 @@ import product.promikz.AppConstants.CATEGORY_INT_FILTERS_DATA
 import product.promikz.AppConstants.FILTERS_TYPE
 import product.promikz.AppConstants.FILTER_INT_ALL
 import product.promikz.AppConstants.MAP_FILTERS_PRODUCTS
+import product.promikz.MyUtils.uLogD
 import product.promikz.MyUtils.uToast
 import product.promikz.databinding.ActivityMainBinding
 import product.promikz.databinding.FragmentHomeBinding
@@ -35,19 +36,19 @@ import product.promikz.viewModels.HomeViewModel
 
 class HomeFragment : Fragment() {
 
+    private var token: String? = null
+
     private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?: throw IllegalStateException("Binding not initialized.")
 
     private var activityBinding: ActivityMainBinding? = null
     private var activityBinding2: FragmentTwoAdvertBinding? = null
-
-
 
     lateinit var recyclerView: RecyclerView
     private lateinit var recyclerViewCF: RecyclerView
     lateinit var adapter: TovarAdapterHome
     private lateinit var adapterCF: CategoryFiltersAdapter
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel by viewModels<HomeViewModel>()
 
 
     @Suppress("DEPRECATION")
@@ -56,7 +57,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding
@@ -81,6 +82,7 @@ class HomeFragment : Fragment() {
                 } else {
                     viewAdapter.imgFavorite.setImageResource(R.drawable.ic_favorite)
                 }
+                uLogD("token post Like == $TOKEN_USER")
                 viewModel.postLike("Bearer $TOKEN_USER", baseID)
 
             }
@@ -101,7 +103,7 @@ class HomeFragment : Fragment() {
                     try {
                         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(favorite))
                         startActivity(browserIntent)
-                    }catch (e: ActivityNotFoundException){
+                    } catch (e: ActivityNotFoundException) {
                         uToast(requireContext(), resources.getString(R.string.error_link))
                     }
 
@@ -123,6 +125,7 @@ class HomeFragment : Fragment() {
 
 
         view.moveToBackAdapter.setOnClickListener {
+            uLogD("token getTovarPage == $TOKEN_USER")
             viewModel.getTovarPage("Bearer $TOKEN_USER")
             recyclerView.smoothScrollToPosition(0)
         }
@@ -144,12 +147,9 @@ class HomeFragment : Fragment() {
         return view.root
     }
 
-    fun isUrl(url: String): Boolean {
-        val regex = Regex("(http(s)?://)?([\\w-]+\\.)+[\\w-]+(/[\\w- ;,./?%&=]*)?")
-        return regex.matches(url)
-    }
 
     private fun stateCF() {
+
         viewModel.getCategoryIndex("Bearer $TOKEN_USER")
         viewModel.myCategoryIndex.observe(viewLifecycleOwner) { user ->
             if (user.isSuccessful) {
@@ -158,7 +158,7 @@ class HomeFragment : Fragment() {
                 user.body()?.let {
                     adapterCF.setList(it.data)
                 }
-            }else{
+            } else {
                 binding.loaderfilter.visibility = View.VISIBLE
                 binding.rvCategoryPage.visibility = View.GONE
                 uToast(requireContext(), "Error Server")
@@ -178,7 +178,7 @@ class HomeFragment : Fragment() {
                     recyclerView.removeAllViewsInLayout()
                     arInData.clear()
                     list.body()?.data?.forEach { item ->
-                        if (item.type == 0 || item.type == 3){
+                        if (item.type == 0 || item.type == 3) {
                             arInData.add(item)
                         }
                     }
@@ -190,7 +190,7 @@ class HomeFragment : Fragment() {
 
         } catch (e: ApiException) {
             e.printStackTrace()
-            binding?.dopText?.visibility = View.VISIBLE
+            binding.dopText.visibility = View.VISIBLE
         }
 
     }
@@ -200,7 +200,7 @@ class HomeFragment : Fragment() {
         recyclerViewCF = binding.rvCategoryPage
         adapterCF = CategoryFiltersAdapter(object : IClickListnearHomeFilterCategory {
 
-            override fun clickListener(id: Int, name: String) {
+            override fun clickListener(id: Int, name: String, boolean: Boolean) {
                 CATEGORY_INT_FILTERS_DATA = id
                 FILTER_INT_ALL.add(id)
                 MAP_FILTERS_PRODUCTS.clear()
@@ -215,7 +215,6 @@ class HomeFragment : Fragment() {
         recyclerViewCF.adapter = adapterCF
         recyclerViewCF.setHasFixedSize(true)
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -243,14 +242,17 @@ class HomeFragment : Fragment() {
         })
     }
 
+
+
+
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         activityBinding = null
         activityBinding2 = null
     }
-
-
 
 
 }

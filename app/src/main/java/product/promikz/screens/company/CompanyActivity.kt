@@ -21,24 +21,22 @@ class CompanyActivity : AppCompatActivity() {
         binding = ActivityCompanyBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val networkConnection = NetworkConnection(applicationContext)
+        mCompanyFragment = CompanyFragment()
+
         networkConnection.observe(this) { isConnected ->
             if (isConnected) {
                 binding.disconnect.root.visibility = View.GONE
                 binding.companyConnect.visibility = View.VISIBLE
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.containerCompany, mCompanyFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit()
             } else {
                 binding.disconnect.root.visibility = View.VISIBLE
                 binding.companyConnect.visibility = View.GONE
             }
         }
-
-        mCompanyFragment = CompanyFragment()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.containerCompany, mCompanyFragment)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .commit()
-
-
     }
 
     @Deprecated("Deprecated in Java")

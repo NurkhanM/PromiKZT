@@ -24,8 +24,9 @@ import me.farahani.spaceitemdecoration.SpaceItemDecoration
 import product.promikz.AppConstants.CATEGORY_INT_SEARCH_DATA
 import product.promikz.AppConstants.FILTER_INT_ALL
 import product.promikz.AppConstants.MAP_FILTERS_PRODUCTS
+import product.promikz.AppConstants.MAP_FILTERS_PRODUCTS_BRANDS
 import product.promikz.AppConstants.STATE_INT_FILTERS
-import product.promikz.MyUtils.uLogD
+import product.promikz.AppConstants.STATE_IS_BRAND
 import product.promikz.MyUtils.uToast
 import product.promikz.databinding.ActivityMainBinding
 import product.promikz.databinding.FragmentHomePlusBinding
@@ -59,11 +60,10 @@ class HomeFragmentPlus : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         _binding = FragmentHomePlusBinding.inflate(inflater, container, false)
         val view = binding
-
 
         categoryFilterMed()
 
@@ -91,12 +91,11 @@ class HomeFragmentPlus : Fragment() {
                         R.anim.zoom_enter,
                         R.anim.zoom_exit
                     )
-
                 } else {
                     try {
                         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(favorite))
                         startActivity(browserIntent)
-                    }catch (e: ActivityNotFoundException){
+                    } catch (e: ActivityNotFoundException) {
                         uToast(requireContext(), resources.getString(R.string.error_link))
                     }
                 }
@@ -106,14 +105,17 @@ class HomeFragmentPlus : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
 
-        if (STATE_INT_FILTERS){
+        if (STATE_INT_FILTERS) {
             viewModel.getCategoryID("Bearer $TOKEN_USER", CATEGORY_INT_FILTERS_DATA)
             viewModel.getFilterProducts("Bearer $TOKEN_USER", MAP_FILTERS_PRODUCTS)
             startState()
             isStart()
-        }else{
+        } else {
             MAP_FILTERS_PRODUCTS.clear()
-            viewModel.getCategoryIDEnd("Bearer $TOKEN_USER", FILTER_INT_ALL[FILTER_INT_ALL.lastIndex])
+            viewModel.getCategoryIDEnd(
+                "Bearer $TOKEN_USER",
+                FILTER_INT_ALL[FILTER_INT_ALL.lastIndex]
+            )
             MAP_FILTERS_PRODUCTS["category"] = FILTER_INT_ALL[FILTER_INT_ALL.lastIndex].toString()
             viewModel.getFilterProductsEND("Bearer $TOKEN_USER", MAP_FILTERS_PRODUCTS)
             endState()
@@ -147,24 +149,24 @@ class HomeFragmentPlus : Fragment() {
             )
         }
 
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                STATE_INT_FILTERS = false
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    STATE_INT_FILTERS = false
 
-                if ( FILTER_INT_ALL.size != 1){
-                    FILTER_INT_ALL.removeAt(FILTER_INT_ALL.lastIndex)
-                    CATEGORY_INT_SEARCH_DATA = FILTER_INT_ALL[FILTER_INT_ALL.lastIndex]
-                }else{
-                    CATEGORY_INT_SEARCH_DATA = 0
+                    CATEGORY_INT_SEARCH_DATA = if (FILTER_INT_ALL.size != 1) {
+                        FILTER_INT_ALL.removeAt(FILTER_INT_ALL.lastIndex)
+                        FILTER_INT_ALL[FILTER_INT_ALL.lastIndex]
+                    } else {
+                        0
+                    }
+
+                    findNavController().popBackStack()
                 }
-
-                findNavController().popBackStack()
-            }
-        })
+            })
         return view.root
     }
-
-
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -176,18 +178,22 @@ class HomeFragmentPlus : Fragment() {
                     recyclerView.removeAllViewsInLayout()
                     arInData.clear()
                     list.body()?.data?.forEach { item ->
-                        if (item.type == 0 || item.type == 3){
+                        if (item.type == 0 || item.type == 3) {
                             arInData.add(item)
                         }
+                    }
+                    if (arInData.isEmpty()){
+                        binding.consProducNull.visibility = View.VISIBLE
+                    }else{
+                        binding.consProducNull.visibility = View.GONE
                     }
                     adapter.setList(arInData)
                     adapter.notifyDataSetChanged()
                 }
-
             }
         } catch (e: ApiException) {
             e.printStackTrace()
-            binding?.dopText?.visibility = View.VISIBLE
+            binding.dopText.visibility = View.VISIBLE
         }
 
     }
@@ -201,9 +207,14 @@ class HomeFragmentPlus : Fragment() {
                     recyclerView.removeAllViewsInLayout()
                     arInData.clear()
                     list.body()?.data?.forEach { item ->
-                        if (item.type == 0 || item.type == 3){
+                        if (item.type == 0 || item.type == 3) {
                             arInData.add(item)
                         }
+                    }
+                    if (arInData.isEmpty()){
+                        binding.consProducNull.visibility = View.VISIBLE
+                    }else{
+                        binding.consProducNull.visibility = View.GONE
                     }
                     adapter.setList(arInData)
                     adapter.notifyDataSetChanged()
@@ -212,7 +223,7 @@ class HomeFragmentPlus : Fragment() {
             }
         } catch (e: ApiException) {
             e.printStackTrace()
-            binding?.dopText?.visibility = View.VISIBLE
+            binding.dopText.visibility = View.VISIBLE
         }
 
     }
@@ -222,14 +233,24 @@ class HomeFragmentPlus : Fragment() {
         recyclerViewCF = binding.rvCategoryPage
         adapterCF = CategoryFiltersAdapterPlus(object : IClickListnearHomeFilterCategory {
 
-            override fun clickListener(id: Int, name: String) {
-                CATEGORY_INT_FILTERS_DATA = id
-                CATEGORY_INT_SEARCH_DATA = id
-                FILTER_INT_ALL.add(id)
-                MAP_FILTERS_PRODUCTS.clear()
-                MAP_FILTERS_PRODUCTS["category"] = id.toString()
-                Navigation.findNavController(binding.root)
-                    .navigate(R.id.action_homeFragmentPlus_self)
+            override fun clickListener(id: Int, name: String, boolean: Boolean) {
+
+                if (boolean) {
+                    STATE_IS_BRAND = false
+                    Navigation.findNavController(binding.root)
+                        .navigate(R.id.action_homeFragmentPlus_to_homeFragmentPlusBrand)
+                    MAP_FILTERS_PRODUCTS_BRANDS.clear()
+                    MAP_FILTERS_PRODUCTS_BRANDS["category"] = id.toString()
+                } else {
+                    CATEGORY_INT_FILTERS_DATA = id
+                    CATEGORY_INT_SEARCH_DATA = id
+                    FILTER_INT_ALL.add(id)
+                    MAP_FILTERS_PRODUCTS.clear()
+                    MAP_FILTERS_PRODUCTS["category"] = id.toString()
+                    Navigation.findNavController(binding.root)
+                        .navigate(R.id.action_homeFragmentPlus_self)
+
+                }
             }
 
         })
@@ -238,7 +259,7 @@ class HomeFragmentPlus : Fragment() {
         recyclerViewCF.setHasFixedSize(true)
     }
 
-    private fun startState(){
+    private fun startState() {
         viewModel.myGetCategoryID.observe(viewLifecycleOwner) { list ->
 
             if (list.isSuccessful) {
@@ -270,7 +291,7 @@ class HomeFragmentPlus : Fragment() {
 
     }
 
-    private fun endState(){
+    private fun endState() {
         viewModel.myGetCategoryEnd.observe(viewLifecycleOwner) { list ->
 
             if (list.isSuccessful) {
@@ -300,12 +321,12 @@ class HomeFragmentPlus : Fragment() {
 
     }
 
-    private fun stateImageSubscriber(boolean: Boolean){
+    private fun stateImageSubscriber(boolean: Boolean) {
 
-        isSubscrip = if(boolean){
+        isSubscrip = if (boolean) {
             binding.imgHomeFavorite.setImageResource(R.drawable.ic_star2)
             true
-        }else{
+        } else {
             binding.imgHomeFavorite.setImageResource(R.drawable.ic_star)
             false
         }

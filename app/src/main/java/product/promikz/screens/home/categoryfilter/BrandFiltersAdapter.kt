@@ -29,7 +29,7 @@ class BrandFiltersAdapter(private val mIClickListnearHomeStory: IClickListnearHo
         holder.binding.catNameFilters.text = currentItem.name
         holder.binding.cfFirst.setOnClickListener {
             BRAND_INT_FILTERS_DATA = currentItem.id
-            mIClickListnearHomeStory.clickListener(currentItem.id, "")
+            mIClickListnearHomeStory.clickListener(currentItem.id, 0,"")
         }
     }
 

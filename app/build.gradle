@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
     id 'com.google.gms.google-services'
+    id 'kotlin-parcelize'
 
 }
 
@@ -16,8 +17,8 @@ android {
         applicationId "product.promikz"
         minSdk 21
         targetSdk 33
-        versionCode 53
-        versionName "0.53"
+        versionCode 59
+        versionName "0.59"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         kapt {
@@ -68,11 +69,9 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
-    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
     def nav_version = '2.5.3'
 
-    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -199,6 +198,11 @@ dependencies {
     //HTML парсинг
     implementation 'org.jsoup:jsoup:1.14.1'
 
+    //stories
+    //no update запрет
+    implementation 'com.google.android.exoplayer:exoplayer:2.10.0'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.10.0'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.10.0'
 
 
 }

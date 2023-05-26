@@ -1,5 +1,6 @@
 package product.promikz.data.api
 
+import product.promikz.models.telegram.TelegramError
 import product.promikz.models.banner.BannerIndexModels
 import product.promikz.models.errors.ErrorModels
 import product.promikz.models.like.product.LikeProductModels
@@ -51,6 +52,13 @@ interface ApiService {
         @Header("Authorization") auth: String,
         @Path("idLike") idLike: Int
     ): Response<LikeSpecialistModels>
+
+    @Headers("Accept: application/json")
+    @GET("sendMessage")
+    suspend fun sendRequestMessageBot(
+        @Query("chat_id") idChad: Long,
+        @Query("text") text: String
+    ): Response<TelegramError>
 
 
 }

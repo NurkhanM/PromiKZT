@@ -1,4 +1,4 @@
-package product.promikz.screens.hometwo.story
+package product.promikz.screens.hometwo
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -30,7 +30,7 @@ class HomeTwoAdapter(private val mIClickListnearHomeStory: IClickListnearHomeSto
         holder.binding.descHome2Item.text = currentItem.description
 
         holder.binding.rowHomeTwo.setOnClickListener {
-            mIClickListnearHomeStory.clickListener(currentItem.id, currentItem.views.toString())
+            mIClickListnearHomeStory.clickListener(position, currentItem.id , currentItem.views.toString())
         }
     }
 

@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -86,7 +87,26 @@ class BrandProductSelectFragmentSearch : BottomSheetDialogFragment() {
             if (user.isSuccessful) {
                 view.progressNewCreateBrand.visibility = View.GONE
                 if (user.body()?.data?.brands?.isNotEmpty() == true) {
-                    user.body()?.data.let { it?.let { it1 -> adapter.setData(it1.brands) } }
+                    user.body()?.let { response ->
+                        adapter.setData(response.data.brands)
+
+                        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                            override fun onQueryTextSubmit(query: String?): Boolean {
+                                return false
+                            }
+
+                            @SuppressLint("NotifyDataSetChanged")
+                            override fun onQueryTextChange(newText: String?): Boolean {
+                                val filteredList = response.data.brands.filter { item ->
+                                    item.name.contains(newText.orEmpty(), ignoreCase = true)
+                                }
+                                adapter.setData(filteredList)
+                                adapter.notifyDataSetChanged()
+
+                                return true
+                            }
+                        })
+                    }
                 } else {
                     view.txtErrorBrand.visibility = View.VISIBLE
                 }

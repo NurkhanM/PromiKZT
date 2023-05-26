@@ -40,7 +40,6 @@ class TovarAdapterHome(private val mIClickListnear: IClickListnearHomeFavorite) 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = listTovar[position]
 
-//            if (isNull(currentItem.top.toString())) {
         if (currentItem.top?.let { isNull(it) } == true) {
             if (getDateTime(currentItem.top)) {
                 holder.binding.itemStateTop.visibility = View.VISIBLE
@@ -80,7 +79,7 @@ class TovarAdapterHome(private val mIClickListnear: IClickListnearHomeFavorite) 
         if (currentItem.price == 0) {
             holder.binding.itemHomePrice.text = "Договорная"
         } else {
-            holder.binding.itemHomePrice.text = currentItem.price.toString() + " Тг"
+            holder.binding.itemHomePrice.text = currentItem.price.toString() + " ₸"
         }
 
         if (currentItem.isLike) {
@@ -130,7 +129,7 @@ class TovarAdapterHome(private val mIClickListnear: IClickListnearHomeFavorite) 
             mIClickListnear.clickListener2(
                 currentItem.id,
                 currentItem.type,
-                currentItem.link.toString()
+                currentItem.link.toString(),
             )
         }
 

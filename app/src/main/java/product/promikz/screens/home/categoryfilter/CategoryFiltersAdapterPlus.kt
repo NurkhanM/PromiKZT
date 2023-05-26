@@ -16,7 +16,6 @@ class CategoryFiltersAdapterPlus(private val mIClickListnearHomeStory: IClickLis
     private var listHome = emptyList<Children>()
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemCategoryFiltersBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         context = parent.context
@@ -26,10 +25,9 @@ class CategoryFiltersAdapterPlus(private val mIClickListnearHomeStory: IClickLis
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentItem = listHome[position]
-//        Util.uLogD(currentItem.parent_id.toString())
         holder.binding.catNameFilters.text = currentItem.name
         holder.binding.cfFirst.setOnClickListener {
-            mIClickListnearHomeStory.clickListener(currentItem.id,  currentItem.name)
+            mIClickListnearHomeStory.clickListener(currentItem.id,  currentItem.name, currentItem.children.isEmpty())
         }
 
     }

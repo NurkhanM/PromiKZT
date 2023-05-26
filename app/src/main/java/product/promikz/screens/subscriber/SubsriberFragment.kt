@@ -57,7 +57,7 @@ class SubsriberFragment : Fragment() {
                     startActivity(intent)
                 }else{
                     MAP_SEARCH["category"] = baseID.toString()
-                    categoryState = true
+                    categoryState = false
                     val intent = Intent(requireActivity(), SsortInfoActivity::class.java)
                     intent.putExtra("subCategory", name)
                     startActivity(intent)

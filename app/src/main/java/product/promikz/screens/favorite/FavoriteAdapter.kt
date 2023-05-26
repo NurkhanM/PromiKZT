@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import product.promikz.R
 import product.promikz.models.favorite.Data
-import gun0912.tedimagepicker.util.ToastUtil
 import product.promikz.databinding.ItemMakeupModelsBinding
 import product.promikz.inteface.IClickListnearHomeFavorite
 import java.text.SimpleDateFormat
@@ -95,7 +94,7 @@ class FavoriteAdapter(private val mIClickListnear: IClickListnearHomeFavorite) :
         if (currentItem.price == 0) {
             holder.binding.itemHomePrice.text = "Договорная"
         } else {
-            holder.binding.itemHomePrice.text = currentItem.price.toString() + " Тг"
+            holder.binding.itemHomePrice.text = currentItem.price.toString() + " ₸"
         }
 
 
@@ -104,8 +103,8 @@ class FavoriteAdapter(private val mIClickListnear: IClickListnearHomeFavorite) :
         holder.binding.textImageSize.text = currentItem.imagesCount.toString()
 
 
-        Glide.with(ToastUtil.context).load(currentItem.img)
-            .thumbnail(Glide.with(ToastUtil.context).load(R.drawable.loader2))
+        Glide.with(context).load(currentItem.img)
+            .thumbnail(Glide.with(context).load(R.drawable.loader2))
             .centerCrop()
             .into(holder.binding.itemHomeImages)
 

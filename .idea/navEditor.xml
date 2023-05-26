@@ -434,7 +434,7 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="744" />
-                            <option name="y" value="774" />
+                            <option name="y" value="776" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -512,7 +512,22 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_nav_view_menu_home_to_createShopGaidFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_nav_view_menu_home_to_gaidAdsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_nav_view_menu_home_to_gaidAuthFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_nav_view_menu_home_to_gaidPayFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

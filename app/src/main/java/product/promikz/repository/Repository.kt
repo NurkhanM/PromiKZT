@@ -6,6 +6,7 @@ import product.promikz.data.RetroFitInstance
 import product.promikz.models.story.index.StoryIndex
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import product.promikz.data.RetroFitInstanceTelegram
 import product.promikz.models.auth.email.one.ActivitedSuccessModels
 import product.promikz.models.auth.login.LoginModels
 import product.promikz.models.auth.register.RegisterModels
@@ -47,6 +48,7 @@ import product.promikz.models.story.show.StoryShowModels
 import product.promikz.models.subscriber.category.SubCategoryModels
 import product.promikz.models.subscriber.index.IndexSubscriberModels
 import product.promikz.models.subscriber.shop.SubShopModels
+import product.promikz.models.telegram.TelegramError
 import product.promikz.models.user.UserModels
 import retrofit2.Response
 
@@ -358,6 +360,13 @@ class Repository {
 
     suspend fun postSpecialistRepository(auth: String, number: Int): Response<LikeSpecialistModels> {
         return RetroFitInstance.api.postSpecialist(auth, number)
+    }
+
+    suspend fun sendRequestMessageBotRepository(
+        idChad: Long,
+        text: String
+    ): Response<TelegramError> {
+        return RetroFitInstanceTelegram.api.sendRequestMessageBot(idChad, text)
     }
 
     suspend fun postRatingRepository(

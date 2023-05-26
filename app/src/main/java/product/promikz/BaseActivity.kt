@@ -9,11 +9,14 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import product.promikz.AppConstants.VERSION_APK
+import product.promikz.databinding.ActivityBaseBinding
 import product.promikz.screens.auth.AuthActivity
 import product.promikz.screens.error.OldVersionActivity
 import product.promikz.screens.pageErrorNetworks.ServerErrorActivity
@@ -22,6 +25,8 @@ import product.promikz.viewModels.HomeViewModel
 
 class BaseActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityBaseBinding
+
 
     private lateinit var viewModel: HomeViewModel
 
@@ -29,36 +34,75 @@ class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_base)
+
+        binding = ActivityBaseBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-//        handleIntent(intent)
-
-        dialog = Dialog(this)
-        viewModel.getVersion()
-        viewModel.myVersion.observe(this) { list ->
-            if (list.isSuccessful) {
 
 
-                if (VERSION_APK == list.body()?.data?.get(0)?.value) {
+        val networkConnection = NetworkConnection(applicationContext)
+        networkConnection.observe(this) { isConnected ->
+            if (isConnected) {
+                binding.disconnect.visibility = View.GONE
+                binding.companyConnect.visibility = View.VISIBLE
 
-                    continueApp()
 
-                } else {
+                dialog = Dialog(this)
+                viewModel.getVersion()
+                viewModel.myVersion.observe(this) { list ->
+                    if (list.isSuccessful) {
 
-                    alertDialogVersion()
+                        if (list.body()?.data?.get(2)?.value == "true") {
 
+                            if (VERSION_APK == list.body()?.data?.get(0)?.value) {
+
+                                continueApp()
+
+                            } else {
+
+                                alertDialogVersion()
+
+                            }
+                        } else {
+                            serverErrorNext()
+                        }
+
+                    } else {
+                        serverErrorNext()
+                    }
                 }
+
+
             } else {
-                val intent = Intent(this, ServerErrorActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(
-                    R.anim.zoom_enter,
-                    R.anim.zoom_exit
-                )
-                finish()
+                binding.disconnect.visibility = View.VISIBLE
+                binding.companyConnect.visibility = View.GONE
+
+                // Inside onCreate() function
+                binding.nextSettingsNetwork.setOnClickListener {
+                    nextSettings()
+                }
+
             }
         }
+    }
 
+
+    private fun nextSettings() {
+        MyUtils.uLogD("Click error")
+        val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
+        startActivity(intent)
+    }
+
+
+    private fun serverErrorNext() {
+        val intent = Intent(this, ServerErrorActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(
+            R.anim.zoom_enter,
+            R.anim.zoom_exit
+        )
+        finish()
     }
 
 
@@ -127,28 +171,4 @@ class BaseActivity : AppCompatActivity() {
 
 
     }
-
-
-//    @SuppressLint("MissingSuperCall")
-//    override fun onNewIntent(intent: Intent) {
-//        super.onNewIntent(intent)
-//        val mediaSession = MediaSessionCompat(this, "tag")
-//        handleIntent(intent)
-    }
-
-//    private fun handleIntent(intent: Intent?) {
-//        if (intent?.action == Intent.ACTION_VIEW) {
-//            val data: Uri? = intent.data
-//            if (data != null && data.host == "promi.kz") {
-//                val pathSegments = data.pathSegments
-//                if (pathSegments.size >= 2 && pathSegments[0] == "product") {
-//                    val id = pathSegments[1] // получить значение id
-//                    val myIntent = Intent(this, LinkActivity::class.java)
-//                    myIntent.putExtra("id", id) // передать значение id в активити LinkActivity
-//                    startActivity(myIntent)
-//                }
-//            }
-//        }
-//    }
-
-//}
+}

@@ -176,13 +176,7 @@ class SplashFragment : Fragment() {
                         }
 
                     } else {
-                        val intent = Intent(requireActivity(), ServerErrorActivity::class.java)
-                        startActivity(intent)
-                        (activity as AppCompatActivity).overridePendingTransition(
-                            R.anim.zoom_enter,
-                            R.anim.zoom_exit
-                        )
-                        (activity as AppCompatActivity).finish()
+                        serverErrorNext()
                     }
 
                 }
@@ -202,6 +196,17 @@ class SplashFragment : Fragment() {
 
         return view
 
+    }
+
+
+    private fun serverErrorNext(){
+        val intent = Intent(requireActivity(), ServerErrorActivity::class.java)
+        startActivity(intent)
+        (activity as AppCompatActivity).overridePendingTransition(
+            R.anim.zoom_enter,
+            R.anim.zoom_exit
+        )
+        (activity as AppCompatActivity).finish()
     }
 
 

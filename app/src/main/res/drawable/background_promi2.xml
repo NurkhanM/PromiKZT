@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="45"
+        android:startColor="@color/fon1"
+        android:centerColor="@color/promi_button2"
+        android:endColor="@color/promi_button3"
+        android:centerY="0.7"
+        android:type="linear" />
+    <corners android:radius="@dimen/all_radius_12dp" />
+</shape>
+

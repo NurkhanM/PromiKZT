@@ -11,13 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
-import product.promikz.AppConstants
 import product.promikz.AppConstants.ID_SHOP_USER
 import product.promikz.R
 import product.promikz.screens.create.newShop.ShopCreateActivity
@@ -150,6 +147,7 @@ class ShopsFragment : Fragment() {
                         binding.shopName.text = list.body()?.data?.name
                         binding.shopEmail.text = list.body()?.data?.user?.email
                         binding.shopDescription.text = list.body()?.data?.description
+                        binding.dateRegister.text = list.body()?.data?.created_at
                         MyUtils.uGlide(requireContext(), binding.shopImage, list.body()?.data?.img)
                     }
                 }

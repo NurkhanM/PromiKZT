@@ -5,7 +5,6 @@ import product.promikz.repository.Repository
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import product.promikz.MyUtils.uLogD
 import product.promikz.models.auth.email.one.ActivitedSuccessModels
 import product.promikz.models.auth.login.LoginModels
 import product.promikz.models.banner.BannerIndexModels
@@ -45,6 +44,7 @@ import product.promikz.models.story.show.StoryShowModels
 import product.promikz.models.subscriber.category.SubCategoryModels
 import product.promikz.models.subscriber.index.IndexSubscriberModels
 import product.promikz.models.subscriber.shop.SubShopModels
+import product.promikz.models.telegram.TelegramError
 import product.promikz.models.user.UserModels
 import product.promikz.models.version.VersionModels
 import retrofit2.Response
@@ -119,6 +119,7 @@ class HomeViewModel : ViewModel() {
     var mySpecialistPut: MutableLiveData<Response<ErrorModels>> = MutableLiveData()
     var myReport: MutableLiveData<Response<ReportModels>> = MutableLiveData()
     var myFargotEmail: MutableLiveData<Response<ActivitedSuccessModels>> = MutableLiveData()
+    val myRequestMessageBot: MutableLiveData<Response<TelegramError>> = MutableLiveData()
 
     //    var myFastPhone: MutableLiveData<Response<ActivitedSuccessModels>> = MutableLiveData()
     private val myList = MutableLiveData<String>()
@@ -498,6 +499,12 @@ class HomeViewModel : ViewModel() {
     fun postSpecialist(auth: String, number: Int) {
         viewModelScope.launch {
             postSpecialistList.value = repo.postSpecialistRepository(auth, number)
+        }
+    }
+
+    fun sendRequestMessageBot(idChad: Long, text: String) {
+        viewModelScope.launch {
+            myRequestMessageBot.value = repo.sendRequestMessageBotRepository(idChad, text)
         }
     }
 

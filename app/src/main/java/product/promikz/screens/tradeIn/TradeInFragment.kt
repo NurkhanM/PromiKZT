@@ -177,7 +177,7 @@ class TradeInFragment : Fragment() {
 
         } catch (e: ApiException) {
             e.printStackTrace()
-            binding?.dopText?.visibility = View.VISIBLE
+            binding.dopText?.visibility = View.VISIBLE
         }
 
     }
@@ -187,7 +187,7 @@ class TradeInFragment : Fragment() {
         recyclerViewCF = binding.rvCategoryPage
         adapterCF = CategoryFiltersAdapter(object : IClickListnearHomeFilterCategory {
 
-            override fun clickListener(id: Int, name: String) {
+            override fun clickListener(id: Int, name: String, boolean: Boolean) {
                 MAP_FILTERS_PRODUCTS.clear()
                 MAP_FILTERS_PRODUCTS["category"] = id.toString()
                 CATEGORY_INT_FILTERS_DATA = id

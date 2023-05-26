@@ -97,8 +97,8 @@ class TovarAdapterHomeTradeIn(private val mIClickListnear: IClickListnearHomeFav
         holder.binding.textImageSize.text = currentItem.imagesCount.toString()
 
 
-        Glide.with(ToastUtil.context).load(currentItem.img)
-            .thumbnail(Glide.with(ToastUtil.context).load(R.drawable.loader2))
+        Glide.with(context).load(currentItem.img)
+            .thumbnail(Glide.with(context).load(R.drawable.loader2))
             .centerCrop()
             .into(holder.binding.itemHomeImages)
 

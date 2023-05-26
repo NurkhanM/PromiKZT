@@ -22,6 +22,9 @@ import product.promikz.screens.update.UpdateActivity
 import com.google.android.gms.common.api.ApiException
 import me.farahani.spaceitemdecoration.SpaceItemDecoration
 import product.promikz.AppConstants.MAP_FILTERS_PRODUCTS
+import product.promikz.AppConstants.MAP_FILTERS_PRODUCTS_BRANDS
+import product.promikz.AppConstants.STATE_IS_BRAND
+import product.promikz.MyUtils.uLogD
 import product.promikz.MyUtils.uToast
 import product.promikz.databinding.ActivityMainBinding
 import product.promikz.databinding.FragmentHomePlusBrandBinding
@@ -51,7 +54,7 @@ class HomeFragmentPlusBrand : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         _binding = FragmentHomePlusBrandBinding.inflate(inflater, container, false)
         val view = binding
@@ -70,6 +73,7 @@ class HomeFragmentPlusBrand : Fragment() {
                 position: Int
             ) {
 
+
             }
 
             override fun clickListener2(baseID: Int, adver: Int, favorite: String) {
@@ -87,7 +91,7 @@ class HomeFragmentPlusBrand : Fragment() {
                         val browserIntent =
                             Intent(Intent.ACTION_VIEW, Uri.parse(favorite))
                         startActivity(browserIntent)
-                    } catch (e: ActivityNotFoundException){
+                    } catch (e: ActivityNotFoundException) {
                         uToast(requireContext(), "Error activity")
                     }
 
@@ -99,10 +103,6 @@ class HomeFragmentPlusBrand : Fragment() {
         stateCF()
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
-
-
-
-
 
 
         view.swipeRefreshLayout.setOnRefreshListener {
@@ -138,15 +138,20 @@ class HomeFragmentPlusBrand : Fragment() {
             if (list.isSuccessful) {
                 if (list.isSuccessful) {
                     binding.loaderfilter.visibility = View.GONE
-                    binding.rvCategoryPage.visibility = View.VISIBLE
+
+                    if (STATE_IS_BRAND) {
+                        binding.categoryRaz.visibility = View.GONE
+                    }else{
+                        binding.categoryRaz.visibility = View.VISIBLE
+                    }
                     list.body()?.data?.brands.let {
                         adapterBF.setList(it!!)
                     }
                 }
 
             } else {
-                binding.loaderfilter.visibility = View.GONE
-                binding.rvCategoryPage.visibility = View.VISIBLE
+                binding.loaderfilter.visibility = View.VISIBLE
+                binding.rvCategoryPage.visibility = View.GONE
                 uToast(requireContext(), "Error Server Brand")
             }
         }
@@ -157,10 +162,15 @@ class HomeFragmentPlusBrand : Fragment() {
     override fun onResume() {
         super.onResume()
         try {
-            viewModel.getFilterProducts("Bearer $TOKEN_USER", MAP_FILTERS_PRODUCTS)
+            viewModel.getFilterProducts("Bearer $TOKEN_USER", MAP_FILTERS_PRODUCTS_BRANDS)
             viewModel.myFilterProducts.observe(viewLifecycleOwner) { list ->
                 if (list.isSuccessful) {
                     recyclerView.removeAllViewsInLayout()
+                    if (list.body()?.data?.isEmpty() == true){
+                        binding.consProducNull.visibility = View.VISIBLE
+                    }else{
+                        binding.consProducNull.visibility = View.GONE
+                    }
                     list.body()?.data?.let { adapter.setList(it) }
                     adapter.notifyDataSetChanged()
                 }
@@ -168,7 +178,7 @@ class HomeFragmentPlusBrand : Fragment() {
             }
         } catch (e: ApiException) {
             e.printStackTrace()
-            binding?.dopText?.visibility = View.VISIBLE
+            binding.dopText.visibility = View.VISIBLE
         }
 
     }
@@ -176,16 +186,27 @@ class HomeFragmentPlusBrand : Fragment() {
     private fun brandFilterMed() {
         recyclerViewCF = binding.rvCategoryPage
         adapterBF = BrandFiltersAdapter(object : IClickListnearHomeStory {
+            override fun clickListener(pos: Int, idStories: Int, show: String) {
+                if (MAP_FILTERS_PRODUCTS_BRANDS.size > 1) {
+                    val iterator = MAP_FILTERS_PRODUCTS_BRANDS.iterator()
+                    if (iterator.hasNext()) {
+                        iterator.next()
+                        iterator.remove()
+                    }
+                }
 
-            override fun clickListener(pos: Int, show: String) {
-                Navigation.findNavController(binding.root).navigate(R.id.action_homeFragmentPlusBrand_self)
+                MAP_FILTERS_PRODUCTS_BRANDS["brands[]"] = pos.toString()
+                uLogD("MAP_FILTERS_PRODUCTS_BRANDS == $MAP_FILTERS_PRODUCTS_BRANDS")
+                STATE_IS_BRAND = true
+                Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_homeFragmentPlusBrand_self)
             }
-
         })
 
         recyclerViewCF.adapter = adapterBF
         recyclerViewCF.setHasFixedSize(true)
     }
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -219,8 +240,6 @@ class HomeFragmentPlusBrand : Fragment() {
         activityBinding = null
         activityBinding2 = null
     }
-
-
 
 
 }

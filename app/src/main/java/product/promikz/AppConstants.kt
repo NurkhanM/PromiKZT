@@ -2,11 +2,12 @@ package product.promikz
 
 import android.widget.TextView
 import okhttp3.RequestBody
+import product.promikz.screens.hometwo.stories.data.StoryUser
 
 
 object AppConstants {
 
-    const val VERSION_APK = "0.53"
+    const val VERSION_APK = "0.59"
 
     const val APP_PREFERENCES = "APP_PREFERENCES"
     const val KEY_INFO = "KEY_INFO"
@@ -49,8 +50,6 @@ object AppConstants {
     var getBrandID = -1
     var userIDChat: Int? = -1
 
-//    var possitionHome: Int? = 0
-
     var compareAll = ArrayList<Int>()
 
     var specialistAllNumber = ArrayList<Int>()
@@ -64,11 +63,6 @@ object AppConstants {
     var ARRAY_LIST_FILTER_ID =  ArrayList<Int>()
     var ARRAY_LIST_FILTER_INDEX = 0
 
-
-
-    var imagesStoryAll = ArrayList<String>()
-    var imagesStoryFollow = ArrayList<String?>()
-
     var params = HashMap<String, RequestBody>()
     var params2 =  HashMap<String, RequestBody>()
     var params3 =  HashMap<String, RequestBody>()
@@ -77,16 +71,17 @@ object AppConstants {
 
 
     var followBannerString = ArrayList<String>()
-    var PROGRESS_COUNT = 1
 
     var isStatusServer: Boolean = true
     var isStatusMultiImages: Boolean = false
 
     var STATE_INT_FILTERS = true
+    var STATE_IS_BRAND = true
     val MAP_FILTERS_PRODUCTS = HashMap<String, String>()
+    var MAP_FILTERS_PRODUCTS_BRANDS = HashMap<String, String>()
     var CATEGORY_INT_FILTERS_DATA = 0
-    var CATEGORY_INT_SEARCH_DATA = 0
     var BRAND_INT_FILTERS_DATA = 0
+    var CATEGORY_INT_SEARCH_DATA = 0
     var COUNTRY_ID: Int? = 0
     var COUNTRY_ID_ARRAY = ArrayList<Int>()
     var CHECK_CODE_RESET = "0"
@@ -104,6 +99,9 @@ object AppConstants {
 
     var userTelephony = "+996500051001"
 
+    var SUPPORT_PHONE = "+7 700 71 02 323"
+    var SUPPORT_EMAIL = "info@promi.kz"
+
     //search
     var MAP_SEARCH = HashMap<String, String>()
     var MAP_SEARCH_CITIES: List<Int> = emptyList<Int>()
@@ -114,5 +112,7 @@ object AppConstants {
     var REVIEW_STATE = true
     var REVIEW_STATE_SPECIALIST = true
     var U4EB_STATE = ""
+    const val BOT_TOKEN: String = "5978653239:AAH8IuuzXAIKzRh0irstlBOOqqo0e1CEJbA"
+    const val ID_CHAD_BOT: Long = -1001907413041
 
 }

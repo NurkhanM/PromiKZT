@@ -333,7 +333,7 @@
     <string name="complaint">Пожаловаться</string>
     <string name="wait">Подождите немного </string>
     <string name="change_specialist">Изменить специалиста</string>
-    <string name="tenge_kz">\u0020Тг</string>
+    <string name="tenge_kz">\u0020₸</string>
     <string name="non_message">У вас еще нет новых сообщений</string>
     <string name="fast">Срочное</string>
     <string name="select_country">Выберите город</string>

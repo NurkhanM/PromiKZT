@@ -883,11 +883,13 @@ class UpdateFragment : Fragment() {
                     binding.idUpdate.text = " " + list.body()?.data?.updated_at.toString()
                     binding.anotherUserName.text = list.body()?.data?.shop?.name
                     binding.anotherUserPhone.text = list.body()?.data?.user?.email
+                    binding.anotherRegister.text = list.body()?.data?.shop?.created_at
                     MyUtils.uGlide(
                         requireContext(),
                         binding.anotherUserImage,
                         list.body()?.data?.shop?.img
                     )
+
 
                     shopOtherUser = list.body()?.data?.shop?.id!!
 //                    USER_OTHER_ID = list.body()?.data?.shop?.id!!

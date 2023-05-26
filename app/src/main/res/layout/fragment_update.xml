@@ -811,6 +811,13 @@
                                     android:text="+996 500 05 10 01"
                                     android:textColor="@color/black4"
                                     android:textSize="16sp" />
+                                <TextView
+                                    android:id="@+id/anotherRegister"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="01.02.03"
+                                    android:textColor="@color/black4"
+                                    android:textSize="13sp" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>

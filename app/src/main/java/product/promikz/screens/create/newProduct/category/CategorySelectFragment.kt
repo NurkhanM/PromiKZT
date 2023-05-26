@@ -177,8 +177,9 @@ class CategorySelectFragment : BottomSheetDialogFragment() {
         mHomeViewModel.getCategoryID("Bearer $TOKEN_USER", int)
         mHomeViewModel.myGetCategoryID.observe(viewLifecycleOwner) { res ->
             if (res.isSuccessful) {
-                binding.searchView.setQuery("", false)
 
+
+                binding.searchView.setQuery("", false)
                 res.body()?.let { response ->
                     response.data.children?.let { adapter.setData(it) }
 
@@ -199,6 +200,9 @@ class CategorySelectFragment : BottomSheetDialogFragment() {
                         }
                     })
                 }
+
+
+
             }
         }
     }

@@ -9,6 +9,7 @@
     <color name="black3">#B0B0B0</color>
     <color name="black4">#7E7E7E</color>
     <color name="blackTransparent">#801C1C1E</color>
+    <color name="blueransparent">#B23669C9</color>
     <color name="input_background">#ECECEC</color>
     <color name="white">#FFFFFF</color>
     <color name="white1">#F8F8F8</color>
@@ -30,6 +31,10 @@
     <color name="fon5">#FAFAFA</color>
     <color name="fonShadow1">#BE948783</color>
     <color name="fonShadow2">#68564E</color>
+    <color name="promi_button">#605dba</color>
+    <color name="promi_button2">#ff72c2</color>
+    <color name="promi_button3">#ffd84f</color>
+    <color name="transparent">#00000000</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#3669C9</color>
 
 
